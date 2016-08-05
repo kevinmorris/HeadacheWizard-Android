@@ -1,0 +1,16 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+	<color name="negative_red">#FFB25353</color>
+	<color name="neutral_yellow">#FFB29E53</color>
+	<color name="positive_green">#FF3B7E5A</color>
+
+    <color name="headache_yes">#ffFF802F</color>
+    <color name="headache_no">#ff1744CA</color>
+	
+	<color name="positive_correlation_red">#FFB25353</color>
+	<color name="zero_correlation_yellow">#FFB29E53</color>
+	<color name="negative_correlation_green">#FF3B7E5A</color>
+
+    <color name="neutral_gray_dark">#FF444444</color>
+    <color name="neutral_gray_medium">#FF666666</color>
+    <color name="neutral_gray_light">#FF888888</color>
+</resources>

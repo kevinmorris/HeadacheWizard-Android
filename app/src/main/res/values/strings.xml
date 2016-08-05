@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Headache Wizard</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_edit_entry">EditEntryActivity</string>
+
+    <!-- KEYS -->
+    <string name="days_since_0">days_since_0</string>
+
+    <!-- ACTION BAR ICONS -->
+    <string name="icon_calendar">Calendar</string>
+    <string name="icon_edit_today">Today</string>
+    <string name="icon_edit_factors">Edit Factors</string>
+    <string name="icon_report">Report</string>
+
+    <!-- NAVIGATION DRAWER -->
+	<string name="navigation_drawer_open">Open</string>
+	<string name="navigation_drawer_closed">Closed</string>
+	
+	<string-array name="navigation_drawer_items">
+	    <item>About</item>
+	    <item>Licenses</item>
+	</string-array>
+	
+</resources>

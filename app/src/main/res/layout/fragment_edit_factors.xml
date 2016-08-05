@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	 xmlns:tools="http://schemas.android.com/tools"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         tools:context=".EditFactorsFrament">
+         
+     <LinearLayout android:id="@+id/new_factor_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+        
+        <EditText android:id="@+id/new_factor_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.8" />
+        
+        <Button android:id="@+id/add_factor_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:text="+"/>
+        
+     </LinearLayout>
+    
+     <ListView android:id="@id/android:list"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/new_factor_container"
+               android:drawSelectorOnTop="false"/>
+
+
+</RelativeLayout>

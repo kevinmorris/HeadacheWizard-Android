@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week1_day6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week2_day6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week3_day6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week4_day6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week5_day6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day7"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+            <com.mountainowl.headachewizard.ui.CalendarDayView
+                android:id="@+id/calendar_week6_day6"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@drawable/calendar_day_view_border"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</FrameLayout>

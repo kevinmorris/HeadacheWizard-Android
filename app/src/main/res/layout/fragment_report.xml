@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    	 xmlns:tools="http://schemas.android.com/tools"
+         android:layout_width="match_parent"
+         android:layout_height="match_parent"
+         tools:context=".EditFactorsFrament">
+    
+     <ImageView android:id="@+id/correlation_key"
+         android:layout_width="match_parent"
+         android:layout_height="@dimen/correlation_key_height"
+         android:layout_alignParentTop="true"
+         android:scaleType="fitXY"
+         android:src="@drawable/correlation_key" />
+    
+     <ListView android:id="@id/android:list"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:drawSelectorOnTop="false"
+               android:layout_below="@id/correlation_key"/>
+
+</RelativeLayout>

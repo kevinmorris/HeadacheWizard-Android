@@ -1,0 +1,84 @@
+package com.mountainowl.headachewizard.model
+
+import com.mountainowl.headachewizard.PearsonCorrelationEngine
+import org.joda.time.LocalDate
+
+import java.util.SortedMap
+import java.util.TreeMap
+
+class Factor(val id: Long, val name: String) {
+    private val data: SortedMap<LocalDate, Double>
+
+    var r: Double? = null
+        private set(r) {
+            field = Math.min(Math.max(r!!, -1.0), 1.0)
+        }
+
+    init {
+        data = TreeMap<LocalDate, Double>()
+    }
+
+    val entryCount: Int
+        get() = this.data.size
+
+    fun getDate(date: LocalDate): Double? {
+        val datum = this.data[date]
+        return datum
+    }
+
+    fun containsDate(date: LocalDate): Boolean {
+        return data.containsKey(date)
+    }
+
+    fun setDate(date: LocalDate, fValue: Double?) {
+        this.data.put(date, fValue)
+    }
+
+    fun evaluateCorrelationParameters(headache: Headache) {
+
+        var sumF: Double? = 0.0
+        var sumH: Double? = 0.0
+        var sumFH: Double? = 0.0
+        var sumFSquared: Double? = 0.0
+        var sumHSquared: Double? = 0.0
+
+        var allZeroFactorValue = true
+        var allZeroHeadacheValue = true
+
+        var n = 0
+
+        for (dateKey in data.keys) {
+            val fValue = data[dateKey]
+            val hValue = headache.getDate(dateKey)
+
+            if (fValue != null && hValue != null) {
+                n += 1
+                sumF += fValue
+                sumH += hValue
+                sumFH += fValue * hValue
+                sumFSquared += fValue * fValue
+                sumHSquared += hValue * hValue
+
+                allZeroFactorValue = allZeroFactorValue && fValue === 0
+                allZeroHeadacheValue = allZeroHeadacheValue && hValue === 0
+            }
+        }
+
+        var r: Double
+        if (allZeroFactorValue || allZeroHeadacheValue) { //no data for either factor or headache
+            r = 0.0
+        } else if (sumH === n || -sumH == n.toDouble()) { //if headache data has no variance
+            r = sumF!! / n * if (sumH >= 0) 1 else -1
+        } else if (sumF === n || -sumF == n.toDouble()) { //if factor data has no variance
+            r = sumH!! / n * if (sumF >= 0) 1 else -1
+        } else { //use pearson correlation coefficient
+            r = PearsonCorrelationEngine.run(n, sumF!!, sumH!!, sumFH!!, sumFSquared!!, sumHSquared!!)
+        }
+
+        r = r
+    }
+
+    override fun toString(): String {
+        return name
+    }
+}

@@ -1,0 +1,7 @@
+<resources>
+    <declare-styleable name="threeWaySwitch">
+        <attr name="leftBackground" format="reference" />
+        <attr name="centerBackground" format="reference" />
+        <attr name="rightBackground" format="reference" />
+    </declare-styleable>
+</resources>
