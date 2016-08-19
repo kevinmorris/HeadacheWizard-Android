@@ -1,7 +1,7 @@
 package com.mountainowl.headachewizard.ui
 
+import android.app.Activity
 import android.app.Fragment
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,10 +16,10 @@ class CalendarFragment : Fragment() {
 
     private lateinit var daySelectedListener: IDaySelectedListener
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
 
-        this.daySelectedListener = context as IDaySelectedListener
+        this.daySelectedListener = activity as IDaySelectedListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,7 +27,7 @@ class CalendarFragment : Fragment() {
 
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_calendar, container, false)
 
         val args = arguments
