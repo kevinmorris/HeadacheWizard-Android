@@ -21,11 +21,11 @@ class FactorSwitchPanel(context: Context, attrs: AttributeSet) : ThreewaySwitchP
 
     override fun onSwitchChangedByUser(progress: Int, rowPosition: Int) {
         if (progress == 1) {
-            switchLabel.text = "Not Sure"
+            switchLabel!!.text = "Not Sure"
         } else if (progress == 0) {
-            switchLabel.text = "No"
+            switchLabel!!.text = "No"
         } else if (progress == 2) {
-            switchLabel.text = "Yes"
+            switchLabel!!.text = "Yes"
         }
     }
 }

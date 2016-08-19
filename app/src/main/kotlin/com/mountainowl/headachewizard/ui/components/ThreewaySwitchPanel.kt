@@ -9,6 +9,7 @@ abstract class ThreewaySwitchPanel(context: Context, attrs: AttributeSet) : Line
 
     protected var switchControl: ThreewaySwitch? = null
     protected var switchLabel: TextView? = null
+
     var rowPosition: Int = 0
         set(rowPosition) {
             field = rowPosition

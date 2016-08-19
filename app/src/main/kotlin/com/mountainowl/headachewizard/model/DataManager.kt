@@ -1,7 +1,6 @@
 package com.mountainowl.headachewizard.model
 
 import android.content.Context
-import com.google.common.base.Predicate
 import com.google.common.collect.Iterators
 import org.joda.time.LocalDate
 
@@ -16,7 +15,7 @@ import org.joda.time.LocalDate
 class DataManager private constructor(context: Context) {
     private val db: DatabaseHelper
 
-    var headache: Headache? = null
+    var headache: Headache
         private set
     private val factors: MutableList<Factor>
 
@@ -24,7 +23,7 @@ class DataManager private constructor(context: Context) {
         db = DatabaseHelper(context)
 
         headache = Headache(db.headacheEntries)
-        factors = db.getFactorsUsingHeadache(headache!!)
+        factors = db.getFactorsUsingHeadache(headache).toMutableList()
     }
 
     fun insertOrUpdateHeadacheEntry(date: LocalDate, value: Double?): Long {
@@ -47,7 +46,10 @@ class DataManager private constructor(context: Context) {
     fun addFactor(name: String): List<Factor> {
         val factorId = db.insertFactor(name)
         val factor = db.getFactorUsingHeadache(factorId, headache!!)
-        this.factors.add(factor)
+
+        if(factor != null) {
+            this.factors.add(factor)
+        }
 
         return this.factors
     }
@@ -79,22 +81,20 @@ class DataManager private constructor(context: Context) {
 
     companion object {
 
-        @Volatile private var instance: DataManager? = null
+        lateinit var context: Context
 
-        fun getInstance(context: Context): DataManager {
+        val instance: DataManager by lazy {
 
-            if (instance == null) {
-                instance = DataManager(context)
-                if (!instance!!.factorExists("Test Factor A")) {
-                    instance!!.addFactor("Test Factor A")
-                }
-
-                if (!instance!!.factorExists("Test Factor B")) {
-                    instance!!.addFactor("Test Factor B")
-                }
+            val manager = DataManager(context)
+            if (!manager.factorExists("Test Factor A")) {
+                manager.addFactor("Test Factor A")
             }
 
-            return instance
+            if (!manager.factorExists("Test Factor B")) {
+                manager.addFactor("Test Factor B")
+            }
+
+            manager
         }
     }
 }

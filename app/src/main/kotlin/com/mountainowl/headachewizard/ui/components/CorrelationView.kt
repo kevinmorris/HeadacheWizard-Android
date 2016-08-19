@@ -33,8 +33,8 @@ class CorrelationView : View {
 
     private var gradient: RadialGradient? = null
 
-    private var width: Int = 0
-    private var height: Int = 0
+    private var _width: Int = 0
+    private var _height: Int = 0
 
     constructor(context: Context) : super(context) {
         initialize()
@@ -48,9 +48,9 @@ class CorrelationView : View {
 
         paint = Paint()
 
-        val green = HeadacheWizardApplication.context.getResources().getColor(R.color.negative_correlation_green)
-        val yellow = HeadacheWizardApplication.context.getResources().getColor(R.color.zero_correlation_yellow)
-        val red = HeadacheWizardApplication.context.getResources().getColor(R.color.positive_correlation_red)
+        val green = HeadacheWizardApplication.context.resources.getColor(R.color.negative_correlation_green)
+        val yellow = HeadacheWizardApplication.context.resources.getColor(R.color.zero_correlation_yellow)
+        val red = HeadacheWizardApplication.context.resources.getColor(R.color.positive_correlation_red)
 
         greenSubRed = green shr 16 and 0xFF
         greenSubGreen = green shr 8 and 0xFF
@@ -126,7 +126,7 @@ class CorrelationView : View {
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
-        this.width = w
-        this.height = h
+        _width = w
+        _height = h
     }
 }

@@ -21,14 +21,14 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : ThreewaySwitc
 
     override fun onSwitchChangedByUser(progress: Int, rowPosition: Int) {
         if (progress == 1) {
-            switchLabel.text = "Not Sure"
-            switchLabel.setTextColor(resources.getColor(R.color.neutral_yellow))
+            switchLabel!!.text = "Not Sure"
+            switchLabel!!.setTextColor(resources.getColor(R.color.neutral_yellow))
         } else if (progress == 0) {
-            switchLabel.text = "No"
-            switchLabel.setTextColor(resources.getColor(R.color.headache_no))
+            switchLabel!!.text = "No"
+            switchLabel!!.setTextColor(resources.getColor(R.color.headache_no))
         } else if (progress == 2) {
-            switchLabel.text = "Yes"
-            switchLabel.setTextColor(resources.getColor(R.color.headache_yes))
+            switchLabel!!.text = "Yes"
+            switchLabel!!.setTextColor(resources.getColor(R.color.headache_yes))
         }
     }
 

@@ -31,7 +31,7 @@ class Headache @JvmOverloads constructor(val data: SortedMap<LocalDate, Double> 
         dest.writeInt(data.size)
         for (date in data.keys) {
             dest.writeInt(Days.daysBetween(LocalDate(0), date).days)
-            dest.writeDouble(data[date])
+            dest.writeDouble(data[date] ?: 0.0)
         }
     }
 
@@ -58,7 +58,7 @@ class Headache @JvmOverloads constructor(val data: SortedMap<LocalDate, Double> 
             }
 
             override fun newArray(size: Int): Array<Headache> {
-                return arrayOfNulls(size)
+                return Array(size, { Headache() })
             }
         }
     }

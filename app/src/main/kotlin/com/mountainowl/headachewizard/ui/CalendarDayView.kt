@@ -16,12 +16,10 @@ class CalendarDayView(context: Context, attrs: AttributeSet) : RelativeLayout(co
 
             field = date
             val dayField = findViewById(R.id.day_number) as TextView
-            dayField.setText(this.date!!.dayOfMonth + "")
+            dayField.text = this.date!!.dayOfMonth.toString()
         }
 
     private val headacheDataExists: Boolean = false
-    private val width: Int = 0
-    private val height: Int = 0
 
     init {
         initView()
@@ -37,14 +35,14 @@ class CalendarDayView(context: Context, attrs: AttributeSet) : RelativeLayout(co
 
             val headacheImage = findViewById(R.id.day_headache_image) as ImageView
 
-            if (headacheData === -1) {
+            if (headacheData === -1.0) {
                 headacheImage.setImageDrawable(resources.getDrawable(R.drawable.no_headache))
-            } else if (headacheData === 0) {
+            } else if (headacheData === 0.0) {
                 headacheImage.setImageDrawable(resources.getDrawable(R.drawable.maybe_headache))
-            } else if (headacheData === 1) {
+            } else if (headacheData === 1.0) {
                 headacheImage.setImageDrawable(resources.getDrawable(R.drawable.headache))
             } else {
-                throw IllegalArgumentException(headacheData + "")
+                throw IllegalArgumentException(headacheData.toString())
             }
         }
     }

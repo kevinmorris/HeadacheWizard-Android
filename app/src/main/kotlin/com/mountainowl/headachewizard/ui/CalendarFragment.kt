@@ -1,11 +1,10 @@
 package com.mountainowl.headachewizard.ui
 
-import android.app.Activity
 import android.app.Fragment
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
@@ -15,12 +14,12 @@ import org.joda.time.LocalDate
 
 class CalendarFragment : Fragment() {
 
-    private var daySelectedListener: IDaySelectedListener? = null
+    private lateinit var daySelectedListener: IDaySelectedListener
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
-        this.daySelectedListener = activity as IDaySelectedListener
+        this.daySelectedListener = context as IDaySelectedListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,8 +54,7 @@ class CalendarFragment : Fragment() {
             }
 
             dayView.setOnClickListener { v ->
-                val dayView = v as CalendarDayView
-                this@CalendarFragment.daySelectedListener!!.onDaySelected(dayView.date)
+                this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
             }
         }
 
@@ -66,7 +64,7 @@ class CalendarFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
-        fillCalendar(view as ViewGroup, DataManager.getInstance(activity.applicationContext).headache)
+        fillCalendar(view as ViewGroup, DataManager.instance.headache)
     }
 
     private fun fillCalendar(v: ViewGroup, headache: Headache) {

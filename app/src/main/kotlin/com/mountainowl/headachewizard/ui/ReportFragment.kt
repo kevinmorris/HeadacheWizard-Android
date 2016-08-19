@@ -15,15 +15,15 @@ import com.mountainowl.headachewizard.ui.components.CorrelationView
 
 class ReportFragment : ListFragment() {
 
-    private var dataManager: DataManager? = null
-    private var factors: List<Factor>? = null
+    private lateinit var dataManager: DataManager
+    private lateinit var factors: List<Factor>
     private var adapter: ReportAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        dataManager = DataManager.getInstance(activity.applicationContext)
-        factors = dataManager!!.getFactors()
+        dataManager = DataManager.instance
+        factors = dataManager.getFactors()
         adapter = ReportAdapter(factors)
 
         listAdapter = adapter
