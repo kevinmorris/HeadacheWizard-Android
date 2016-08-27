@@ -12,9 +12,11 @@
         android:paddingRight="3dp"/>
 
     <ImageView android:id="@+id/day_headache_image"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:contentDescription="headache_image_indicator"/>
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_below="@id/day_number"
+               android:layout_margin="10dp"
+               android:layout_centerHorizontal="true"
+               android:contentDescription="headache_image_indicator"/>
         
 </merge>
