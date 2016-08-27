@@ -86,14 +86,6 @@ class DataManager private constructor(context: Context) {
         val instance: DataManager by lazy {
 
             val manager = DataManager(context)
-            if (!manager.factorExists("Test Factor A")) {
-                manager.addFactor("Test Factor A")
-            }
-
-            if (!manager.factorExists("Test Factor B")) {
-                manager.addFactor("Test Factor B")
-            }
-
             manager
         }
     }
