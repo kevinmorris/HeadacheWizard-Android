@@ -35,11 +35,11 @@ class CalendarDayView(context: Context, attrs: AttributeSet) : RelativeLayout(co
 
             val headacheImage = findViewById(R.id.day_headache_image) as ImageView
 
-            if (headacheData === -1.0) {
+            if (headacheData == -1.0) {
                 headacheImage.setImageDrawable(resources.getDrawable(R.drawable.no_headache))
-            } else if (headacheData === 0.0) {
+            } else if (headacheData == 0.0) {
                 headacheImage.setImageDrawable(resources.getDrawable(R.drawable.maybe_headache))
-            } else if (headacheData === 1.0) {
+            } else if (headacheData == 1.0) {
                 headacheImage.setImageDrawable(resources.getDrawable(R.drawable.headache))
             } else {
                 throw IllegalArgumentException(headacheData.toString())
