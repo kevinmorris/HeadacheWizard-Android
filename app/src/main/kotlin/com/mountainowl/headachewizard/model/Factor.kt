@@ -1,5 +1,6 @@
 package com.mountainowl.headachewizard.model
 
+import com.mountainowl.headachewizard.CorrelationCoefficientTransformEngine
 import com.mountainowl.headachewizard.PearsonCorrelationEngine
 import org.joda.time.LocalDate
 import java.util.*
@@ -70,7 +71,9 @@ class Factor(val id: Long, val name: String) {
         } else if(arrayOf(-sumF, sumF).contains(n.toDouble())) { //if factor data has no variance
             r = sumH / n * if (sumF >= 0) 1 else -1
         } else { //use pearson correlation coefficient
-            r = PearsonCorrelationEngine.run(n, sumF, sumH, sumFH, sumFSquared, sumHSquared)
+            r = CorrelationCoefficientTransformEngine.transform(
+                    PearsonCorrelationEngine.run(n, sumF, sumH, sumFH, sumFSquared, sumHSquared)
+            )
         }
 
         this.r = r
