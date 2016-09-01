@@ -7,6 +7,8 @@
 
     <!-- KEYS -->
     <string name="days_since_0">days_since_0</string>
+    <string name="month">month</string>
+    <string name="year">year</string>
 
     <!-- ACTION BAR ICONS -->
     <string name="icon_calendar">Calendar</string>

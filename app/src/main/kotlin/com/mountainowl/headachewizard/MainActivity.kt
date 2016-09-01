@@ -54,7 +54,8 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
         val args = Bundle()
         val today = LocalDate.now()
         val todayDays = Days.daysBetween(LocalDate(0), today).days
-        args.putInt(getString(R.string.days_since_0), todayDays)
+        args.putInt(getString(R.string.month), today.monthOfYear)
+        args.putInt(getString(R.string.year), today.year)
 
         currentFragment = CalendarFragment()
         currentFragment!!.arguments = args

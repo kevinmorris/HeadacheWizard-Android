@@ -15,6 +15,8 @@ import org.joda.time.LocalDate
 class CalendarFragment : Fragment() {
 
     private lateinit var daySelectedListener: IDaySelectedListener
+    private var month: Int = 0
+    private var year: Int = 0
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
@@ -31,14 +33,30 @@ class CalendarFragment : Fragment() {
         val v = inflater.inflate(R.layout.fragment_calendar, container, false)
 
         val args = arguments
-        val date = LocalDate(0).plusDays(args.getInt(getString(R.string.days_since_0)))
+        this.month = args.getInt(getString(R.string.month))
+        this.year = args.getInt(getString(R.string.year))
 
-        val month = date.monthOfYear
-        val year = date.year
+        return layoutCalendar(v, this.month, this.year)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        fillCalendar(view as ViewGroup, DataManager.instance.headache)
+    }
+
+    private fun layoutCalendar(v: View, month: Int, year: Int): View {
 
         var week = 1
+        var currentDate = LocalDate(year, month, 1)
 
-        var currentDate = LocalDate(date.year, date.monthOfYear, 1)
+        for(i in 1..5) {
+            for(j in 1..7) {
+                val viewId = "calendar_week" + i + "_day" + j
+                val dayView = v.findViewById(resources.getIdentifier(viewId, "id", activity.packageName)) as CalendarDayView
+                dayView.setOnClickListener(null)
+            }
+        }
 
         while (currentDate.monthOfYear == month) {
 
@@ -59,12 +77,6 @@ class CalendarFragment : Fragment() {
         }
 
         return v
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        fillCalendar(view as ViewGroup, DataManager.instance.headache)
     }
 
     private fun fillCalendar(v: ViewGroup, headache: Headache) {
