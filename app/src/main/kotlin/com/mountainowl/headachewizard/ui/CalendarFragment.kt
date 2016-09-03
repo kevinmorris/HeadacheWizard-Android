@@ -10,6 +10,7 @@ import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.model.Headache
 import org.joda.time.Days
+import org.joda.time.Duration
 import org.joda.time.LocalDate
 
 class CalendarFragment : Fragment() {
@@ -49,6 +50,7 @@ class CalendarFragment : Fragment() {
 
         var week = 1
         var currentDate = LocalDate(year, month, 1)
+        val today = LocalDate.now()
 
         for(i in 1..5) {
             for(j in 1..7) {
@@ -60,6 +62,11 @@ class CalendarFragment : Fragment() {
 
         while (currentDate.monthOfYear == month) {
 
+            val dayDiff = Duration(
+                    currentDate.toDateTimeAtStartOfDay(),
+                    today.toDateTimeAtStartOfDay()
+            ).standardDays
+            
             val dayOfWeek = currentDate.dayOfWeek
 
             val viewId = "calendar_week" + week + "_day" + dayOfWeek
@@ -71,8 +78,10 @@ class CalendarFragment : Fragment() {
                 week += 1
             }
 
-            dayView.setOnClickListener { v ->
-                this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
+            if(dayDiff >= 0) {
+                dayView.setOnClickListener { v ->
+                    this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
+                }
             }
         }
 
