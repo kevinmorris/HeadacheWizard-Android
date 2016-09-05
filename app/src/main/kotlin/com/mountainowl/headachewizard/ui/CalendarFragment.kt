@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.TextView
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.model.Headache
@@ -33,76 +35,92 @@ class CalendarFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-        val args = arguments
-        this.month = args.getInt(getString(R.string.month))
-        this.year = args.getInt(getString(R.string.year))
-
-        return layoutCalendar(v, this.month, this.year)
+        return v
     }
 
     override fun onResume() {
         super.onResume()
 
-        fillCalendar(view as ViewGroup, DataManager.instance.headache)
+        layoutCalendar(
+            view,
+            DataManager.instance.headache,
+            arguments.getInt(getString(R.string.month)),
+            arguments.getInt(getString(R.string.year))
+        )
     }
 
-    private fun layoutCalendar(v: View, month: Int, year: Int): View {
+    private fun layoutCalendar(v: View, headache: Headache, month: Int, year: Int): View {
 
-        var week = 1
+        this.month = month
+        this.year = year
+
         var currentDate = LocalDate(year, month, 1)
         val today = LocalDate.now()
+        val previousMonth = currentDate.minusMonths(1)
+        val nextMonth = currentDate.plusMonths(1)
 
-        for(i in 1..5) {
-            for(j in 1..7) {
-                val viewId = "calendar_week" + i + "_day" + j
-                val dayView = v.findViewById(resources.getIdentifier(viewId, "id", activity.packageName)) as CalendarDayView
-                dayView.setOnClickListener(null)
-            }
+        val monthTextView = view.findViewById(R.id.fragment_calendar_month_textview) as TextView
+        monthTextView.text = currentDate.toString("MMMM")
+
+        val yearTextView = v.findViewById(R.id.fragment_calendar_year_textview) as TextView
+        yearTextView.text = year.toString()
+
+        val prevMonthButton = v.findViewById(R.id.fragment_calendar_previous_month_button) as Button
+        val nextMonthButton = v.findViewById(R.id.fragment_calendar_next_month_button) as Button
+
+        prevMonthButton.setOnClickListener {
+            layoutCalendar(v, headache, previousMonth.monthOfYear, previousMonth.year)
         }
 
-        while (currentDate.monthOfYear == month) {
+        nextMonthButton.setOnClickListener {
+            layoutCalendar(v, headache, nextMonth.monthOfYear, nextMonth.year)
+        }
 
-            val dayDiff = Duration(
-                    currentDate.toDateTimeAtStartOfDay(),
-                    today.toDateTimeAtStartOfDay()
-            ).standardDays
-            
-            val dayOfWeek = currentDate.dayOfWeek
+        val dayOfWeek = currentDate.dayOfWeek
+        var writeDays = false
 
-            val viewId = "calendar_week" + week + "_day" + dayOfWeek
-            val dayView = v.findViewById(resources.getIdentifier(viewId, "id", activity.packageName)) as CalendarDayView
-            dayView.date = currentDate
-            currentDate = currentDate.plus(Days.days(1))
+        for(i in 1..5) {
+            for(j in intArrayOf(7, 1, 2, 3, 4, 5, 6)) {
 
-            if (dayOfWeek == 6) {
-                week += 1
-            }
+                if(!writeDays && j == dayOfWeek) {
+                    writeDays = true
+                }
 
-            if(dayDiff >= 0) {
-                dayView.setOnClickListener { v ->
-                    this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
+                if(currentDate.monthOfYear != month) {
+                    writeDays = false
+                }
+
+                val viewId = "calendar_week" + i + "_day" + j
+                val dayView = v.findViewById(resources.getIdentifier(viewId, "id", activity.packageName)) as CalendarDayView
+
+                if(writeDays) {
+                    val dayDiff = Duration(
+                            currentDate.toDateTimeAtStartOfDay(),
+                            today.toDateTimeAtStartOfDay()
+                    ).standardDays
+
+                    dayView.date = currentDate
+                    val data = headache.getDate(currentDate)
+                    dayView.setHeadacheData(data)
+
+                    currentDate = currentDate.plus(Days.days(1))
+
+                    if(dayDiff >= 0) {
+                        dayView.setOnClickListener { v ->
+                            this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
+                        }
+                    } else {
+                        dayView.setOnClickListener(null)
+                    }
+                } else {
+                    dayView.date = null
+                    dayView.setHeadacheData(null)
+                    dayView.setOnClickListener(null)
                 }
             }
         }
 
         return v
-    }
-
-    private fun fillCalendar(v: ViewGroup, headache: Headache) {
-
-        for (i in 0..v.childCount - 1) {
-
-            val child = v.getChildAt(i)
-            if (child is CalendarDayView) {
-                val date = child.date
-                if (date != null) {
-                    val data = headache.getDate(date)
-                    child.setHeadacheData(data)
-                }
-            } else if (child is ViewGroup) {
-                fillCalendar(child, headache)
-            }
-        }
     }
 
     interface IDaySelectedListener {
