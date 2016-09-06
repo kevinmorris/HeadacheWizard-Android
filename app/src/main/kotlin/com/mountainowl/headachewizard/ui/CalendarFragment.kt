@@ -11,7 +11,6 @@ import android.widget.TextView
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.model.Headache
-import org.joda.time.Days
 import org.joda.time.Duration
 import org.joda.time.LocalDate
 
@@ -54,13 +53,13 @@ class CalendarFragment : Fragment() {
         this.month = month
         this.year = year
 
-        var currentDate = LocalDate(year, month, 1)
+        val startDate = LocalDate(year, month, 1)
         val today = LocalDate.now()
-        val previousMonth = currentDate.minusMonths(1)
-        val nextMonth = currentDate.plusMonths(1)
+        val previousMonth = startDate.minusMonths(1)
+        val nextMonth = startDate.plusMonths(1)
 
         val monthTextView = view.findViewById(R.id.fragment_calendar_month_textview) as TextView
-        monthTextView.text = currentDate.toString("MMMM")
+        monthTextView.text = startDate.toString("MMMM")
 
         val yearTextView = v.findViewById(R.id.fragment_calendar_year_textview) as TextView
         yearTextView.text = year.toString()
@@ -76,47 +75,37 @@ class CalendarFragment : Fragment() {
             layoutCalendar(v, headache, nextMonth.monthOfYear, nextMonth.year)
         }
 
-        val dayOfWeek = currentDate.dayOfWeek
-        var writeDays = false
+        val monthCellOffset = if(startDate.dayOfWeek == 7) 0 else startDate.dayOfWeek
 
-        for(i in 1..5) {
-            for(j in intArrayOf(7, 1, 2, 3, 4, 5, 6)) {
+        val indicies = (1..6).flatMap { i -> (1..7).map { j -> Pair(i, j) } }
+        for((i, j) in indicies) {
+            val viewId = "calendar_week" + i + "_day" + j
+            val dayView = v.findViewById(resources.getIdentifier(viewId, "id", activity.packageName)) as CalendarDayView
 
-                if(!writeDays && j == dayOfWeek) {
-                    writeDays = true
-                }
+            val dayValue = (i-1)*7 + j - monthCellOffset
+            if(dayValue >= 1 && dayValue <= LocalDate(this.year, this.month, 1).dayOfMonth().maximumValue) {
 
-                if(currentDate.monthOfYear != month) {
-                    writeDays = false
-                }
+                val currentDate = LocalDate(this.year, this.month, (i - 1) * 7 + j - monthCellOffset)
+                val dayDiff = Duration(
+                        currentDate.toDateTimeAtStartOfDay(),
+                        today.toDateTimeAtStartOfDay()
+                ).standardDays
 
-                val viewId = "calendar_week" + i + "_day" + j
-                val dayView = v.findViewById(resources.getIdentifier(viewId, "id", activity.packageName)) as CalendarDayView
+                dayView.date = currentDate
+                val data = headache.getDate(currentDate)
+                dayView.setHeadacheData(data)
 
-                if(writeDays) {
-                    val dayDiff = Duration(
-                            currentDate.toDateTimeAtStartOfDay(),
-                            today.toDateTimeAtStartOfDay()
-                    ).standardDays
-
-                    dayView.date = currentDate
-                    val data = headache.getDate(currentDate)
-                    dayView.setHeadacheData(data)
-
-                    currentDate = currentDate.plus(Days.days(1))
-
-                    if(dayDiff >= 0) {
-                        dayView.setOnClickListener { v ->
-                            this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
-                        }
-                    } else {
-                        dayView.setOnClickListener(null)
-                    }
+                dayView.setOnClickListener(if(dayDiff >= 0) {
+                  View.OnClickListener { v ->
+                      this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
+                  }
                 } else {
-                    dayView.date = null
-                    dayView.setHeadacheData(null)
-                    dayView.setOnClickListener(null)
-                }
+                  null
+                })
+            } else {
+                dayView.date = null
+                dayView.setHeadacheData(null)
+                dayView.setOnClickListener(null)
             }
         }
 
