@@ -85,7 +85,7 @@ class CalendarFragment : Fragment() {
             val dayValue = (i-1)*7 + j - monthCellOffset
             if(dayValue >= 1 && dayValue <= LocalDate(this.year, this.month, 1).dayOfMonth().maximumValue) {
 
-                val currentDate = LocalDate(this.year, this.month, (i - 1) * 7 + j - monthCellOffset)
+                val currentDate = LocalDate(this.year, this.month, dayValue)
                 val dayDiff = Duration(
                         currentDate.toDateTimeAtStartOfDay(),
                         today.toDateTimeAtStartOfDay()
