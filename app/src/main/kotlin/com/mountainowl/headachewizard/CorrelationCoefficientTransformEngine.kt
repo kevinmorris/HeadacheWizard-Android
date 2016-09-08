@@ -2,12 +2,15 @@ package com.mountainowl.headachewizard
 
 object CorrelationCoefficientTransformEngine {
 
-    fun transform(coefficient: Double) = realRoot(coefficient, 3)
+    fun transform(coefficient: Double) = gaussianTransform(coefficient)
 
-    private fun realRoot(radicand: Double, index: Int): Double {
-        return when {
-            (radicand >= 0) -> Math.pow(radicand, (1.0 / index))
-            else -> -Math.pow(-radicand, (1.0 / index))
+    private fun gaussianTransform(x: Double): Double {
+
+        fun f(a: Double): Double = when {
+            (a >= 0) -> -Math.pow(Math.E, -3*a*a) + 1
+            else -> Math.pow(Math.E, -3*a*a) - 1
         }
+
+        return (1/f(1.0)) * f(x)
     }
 }
