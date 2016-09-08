@@ -2,29 +2,31 @@ package com.mountainowl.headachewizard.ui
 
 import android.app.ListFragment
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.mountainowl.headachewizard.R
-import com.mountainowl.headachewizard.model.*
+import com.mountainowl.headachewizard.model.DataManager
+import com.mountainowl.headachewizard.model.Factor
+import com.mountainowl.headachewizard.model.Headache
 import com.mountainowl.headachewizard.ui.components.CorrelationView
 import com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel
 import com.mountainowl.headachewizard.ui.components.IThreewaySwitchListener
 import com.mountainowl.headachewizard.ui.components.ThreewaySwitchPanel
-import com.mountainowl.headachewizard.util.FactorUpdateTask
-import com.mountainowl.headachewizard.util.HeadacheUpdateTask
 import org.joda.time.LocalDate
 import java.text.DateFormat
 import java.util.*
 
-class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener, IHeadacheUpdateComplete {
+class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
     private lateinit var headache: Headache
     private lateinit var date: LocalDate
     private lateinit var factors: List<Factor>
     private lateinit var factorValues: MutableMap<Factor, Double>
+    private val handler: Handler = Handler()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,17 +67,21 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener, IHeadach
 
         headache.setDate(date, hValue)
         dataManager.insertOrUpdateHeadacheEntry(date, hValue)
-        HeadacheUpdateTask(this).execute(Pair(headache, factors))
-    }
 
-    override fun headacheUpdateComplete(headache: Headache) {
-        listView.invalidateViews()
+        Thread(Runnable {
+            for (factor in factors) {
+                factor.evaluateCorrelationParameters(headache)
+            }
+
+            handler.post(Runnable {
+                listView.invalidateViews()
+            })
+        }).start()
     }
 
     private inner class EditDailyEntryAdapter(factors: List<Factor>) :
             ArrayAdapter<Factor>(activity, android.R.layout.simple_list_item_1, factors),
-            IThreewaySwitchListener,
-            IFactorUpdateComplete {
+            IThreewaySwitchListener {
 
         override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
@@ -102,11 +108,14 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener, IHeadach
             val fValue = progress - 1.0
             factor.setDate(date, fValue)
             DataManager.instance.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
-            FactorUpdateTask(this).execute(Pair(headache, factor))
-        }
 
-        override fun factorUpdateComplete(factor: Factor) {
-            notifyDataSetChanged()
+            Thread(Runnable {
+                factor.evaluateCorrelationParameters(headache)
+
+                handler.post(Runnable {
+                    notifyDataSetChanged()
+                })
+            }).start()
         }
     }
 }
