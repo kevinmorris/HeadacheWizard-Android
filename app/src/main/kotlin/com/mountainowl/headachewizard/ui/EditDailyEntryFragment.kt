@@ -8,18 +8,18 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.mountainowl.headachewizard.R
-import com.mountainowl.headachewizard.model.DataManager
-import com.mountainowl.headachewizard.model.Factor
-import com.mountainowl.headachewizard.model.Headache
+import com.mountainowl.headachewizard.model.*
 import com.mountainowl.headachewizard.ui.components.CorrelationView
 import com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel
 import com.mountainowl.headachewizard.ui.components.IThreewaySwitchListener
 import com.mountainowl.headachewizard.ui.components.ThreewaySwitchPanel
+import com.mountainowl.headachewizard.util.FactorUpdateTask
+import com.mountainowl.headachewizard.util.HeadacheUpdateTask
 import org.joda.time.LocalDate
 import java.text.DateFormat
 import java.util.*
 
-class EditDailyEntryFragment : ListFragment() {
+class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener, IHeadacheUpdateComplete {
 
     private lateinit var headache: Headache
     private lateinit var date: LocalDate
@@ -54,48 +54,28 @@ class EditDailyEntryFragment : ListFragment() {
         val headacheSwitchPanel = view.findViewById(R.id.headache_switch_panel) as HeadacheSwitchPanel
         val hValue = headache.getDate(date)
         headacheSwitchPanel.set(hValue)
+        headacheSwitchPanel.addObserver(this)
 
         return view
     }
 
-
-    override fun onPause() {
-        super.onPause()
-
+    override fun onSwitchChangedByUser(progress: Int, position: Int) {
         val dataManager = DataManager.instance
+        val hValue = progress - 1.0
 
-        val headacheSwitchPanel = view.findViewById(R.id.headache_switch_panel) as ThreewaySwitchPanel
-        val hValue = headacheSwitchPanel.get()
-
-        //TODO: Does the fragment need a local copy of the headache data?
         headache.setDate(date, hValue)
         dataManager.insertOrUpdateHeadacheEntry(date, hValue)
-
-        for (factor in factors) {
-            val newFValue = factorValues[factor]
-            val oldFValue = factor.getDate(date)
-
-            //The factor value will be what was set by switch or, if unchanged, what's already in the database
-            val fValue = when {
-                newFValue != null -> newFValue
-                oldFValue != null -> oldFValue
-                else -> 0.0
-            }
-
-            factor.setDate(date, fValue)
-
-            //TODO: Can this call be avoided if both the factor and the headache state have not changed?
-            factor.evaluateCorrelationParameters(headache)
-
-            //Only if the factor value for this day has changed do we store it in the database
-            if (fValue != oldFValue) {
-                dataManager.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
-            }
-        }
+        HeadacheUpdateTask(this).execute(Pair(headache, factors))
     }
 
+    override fun headacheUpdateComplete(headache: Headache) {
+        listView.invalidateViews()
+    }
 
-    private inner class EditDailyEntryAdapter(factors: List<Factor>) : ArrayAdapter<Factor>(activity, android.R.layout.simple_list_item_1, factors), IThreewaySwitchListener {
+    private inner class EditDailyEntryAdapter(factors: List<Factor>) :
+            ArrayAdapter<Factor>(activity, android.R.layout.simple_list_item_1, factors),
+            IThreewaySwitchListener,
+            IFactorUpdateComplete {
 
         override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
@@ -120,7 +100,13 @@ class EditDailyEntryFragment : ListFragment() {
         override fun onSwitchChangedByUser(progress: Int, position: Int) {
             val factor = getItem(position)
             val fValue = progress - 1.0
-            factorValues.put(factor, fValue)
+            factor.setDate(date, fValue)
+            DataManager.instance.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
+            FactorUpdateTask(this).execute(Pair(headache, factor))
+        }
+
+        override fun factorUpdateComplete(factor: Factor) {
+            notifyDataSetChanged()
         }
     }
 }
