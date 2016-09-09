@@ -27,15 +27,16 @@ android {
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/androidTest/java'
     }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+    testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.android.support:appcompat-v7:24.+'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-}
-repositories {
-    mavenCentral()
+    androidTestCompile 'junit:junit:4.12'
+
 }
