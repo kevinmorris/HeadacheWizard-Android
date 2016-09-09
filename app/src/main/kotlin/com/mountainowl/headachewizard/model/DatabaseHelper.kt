@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
 import java.util.*
@@ -33,7 +34,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
             val data = TreeMap<LocalDate, Double>()
             while (c.moveToNext()) {
-                data.put(LocalDate(0).plusDays(c.getInt(1)), c.getDouble(2))
+                data.put(LocalDate(0, DateTimeZone.UTC).plusDays(c.getInt(1)), c.getDouble(2))
             }
             c.close()
 
@@ -42,7 +43,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
     fun insertOrUpdateHeadacheEntry(date: LocalDate, value: Double?): Long {
 
-        val dayCount = Days.daysBetween(LocalDate(0), date).days
+        val dayCount = Days.daysBetween(LocalDate(0, DateTimeZone.UTC), date).days
 
         val c = readableDatabase.query(HEADACHE_ENTRIES_TABLE,
                 arrayOf("id"),
@@ -103,7 +104,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             val value = entriesC.getDouble(3)
 
             val f = factors[factorId]
-            f!!.setDate(LocalDate(0).plusDays(dayCount), value)
+            f!!.setDate(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value)
         }
 
         val factorList = ArrayList(factors.values)
@@ -139,7 +140,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             while (entriesC.moveToNext()) {
                 val dayCount = entriesC.getInt(2)
                 val value = entriesC.getDouble(3)
-                f.setDate(LocalDate(0).plusDays(dayCount), value)
+                f.setDate(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value)
             }
             f.evaluateCorrelationParameters(headache)
 
@@ -191,7 +192,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
     fun insertOrUpdateFactorEntry(factorId: Long?, date: LocalDate, value: Double?): Long {
 
-        val dayCount = Days.daysBetween(LocalDate(0), date).days
+        val dayCount = Days.daysBetween(LocalDate(0, DateTimeZone.UTC), date).days
 
         val c = readableDatabase.query(FACTOR_ENTRIES_TABLE,
                 arrayOf("id"),

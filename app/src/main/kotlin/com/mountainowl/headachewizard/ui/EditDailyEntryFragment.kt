@@ -16,6 +16,7 @@ import com.mountainowl.headachewizard.ui.components.CorrelationView
 import com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel
 import com.mountainowl.headachewizard.ui.components.IThreewaySwitchListener
 import com.mountainowl.headachewizard.ui.components.ThreewaySwitchPanel
+import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import java.text.DateFormat
 import java.util.*
@@ -34,7 +35,7 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
         retainInstance = true
 
         headache = DataManager.instance.headache
-        date = LocalDate(0).plusDays(arguments.getInt(getString(R.string.days_since_0)))
+        date = LocalDate(0, DateTimeZone.UTC).plusDays(arguments.getInt(getString(R.string.days_since_0)))
 
         factors = DataManager.instance.getFactors()
         factorValues = HashMap<Factor, Double>()

@@ -2,6 +2,7 @@ package com.mountainowl.headachewizard.model
 
 import android.os.Parcel
 import android.os.Parcelable
+import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
 
@@ -30,7 +31,7 @@ class Headache @JvmOverloads constructor(val data: SortedMap<LocalDate, Double> 
 
         dest.writeInt(data.size)
         for (date in data.keys) {
-            dest.writeInt(Days.daysBetween(LocalDate(0), date).days)
+            dest.writeInt(Days.daysBetween(LocalDate(0, DateTimeZone.UTC), date).days)
             dest.writeDouble(data[date] ?: 0.0)
         }
     }
@@ -48,7 +49,7 @@ class Headache @JvmOverloads constructor(val data: SortedMap<LocalDate, Double> 
 
                 val size = parcel.readInt()
                 for (i in 0..size - 1) {
-                    val key = LocalDate(0).plusDays(parcel.readInt())
+                    val key = LocalDate(0, DateTimeZone.UTC).plusDays(parcel.readInt())
                     val value = parcel.readDouble()
                     data.put(key, value)
                 }

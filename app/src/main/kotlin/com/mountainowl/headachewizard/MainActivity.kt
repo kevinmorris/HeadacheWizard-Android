@@ -12,6 +12,7 @@ import android.widget.ListView
 import com.mountainowl.headachewizard.ui.CalendarFragment
 import com.mountainowl.headachewizard.ui.EditDailyEntryFragment
 import com.mountainowl.headachewizard.ui.EditFactorsFragment
+import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
 
@@ -53,7 +54,7 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
 
         val args = Bundle()
         val today = LocalDate.now()
-        val todayDays = Days.daysBetween(LocalDate(0), today).days
+        val todayDays = Days.daysBetween(LocalDate(0, DateTimeZone.UTC), today).days
         args.putInt(getString(R.string.month), today.monthOfYear)
         args.putInt(getString(R.string.year), today.year)
 
@@ -123,7 +124,7 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
         }
 
         val args = Bundle()
-        args.putInt(getString(R.string.days_since_0), Days.daysBetween(LocalDate(0), date).days)
+        args.putInt(getString(R.string.days_since_0), Days.daysBetween(LocalDate(0, DateTimeZone.UTC), date).days)
 
         currentFragment = EditDailyEntryFragment()
         currentFragment!!.arguments = args
