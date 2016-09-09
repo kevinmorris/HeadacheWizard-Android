@@ -32,5 +32,8 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : ThreewaySwitc
         }
     }
 
+    override fun onSwitchTouchUp(progress: Int, rowPosition: Int) {
+    }
+
 
 }

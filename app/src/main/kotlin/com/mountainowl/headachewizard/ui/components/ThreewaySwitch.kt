@@ -2,14 +2,12 @@ package com.mountainowl.headachewizard.ui.components
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.graphics.Rect
-import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import com.mountainowl.headachewizard.R
-
-import java.util.ArrayList
+import java.util.*
 
 class ThreewaySwitch(context: Context, attrs: AttributeSet) : SeekBar(context, attrs), OnSeekBarChangeListener {
 
@@ -51,8 +49,15 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : SeekBar(context, a
     override fun onStopTrackingTouch(seekBar: SeekBar) {
     }
 
-    val observer: List<IThreewaySwitchListener>
-        get() = observers
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        val result = super.onTouchEvent(event)
+
+        if(event.actionMasked == MotionEvent.ACTION_UP) {
+            observers.forEach { it.onSwitchTouchUp(progress, rowPosition) }
+        }
+
+        return result
+    }
 
     fun addObserver(observer: IThreewaySwitchListener) {
         this.observers.add(observer)

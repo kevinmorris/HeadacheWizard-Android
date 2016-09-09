@@ -38,4 +38,6 @@ abstract class ThreewaySwitchPanel(context: Context, attrs: AttributeSet) : Line
     }
 
     abstract override fun onSwitchChangedByUser(progress: Int, rowPosition: Int)
+
+    abstract override fun onSwitchTouchUp(progress: Int, rowPosition: Int)
 }

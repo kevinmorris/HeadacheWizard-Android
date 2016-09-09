@@ -62,21 +62,30 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
     }
 
     override fun onSwitchChangedByUser(progress: Int, position: Int) {
-        val dataManager = DataManager.instance
+    }
+
+    override fun onSwitchTouchUp(progress: Int, position: Int) {
+
+        val currentHValue = headache.getDate(date)
         val hValue = progress - 1.0
 
-        headache.setDate(date, hValue)
-        dataManager.insertOrUpdateHeadacheEntry(date, hValue)
+        if(currentHValue != hValue) {
+            val dataManager = DataManager.instance
 
-        Thread(Runnable {
-            for (factor in factors) {
-                factor.evaluateCorrelationParameters(headache)
-            }
+            headache.setDate(date, hValue)
 
-            handler.post(Runnable {
-                listView.invalidateViews()
-            })
-        }).start()
+            Thread(Runnable {
+                dataManager.insertOrUpdateHeadacheEntry(date, hValue)
+
+                for (factor in factors) {
+                    factor.evaluateCorrelationParameters(headache)
+                }
+
+                handler.post(Runnable {
+                    listView.invalidateViews()
+                })
+            }).start()
+        }
     }
 
     private inner class EditDailyEntryAdapter(factors: List<Factor>) :
@@ -104,18 +113,24 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
         }
 
         override fun onSwitchChangedByUser(progress: Int, position: Int) {
+        }
+
+        override fun onSwitchTouchUp(progress: Int, position: Int) {
+
             val factor = getItem(position)
             val fValue = progress - 1.0
-            factor.setDate(date, fValue)
-            DataManager.instance.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
+            if(factor.getDate(date) != fValue) {
+                factor.setDate(date, fValue)
 
-            Thread(Runnable {
-                factor.evaluateCorrelationParameters(headache)
+                Thread(Runnable {
+                    DataManager.instance.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
+                    factor.evaluateCorrelationParameters(headache)
 
-                handler.post(Runnable {
-                    notifyDataSetChanged()
-                })
-            }).start()
+                    handler.post(Runnable {
+                        notifyDataSetChanged()
+                    })
+                }).start()
+            }
         }
     }
 }

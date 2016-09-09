@@ -28,4 +28,7 @@ class FactorSwitchPanel(context: Context, attrs: AttributeSet) : ThreewaySwitchP
             switchLabel!!.text = "Yes"
         }
     }
+
+    override fun onSwitchTouchUp(progress: Int, rowPosition: Int) {
+    }
 }
