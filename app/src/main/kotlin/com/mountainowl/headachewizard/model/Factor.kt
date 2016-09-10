@@ -25,9 +25,7 @@ class Factor(val id: Long, val name: String) {
         return datum
     }
 
-    fun containsDate(date: LocalDate): Boolean {
-        return data.containsKey(date)
-    }
+    fun allDates(): Set<LocalDate> = data.keys
 
     fun setDate(date: LocalDate, fValue: Double) {
         this.data.put(date, fValue)
@@ -46,21 +44,21 @@ class Factor(val id: Long, val name: String) {
 
         var n = 0
 
-        for (dateKey in data.keys) {
-            val fValue = data[dateKey]
-            val hValue = headache.getDate(dateKey)
+        val dates = headache.allDates().plus(allDates())
 
-            if (fValue != null && hValue != null) {
-                n += 1
-                sumF += fValue
-                sumH += hValue
-                sumFH += fValue * hValue
-                sumFSquared += fValue * fValue
-                sumHSquared += hValue * hValue
+        for (dateKey in dates) {
+            val fValue = data[dateKey] ?: 0.0
+            val hValue = headache.getDate(dateKey) ?: 0.0
 
-                allZeroFactorValue = allZeroFactorValue && fValue == 0.0
-                allZeroHeadacheValue = allZeroHeadacheValue && hValue == 0.0
-            }
+            n += 1
+            sumF += fValue
+            sumH += hValue
+            sumFH += fValue * hValue
+            sumFSquared += fValue * fValue
+            sumHSquared += hValue * hValue
+
+            allZeroFactorValue = allZeroFactorValue && fValue == 0.0
+            allZeroHeadacheValue = allZeroHeadacheValue && hValue == 0.0
         }
 
         val r: Double

@@ -15,9 +15,7 @@ class Headache @JvmOverloads constructor(val data: SortedMap<LocalDate, Double> 
         return datum
     }
 
-    fun containsDay(date: LocalDate): Boolean {
-        return data.containsKey(date)
-    }
+    fun allDates(): Set<LocalDate> = data.keys
 
     fun setDate(date: LocalDate, hValue: Double?) {
         this.data.put(date, hValue)
