@@ -11,6 +11,6 @@ object CorrelationCoefficientTransformEngine {
             else -> Math.pow(Math.E, -3*a*a) - 1
         }
 
-        return (1/f(1.0)) * f(x)
+        return f(x) / f(1.0)
     }
 }
