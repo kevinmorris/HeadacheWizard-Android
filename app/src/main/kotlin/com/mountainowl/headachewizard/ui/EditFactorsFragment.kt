@@ -5,6 +5,7 @@ import android.app.ListFragment
 import android.content.Context
 import android.os.Bundle
 import android.view.*
+import android.view.animation.TranslateAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.mountainowl.headachewizard.R
@@ -92,10 +93,44 @@ class EditFactorsFragment : ListFragment() {
 
     private inner class FactorTouchListener(private val position: Int, private val view: View, context: Context) : View.OnTouchListener {
 
-        val gestureDetector = GestureDetector(context, SwipeListener())
+        private var xDown : Float? = 0.0f
 
-        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-            return gestureDetector.onTouchEvent(event)
+        override fun onTouch(v: View?, event: MotionEvent?) = when(event?.action) {
+            MotionEvent.ACTION_DOWN -> {
+                xDown = event?.x
+                true
+            }
+            MotionEvent.ACTION_UP -> {
+                val xUp = event?.x
+                val xDownLocal = xDown
+                if(xDownLocal != null && xUp != null && Math.abs(xDownLocal - xUp) > 200) {
+                    val deleteFactorButton = view.findViewById(R.id.list_item_edit_factor_delete) as TextView
+                    val nameContainer = view.findViewById(R.id.list_item_edit_factor_name_container)
+
+                    val animation = TranslateAnimation(
+                        if ((xUp - xDownLocal) > 0) -300.0f else 0.0f,
+                        if ((xUp - xDownLocal) > 0) 0.0f else -300.0f,
+                        0.0f,
+                        0.0f
+                    )
+
+                    animation.duration = 250
+                    animation.fillAfter = true
+                    nameContainer.startAnimation(animation);
+
+
+                    val deleteFactorButtonClicked = View.OnClickListener {
+                        val factorName = adapter.getItem(position).name
+                        displayDeleteFactorConfirmationDialog(factorName)
+                    }
+
+                    deleteFactorButton.setOnClickListener(if (nameContainer.translationX < 0) deleteFactorButtonClicked else null)
+                }
+                false
+            }
+            else -> {
+                true
+            }
         }
 
         private inner class SwipeListener : GestureDetector.SimpleOnGestureListener() {
@@ -107,14 +142,19 @@ class EditFactorsFragment : ListFragment() {
                 val deleteFactorButton = view.findViewById(R.id.list_item_edit_factor_delete) as TextView
                 val nameContainer = view.findViewById(R.id.list_item_edit_factor_name_container)
 
-                nameContainer.translationX = if(nameContainer.translationX < 0) 0.0f else -300.0f
+                val xDelta = e2.x - e1.x
+                val yDelta = e2.y - e1.y
 
-                val deleteFactorButtonClicked = View.OnClickListener {
-                    val factorName = adapter.getItem(position).name
-                    displayDeleteFactorConfirmationDialog(factorName)
+                if((Math.abs(xDelta) > Math.abs(yDelta)) && (Math.abs(xDelta) > 100)) {
+                    nameContainer.translationX = if (xDelta > 0) 0.0f else -300.0f
+
+                    val deleteFactorButtonClicked = View.OnClickListener {
+                        val factorName = adapter.getItem(position).name
+                        displayDeleteFactorConfirmationDialog(factorName)
+                    }
+
+                    deleteFactorButton.setOnClickListener(if (nameContainer.translationX < 0) deleteFactorButtonClicked else null)
                 }
-
-                deleteFactorButton.setOnClickListener(if(nameContainer.translationX < 0) deleteFactorButtonClicked else null)
 
                 return false
             }
