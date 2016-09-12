@@ -4,10 +4,15 @@ import android.app.AlertDialog
 import android.app.ListFragment
 import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
-import android.view.inputmethod.InputMethodManager
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.model.Factor
@@ -116,7 +121,7 @@ class EditFactorsFragment : ListFragment() {
 
                     animation.duration = 250
                     animation.fillAfter = true
-                    nameContainer.startAnimation(animation);
+                    nameContainer.startAnimation(animation)
 
 
                     val deleteFactorButtonClicked = View.OnClickListener {
@@ -132,42 +137,5 @@ class EditFactorsFragment : ListFragment() {
                 true
             }
         }
-
-        private inner class SwipeListener : GestureDetector.SimpleOnGestureListener() {
-
-            override fun onDown(e: MotionEvent) = true
-
-            override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-
-                val deleteFactorButton = view.findViewById(R.id.list_item_edit_factor_delete) as TextView
-                val nameContainer = view.findViewById(R.id.list_item_edit_factor_name_container)
-
-                val xDelta = e2.x - e1.x
-                val yDelta = e2.y - e1.y
-
-                if((Math.abs(xDelta) > Math.abs(yDelta)) && (Math.abs(xDelta) > 100)) {
-                    nameContainer.translationX = if (xDelta > 0) 0.0f else -300.0f
-
-                    val deleteFactorButtonClicked = View.OnClickListener {
-                        val factorName = adapter.getItem(position).name
-                        displayDeleteFactorConfirmationDialog(factorName)
-                    }
-
-                    deleteFactorButton.setOnClickListener(if (nameContainer.translationX < 0) deleteFactorButtonClicked else null)
-                }
-
-                return false
-            }
-        }
-    }
-
-
-    private inner class FactorClickListener : AdapterView.OnItemClickListener {
-
-        override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-            val inputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
-        }
-
     }
 }
