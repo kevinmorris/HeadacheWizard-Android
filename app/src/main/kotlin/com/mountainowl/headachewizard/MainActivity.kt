@@ -22,7 +22,7 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
     private var drawerList: ListView? = null
     protected var drawerListener: ActionBarDrawerToggle? = null
 
-    private var currentFragment: Fragment? = null
+    private lateinit var currentFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,19 +51,20 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
         drawerLayout!!.setDrawerListener(drawerListener)
 
         val fm = fragmentManager
+        val displayedFragment = fm.findFragmentById(R.id.fragment_container)
+        if(displayedFragment == null) {
+            val args = Bundle()
+            val today = LocalDate.now()
+            args.putInt(getString(R.string.month), today.monthOfYear)
+            args.putInt(getString(R.string.year), today.year)
 
-        val args = Bundle()
-        val today = LocalDate.now()
-        val todayDays = Days.daysBetween(LocalDate(0, DateTimeZone.UTC), today).days
-        args.putInt(getString(R.string.month), today.monthOfYear)
-        args.putInt(getString(R.string.year), today.year)
+            currentFragment = CalendarFragment()
+            currentFragment.arguments = args
 
-        currentFragment = CalendarFragment()
-        currentFragment!!.arguments = args
-
-        val ft = fm.beginTransaction()
-        ft.replace(R.id.fragment_container, currentFragment)
-        ft.commit()
+            val ft = fm.beginTransaction()
+            ft.replace(R.id.fragment_container, currentFragment)
+            ft.commit()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -131,7 +132,7 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
 
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.fragment_container, currentFragment)
-        transaction.addToBackStack(null)
+        //transaction.addToBackStack(null)
         transaction.commit()
     }
 
