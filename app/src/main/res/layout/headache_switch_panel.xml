@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.5"
         app:leftBackground="@drawable/headache_switch_no"
-        app:centerBackground="@drawable/factor_switch_0"
+        app:centerBackground="@drawable/headache_switch_maybe"
         app:rightBackground="@drawable/headache_switch_yes"/>
 
     <TextView
