@@ -128,11 +128,11 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
         args.putInt(getString(R.string.days_since_0), Days.daysBetween(LocalDate(0, DateTimeZone.UTC), date).days)
 
         currentFragment = EditDailyEntryFragment()
-        currentFragment!!.arguments = args
+        currentFragment.arguments = args
 
         val transaction = fm.beginTransaction()
         transaction.replace(R.id.fragment_container, currentFragment)
-        //transaction.addToBackStack(null)
+        transaction.addToBackStack(null)
         transaction.commit()
     }
 
