@@ -75,8 +75,6 @@
               android:text="No data"/>
 
     <Button android:id="@id/fragment_edit_daily_entry_done_button"
-            android:layout_width="match_parent"
-            android:layout_height="75dp"
-            android:layout_alignParentBottom="true"
-            android:text="Done"/>
+            style="@style/DoneButton"
+            android:layout_alignParentBottom="true"/>
 </RelativeLayout>

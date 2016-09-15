@@ -14,4 +14,6 @@
     <color name="neutral_gray_dark">#FF444444</color>
     <color name="neutral_gray_medium">#FF666666</color>
     <color name="neutral_gray_light">#FF888888</color>
+
+    <color name="done_button_foreground">#FFAAAAAA</color>
 </resources>
