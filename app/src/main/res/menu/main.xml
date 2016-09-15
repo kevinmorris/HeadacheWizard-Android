@@ -21,12 +21,4 @@
         android:icon="@drawable/icon_edit_factors"
         android:title="@string/icon_edit_factors"/>   
         
-    <item
-        android:id="@+id/icon_report"
-        android:orderInCategory="500"
-        android:showAsAction="always"
-        android:icon="@drawable/icon_report"
-        android:title="@string/icon_report"/> 
-    
-
 </menu>

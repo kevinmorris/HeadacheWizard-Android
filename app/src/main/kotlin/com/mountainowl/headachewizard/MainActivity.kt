@@ -83,7 +83,6 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
             R.id.icon_calendar -> calendarSelected()
             R.id.icon_edit_today -> editTodaySelected()
             R.id.icon_edit_factors -> editFactorsSelected()
-            R.id.icon_report -> reportSelected()
             else -> {
             }
         }
@@ -111,10 +110,6 @@ class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
         transaction.replace(R.id.fragment_container, currentFragment)
         transaction.addToBackStack(null)
         transaction.commit()
-    }
-
-    private fun reportSelected() {
-
     }
 
     private fun launchEditDailyEntryFragment(date: LocalDate) {
