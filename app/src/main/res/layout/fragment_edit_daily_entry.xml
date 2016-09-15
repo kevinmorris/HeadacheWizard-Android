@@ -10,29 +10,29 @@
               android:layout_alignParentTop="true"/>
 
 	 
-    <LinearLayout android:id="@+id/headache_day_editor_container"
+    <RelativeLayout android:id="@+id/headache_day_editor_container"
                   android:layout_width="match_parent"
                   android:layout_height="50dp"
-                  android:layout_below="@id/headache_day_date_label"
-                  android:orientation="horizontal">
+                  android:layout_below="@id/headache_day_date_label">
 
         <TextView android:id="@+id/headache_day_editor_label"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:text="Headache?" />
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_toStartOf="@+id/headache_switch_panel"
+                  android:text="Headache?" />
 
-        <com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel android:id="@+id/headache_switch_panel"
-            android:layout_width="0dp"
+        <com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel android:id="@id/headache_switch_panel"
+            android:layout_width="170dp"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5" />
+            android:layout_alignParentEnd="true"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView android:id="@id/android:list"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_below="@id/headache_day_editor_container"
+              android:layout_above="@+id/fragment_edit_daily_entry_done_button"
               android:drawSelectorOnTop="false"/>
 
     <TextView android:id="@id/android:empty"
@@ -40,4 +40,10 @@
               android:layout_height="match_parent"
               android:layout_below="@id/headache_day_editor_container"
               android:text="No data"/>
+
+    <Button android:id="@id/fragment_edit_daily_entry_done_button"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:layout_alignParentBottom="true"
+            android:text="Done"/>
 </RelativeLayout>
