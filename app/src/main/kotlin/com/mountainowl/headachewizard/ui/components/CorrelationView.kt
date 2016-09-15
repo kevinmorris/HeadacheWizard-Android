@@ -16,7 +16,7 @@ class CorrelationView : View {
             this.invalidate()
         }
 
-    private var paint: Paint? = null
+    private val paint: Paint = Paint()
 
     //Color Components of each of the base correlation colors
     private var greenSubRed: Int = 0
@@ -46,8 +46,6 @@ class CorrelationView : View {
 
     private fun initialize() {
 
-        paint = Paint()
-
         val green = HeadacheWizardApplication.context.resources.getColor(R.color.negative_correlation_green)
         val yellow = HeadacheWizardApplication.context.resources.getColor(R.color.zero_correlation_yellow)
         val red = HeadacheWizardApplication.context.resources.getColor(R.color.positive_correlation_red)
@@ -64,7 +62,7 @@ class CorrelationView : View {
         redSubGreen = red shr 8 and 0xFF
         redSubBlue = red shr 0 and 0xFF
 
-        paint!!.isDither = true
+        paint.isDither = true
     }
 
     @SuppressLint("DrawAllocation")
@@ -90,8 +88,8 @@ class CorrelationView : View {
                 floatArrayOf(0.1f, 0.6f, 1.0f),
                 Shader.TileMode.CLAMP)
 
-        paint!!.shader = gradient
-        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), imageRadius, paint!!)
+        paint.shader = gradient
+        canvas.drawCircle((width / 2).toFloat(), (height / 2).toFloat(), imageRadius, paint)
 
     }
 
