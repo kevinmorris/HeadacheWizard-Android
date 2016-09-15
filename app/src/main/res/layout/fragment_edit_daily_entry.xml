@@ -7,13 +7,13 @@
               style="@style/DateHeader"
               android:layout_width="match_parent"
               android:layout_height="50dp"
-              android:layout_alignParentTop="true"/>
+              android:layout_alignParentTop="true"
+              />
 
-	 
     <RelativeLayout android:id="@+id/headache_day_editor_container"
-                  android:layout_width="match_parent"
-                  android:layout_height="50dp"
-                  android:layout_below="@id/headache_day_date_label">
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@id/headache_day_date_label">
 
         <TextView android:id="@+id/headache_day_editor_label"
                   android:layout_width="match_parent"
@@ -22,16 +22,49 @@
                   android:text="Headache?" />
 
         <com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel android:id="@id/headache_switch_panel"
-            android:layout_width="170dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"/>
+                                                                          android:layout_width="170dp"
+                                                                          android:layout_height="wrap_content"
+                                                                          android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
+
+    <LinearLayout android:id="@+id/fragment_edit_daily_entry_key_textview"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_below="@id/headache_day_editor_container"
+                  android:orientation="horizontal">
+
+        <TextView android:id="@+id/fragment_edit_daily_entry_low_correlation_textview"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="0.5"
+                  android:gravity="left|center_vertical"
+                  android:text="associated with\nheadache-free days"/>
+
+        <TextView android:id="@+id/fragment_edit_daily_entry_high_correlation_textview"
+                  android:layout_width="0dp"
+                  android:layout_height="match_parent"
+                  android:layout_weight="0.5"
+                  android:gravity="right|center_vertical"
+                  android:text="associated with\nheadache days"/>
+
+    </LinearLayout>
+
+
+
+    <ImageView android:id="@+id/fragment_edit_daily_entry_correlation_key_imageview"
+               android:layout_width="match_parent"
+               android:layout_height="25dp"
+               android:layout_below="@id/fragment_edit_daily_entry_key_textview"
+               android:layout_alignParentStart="true"
+               android:layout_alignParentEnd="true"
+               android:scaleType="fitXY"
+               android:src="@drawable/correlation_key"/>
 
     <ListView android:id="@id/android:list"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_below="@id/headache_day_editor_container"
+              android:layout_below="@id/fragment_edit_daily_entry_correlation_key_imageview"
               android:layout_above="@+id/fragment_edit_daily_entry_done_button"
               android:drawSelectorOnTop="false"/>
 
