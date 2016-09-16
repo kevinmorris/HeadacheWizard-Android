@@ -59,6 +59,11 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
         headacheSwitchPanel.set(hValue)
         headacheSwitchPanel.addObserver(this)
 
+        val doneButton = view.findViewById(R.id.fragment_edit_daily_entry_done_button)
+        doneButton.setOnClickListener {
+            activity.fragmentManager.popBackStack()
+        }
+
         return view
     }
 
