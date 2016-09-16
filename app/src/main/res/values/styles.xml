@@ -16,6 +16,11 @@
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
+
+    <style name="CalendarDayView">
+        <item name="android:background">@drawable/calendar_day_view_background</item>
+        <item name="android:layout_margin">2dp</item>
+    </style>
     
     <style name="ThreewaySwitch" parent="android:Widget.ProgressBar.Horizontal">
        <item name="android:progressDrawable">@android:drawable/progress_horizontal</item>
