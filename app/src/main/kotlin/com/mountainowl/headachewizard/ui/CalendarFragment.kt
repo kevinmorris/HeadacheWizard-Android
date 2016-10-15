@@ -29,6 +29,8 @@ class CalendarFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        this.month = arguments.getInt(getString(R.string.month));
+        this.year = arguments.getInt(getString(R.string.year))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -43,8 +45,8 @@ class CalendarFragment : Fragment() {
         layoutCalendar(
             view,
             DataManager.instance.headache,
-            arguments.getInt(getString(R.string.month)),
-            arguments.getInt(getString(R.string.year))
+            this.month,
+            this.year
         )
     }
 
