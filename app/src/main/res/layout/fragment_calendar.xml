@@ -109,7 +109,7 @@
 
     </LinearLayout>
 
-    <LinearLayout
+    <com.mountainowl.headachewizard.ui.CalendarLayout
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -459,7 +459,7 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+    </com.mountainowl.headachewizard.ui.CalendarLayout>
 
 
 </RelativeLayout>

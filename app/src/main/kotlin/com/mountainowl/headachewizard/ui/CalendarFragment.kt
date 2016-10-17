@@ -14,9 +14,10 @@ import com.mountainowl.headachewizard.model.Headache
 import org.joda.time.Duration
 import org.joda.time.LocalDate
 
-class CalendarFragment : Fragment() {
+class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
 
     private lateinit var daySelectedListener: IDaySelectedListener
+
     private var month: Int = 0
     private var year: Int = 0
 
@@ -36,6 +37,9 @@ class CalendarFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val v = inflater.inflate(R.layout.fragment_calendar, container, false)
 
+        val layout = v.findViewById(R.id.calendar) as CalendarLayout
+        layout.layoutCalendarCallback = this
+
         return v
     }
 
@@ -54,13 +58,16 @@ class CalendarFragment : Fragment() {
 
         this.month = month
         this.year = year
+        val layout = v.findViewById(R.id.calendar) as CalendarLayout
+        layout.month = this.month
+        layout.year = this.year
 
         val startDate = LocalDate(year, month, 1)
         val today = LocalDate.now()
         val previousMonth = startDate.minusMonths(1)
         val nextMonth = startDate.plusMonths(1)
 
-        val monthTextView = view.findViewById(R.id.fragment_calendar_month_textview) as TextView
+        val monthTextView = v.findViewById(R.id.fragment_calendar_month_textview) as TextView
         monthTextView.text = startDate.toString("MMMM")
 
         val yearTextView = v.findViewById(R.id.fragment_calendar_year_textview) as TextView
@@ -97,13 +104,15 @@ class CalendarFragment : Fragment() {
                 val data = headache.getDate(currentDate)
                 dayView.setHeadacheData(data)
 
-                dayView.setOnClickListener(if(dayDiff >= 0) {
-                  View.OnClickListener { v ->
-                      this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
-                  }
-                } else {
-                  null
-                })
+                dayView.setOnClickListener(
+                    if(dayDiff >= 0) {
+                        View.OnClickListener { v ->
+                            this.daySelectedListener.onDaySelected((v as CalendarDayView).date!!)
+                        }
+                    } else {
+                        null
+                    }
+                )
             } else {
                 dayView.date = null
                 dayView.setHeadacheData(null)
@@ -112,6 +121,10 @@ class CalendarFragment : Fragment() {
         }
 
         return v
+    }
+
+    override fun layoutCalendar(month: Int, year: Int) {
+        layoutCalendar(view, DataManager.instance.headache, month, year)
     }
 
     interface IDaySelectedListener {
