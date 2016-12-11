@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
@@ -125,9 +126,5 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
 
     override fun layoutCalendar(month: Int, year: Int) {
         layoutCalendar(view, DataManager.instance.headache, month, year)
-    }
-
-    interface IDaySelectedListener {
-        fun onDaySelected(date: LocalDate)
     }
 }

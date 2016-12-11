@@ -12,11 +12,12 @@ import android.widget.ListView
 import com.mountainowl.headachewizard.ui.CalendarFragment
 import com.mountainowl.headachewizard.ui.EditDailyEntryFragment
 import com.mountainowl.headachewizard.ui.EditFactorsFragment
+import com.mountainowl.headachewizard.ui.IDaySelectedListener
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
 
-class MainActivity : Activity(), CalendarFragment.IDaySelectedListener {
+class MainActivity : Activity(), IDaySelectedListener {
 
     private var drawerLayout: DrawerLayout? = null
     private var drawerList: ListView? = null

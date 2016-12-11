@@ -24,7 +24,10 @@ import java.util.*
 class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
     private lateinit var headache: Headache
-    private lateinit var date: LocalDate
+
+    lateinit var date: LocalDate
+        private set
+
     private lateinit var factors: List<Factor>
     private lateinit var factorValues: MutableMap<Factor, Double>
     private val handler: Handler = Handler()
@@ -36,6 +39,12 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
         headache = DataManager.instance.headache
         date = LocalDate(0, DateTimeZone.UTC).plusDays(arguments.getInt(getString(R.string.days_since_0)))
+        initializeData(LocalDate(0, DateTimeZone.UTC).plusDays(arguments.getInt(getString(R.string.days_since_0))))
+    }
+
+    fun initializeData(date: LocalDate) {
+
+        this.date = date
 
         factors = DataManager.instance.getFactors()
         factorValues = HashMap<Factor, Double>()
@@ -50,6 +59,9 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_edit_daily_entry, container, false)
+
+        val layout = view as EditDailyEntryFragmentLayout
+        layout.fragment = this
 
         val headacheDayDateLabel = view.findViewById(R.id.headache_day_date_label) as TextView
         headacheDayDateLabel.text = DateFormat.getDateInstance(DateFormat.LONG).format(date.toDate())
@@ -75,7 +87,7 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
         val currentHValue = headache.getDate(date)
         val hValue = progress - 1.0
 
-        if(currentHValue != hValue) {
+        if (currentHValue != hValue) {
             val dataManager = DataManager.instance
 
             headache.setDate(date, hValue)
@@ -125,7 +137,7 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
             val factor = getItem(position)
             val fValue = progress - 1.0
-            if(factor.getDate(date) != fValue) {
+            if (factor.getDate(date) != fValue) {
                 factor.setDate(date, fValue)
 
                 Thread(Runnable {
