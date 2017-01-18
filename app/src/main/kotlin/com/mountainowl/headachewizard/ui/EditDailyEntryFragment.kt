@@ -77,6 +77,11 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
             editFactorsScreenSelectorCallback.editFactorsScreenSelected()
         }
 
+        if(factors.isEmpty()) {
+            view.findViewById(R.id.fragment_edit_daily_entry_key_textview).visibility = View.GONE;
+            view.findViewById(R.id.fragment_edit_daily_entry_correlation_key_imageview).visibility = View.GONE;
+        }
+
         val headacheDayDateLabel = view.findViewById(R.id.headache_day_date_label) as TextView
         headacheDayDateLabel.text = DateFormat.getDateInstance(DateFormat.LONG).format(date.toDate())
 
