@@ -24,5 +24,7 @@
 	    <item>About</item>
 	    <item>Licenses</item>
 	</string-array>
+
+    <string name="edit_day_no_factors">Oh! You haven\'t added any factors. If you\'d like to track possible associations with your headaches, touch here.</string>
 	
 </resources>

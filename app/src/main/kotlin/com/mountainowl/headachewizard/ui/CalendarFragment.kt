@@ -74,7 +74,7 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
         val yearTextView = v.findViewById(R.id.fragment_calendar_year_textview) as TextView
         yearTextView.text = year.toString()
 
-        val prevMonthButton = v.findViewById(R.id.fragment_calendar_previous_month_button) as Button
+        val prevMonthButton = v.findViewById(R.id.fragment_calendar_previous_month_button) as ImageButton
         val nextMonthButton = v.findViewById(R.id.fragment_calendar_next_month_button) as Button
 
         prevMonthButton.setOnClickListener {

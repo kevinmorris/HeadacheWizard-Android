@@ -18,6 +18,6 @@
     <color name="app_background">#FF111111</color>
     <color name="calendar_day_view_background">#FF171C21</color>
 
-    <color name="done_button_background_pressed">#FF31373D</color>
-    <color name="done_button_foreground">#FFAAAAAA</color>
+    <color name="default_button_background_pressed">#FF31373D</color>
+    <color name="default_button_foreground">#FFAAAAAA</color>
 </resources>

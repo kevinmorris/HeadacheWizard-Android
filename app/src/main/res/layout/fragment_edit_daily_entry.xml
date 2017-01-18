@@ -69,11 +69,41 @@
               android:layout_above="@+id/fragment_edit_daily_entry_done_button"
               android:drawSelectorOnTop="false"/>
 
-    <TextView android:id="@id/android:empty"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_below="@id/headache_day_editor_container"
-              android:text="No data"/>
+    <RelativeLayout android:id="@id/android:empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/fragment_edit_daily_entry_correlation_key_imageview"
+                    android:layout_above="@+id/fragment_edit_daily_entry_done_button">
+
+        <TextView android:id="@+id/text_view_no_factors"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="12dp"
+                  android:gravity="center"
+                  android:textSize="25sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_alignParentTop="true"
+                  android:text="@string/edit_day_no_factors"/>
+
+        <ImageView android:id="@+id/image_view_down_arrow"
+                   android:layout_width="30dp"
+                   android:layout_height="60dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_below="@id/text_view_no_factors"
+                   android:scaleType="fitCenter"
+                   android:src="@drawable/down_arrow"/>
+
+        <ImageButton android:id="@+id/image_button_edit_factors"
+                     android:layout_width="125dp"
+                     android:layout_height="125dp"
+                     android:layout_margin="10dp"
+                     android:layout_centerHorizontal="true"
+                     android:layout_below="@id/image_view_down_arrow"
+                     android:scaleType="fitCenter"
+                     android:background="@android:color/transparent"
+                     android:src="@drawable/icon_edit_factors"/>
+
+    </RelativeLayout>
 
     <Button android:id="@id/fragment_edit_daily_entry_done_button"
             style="@style/DoneButton"

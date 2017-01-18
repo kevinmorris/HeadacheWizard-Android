@@ -1,12 +1,14 @@
 package com.mountainowl.headachewizard.ui
 
 import android.app.ListFragment
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
 import android.widget.TextView
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
@@ -21,7 +23,7 @@ import org.joda.time.LocalDate
 import java.text.DateFormat
 import java.util.*
 
-class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
+class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
 
     private lateinit var headache: Headache
 
@@ -30,7 +32,14 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
     private lateinit var factors: List<Factor>
     private lateinit var factorValues: MutableMap<Factor, Double>
+    private lateinit var editFactorsScreenSelectorCallback : IEditFactorsScreenSelectedCallback
     private val handler: Handler = Handler()
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+
+        editFactorsScreenSelectorCallback = context as IEditFactorsScreenSelectedCallback
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +71,11 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
 
         val layout = view as EditDailyEntryFragmentLayout
         layout.fragment = this
+
+        val editFactorsButton = view.findViewById(R.id.image_button_edit_factors) as ImageButton
+        editFactorsButton.setOnClickListener {
+            editFactorsScreenSelectorCallback.editFactorsScreenSelected()
+        }
 
         val headacheDayDateLabel = view.findViewById(R.id.headache_day_date_label) as TextView
         headacheDayDateLabel.text = DateFormat.getDateInstance(DateFormat.LONG).format(date.toDate())
@@ -99,7 +113,7 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
                     factor.evaluateCorrelationParameters(headache)
                 }
 
-                handler.post(Runnable {
+                handler.post({
                     listView.invalidateViews()
                 })
             }).start()
@@ -144,7 +158,7 @@ class EditDailyEntryFragment : ListFragment(), IThreewaySwitchListener {
                     DataManager.instance.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
                     factor.evaluateCorrelationParameters(headache)
 
-                    handler.post(Runnable {
+                    handler.post({
                         notifyDataSetChanged()
                     })
                 }).start()
