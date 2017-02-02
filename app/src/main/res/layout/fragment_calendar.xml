@@ -30,7 +30,7 @@
               android:visibility="invisible" />
 
         <TextView android:id="@+id/fragment_calendar_month_textview"
-                  style="@style/DateHeader"
+                  style="@style/ScreenTitle"
                   android:layout_width="200dp"
                   android:layout_height="match_parent"
                   android:layout_toLeftOf="@id/fragment_calendar_date_separator"
@@ -41,7 +41,7 @@
                   />
 
         <TextView android:id="@+id/fragment_calendar_year_textview"
-                  style="@style/DateHeader"
+                  style="@style/ScreenTitle"
                   android:layout_width="100dp"
                   android:layout_height="match_parent"
                   android:layout_toRightOf="@id/fragment_calendar_date_separator"

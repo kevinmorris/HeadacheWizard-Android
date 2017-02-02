@@ -38,19 +38,13 @@ class EditFactorsFragment : ListFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_edit_factors, container, false)
 
-        val addFactorButton = view.findViewById(R.id.add_factor_button) as Button
+        val addFactorButton = view.findViewById(R.id.fragment_edit_factors_add_new_button) as Button
 
         addFactorButton.setOnClickListener {
-            val newFactorField = view.findViewById(R.id.new_factor_name) as TextView
-            val factorName = newFactorField.text.toString()
+            val dialog = AddFactorDialogFragment()
 
-            if (dataManager.factorExists(factorName)) {
-                displayDuplicateFactorDialog(factorName)
-            } else {
-                factors = dataManager.addFactor(factorName)
-                adapter.notifyDataSetChanged()
-                newFactorField.text = ""
-            }
+            val ft = activity.fragmentManager
+            dialog.show(ft, "dialog")
         }
 
         return view

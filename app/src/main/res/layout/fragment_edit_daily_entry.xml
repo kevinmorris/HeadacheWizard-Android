@@ -7,7 +7,7 @@
 
 
 <TextView android:id="@+id/headache_day_date_label"
-              style="@style/DateHeader"
+              style="@style/ScreenTitle"
               android:layout_width="match_parent"
               android:layout_height="50dp"
               android:layout_alignParentTop="true"

@@ -3,33 +3,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     	 xmlns:tools="http://schemas.android.com/tools"
          android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         tools:context=".EditFactorsFrament">
-         
-     <LinearLayout android:id="@+id/new_factor_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
-        
-        <EditText android:id="@+id/new_factor_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.8" />
-        
-        <Button android:id="@+id/add_factor_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.2"
-            android:text="+"/>
-        
-     </LinearLayout>
-    
-     <ListView android:id="@id/android:list"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_below="@id/new_factor_container"
-               android:drawSelectorOnTop="false"/>
+         android:layout_height="match_parent">
 
+    <TextView android:id="@+id/fragment_edit_factors_title_text"
+              style="@style/ScreenTitle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Your Factors"/>
+
+    <TextView android:id="@+id/fragment_edit_factors_subtitle_text"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/fragment_edit_factors_title_text"
+              android:text="Remember, always consult with a physician regarding any possible causes of your headaches."
+              />
+
+    <Button android:id="@+id/fragment_edit_factors_add_new_button"
+            style="@style/DoneButton"
+            android:layout_below="@id/fragment_edit_factors_subtitle_text"
+            android:text="Add New Factor"/>
+
+    <ListView android:id="@id/android:list"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@id/fragment_edit_factors_add_new_button"
+              android:drawSelectorOnTop="false"/>
+
+    <RelativeLayout android:id="@id/android:empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/fragment_edit_factors_add_new_button"
+                    android:layout_above="@+id/fragment_edit_factors_done_button">
+
+    </RelativeLayout>
+
+    <Button android:id="@id/fragment_edit_factors_done_button"
+            style="@style/DoneButton"
+            android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

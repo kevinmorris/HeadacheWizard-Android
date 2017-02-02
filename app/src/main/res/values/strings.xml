@@ -25,6 +25,17 @@
 	    <item>Licenses</item>
 	</string-array>
 
-    <string name="edit_day_no_factors">Oh! You haven\'t added any factors. If you\'d like to track possible associations with your headaches, touch here.</string>
-	
+    <string name="edit_day_no_factors">
+        Oh! You haven\'t added any factors. If you\'d like to track possible associations with your headaches, touch here.
+    </string>
+
+    <string name="edit_factors_empty_instructions01">
+        Add factors that you suspect may influence your headache days and headache-free days.
+        You will track these daily using
+    </string>
+
+    <string name="edit_factors_empty_instructions02">
+        Examples of factors include "Gluten", "Alcohol", or "Aerobic Exercise".
+    </string>
+
 </resources>
