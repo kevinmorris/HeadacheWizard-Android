@@ -38,4 +38,10 @@
         Examples of factors include "Gluten", "Alcohol", or "Aerobic Exercise".
     </string>
 
+    <string name="edit_factors_no_factors">
+        Touch here to start adding factors. Factors are things you think might be associated
+        with your headache days or headache-free days. Examples might include \"Gluten\",
+        \"Red wine\", or \"Exercise\".
+    </string>
+
 </resources>

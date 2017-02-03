@@ -35,6 +35,24 @@
                     android:layout_below="@id/fragment_edit_factors_add_new_button"
                     android:layout_above="@+id/fragment_edit_factors_done_button">
 
+        <ImageView android:id="@+id/image_view_up_arrow"
+                   android:layout_width="30dp"
+                   android:layout_height="60dp"
+                   android:layout_centerHorizontal="true"
+                   android:layout_alignParentTop="true"
+                   android:scaleType="fitCenter"
+                   android:src="@drawable/up_arrow"/>
+
+        <TextView android:id="@+id/fragment_edit_factors_no_factors"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_margin="12dp"
+                  android:gravity="center"
+                  android:textSize="25sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_below="@id/image_view_up_arrow"
+                  android:text="@string/edit_factors_no_factors"/>
+
     </RelativeLayout>
 
     <Button android:id="@id/fragment_edit_factors_done_button"
