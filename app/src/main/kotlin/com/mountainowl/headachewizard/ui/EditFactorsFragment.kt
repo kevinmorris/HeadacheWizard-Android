@@ -59,10 +59,13 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
 
         val dialogBuilder = AlertDialog.Builder(activity)
         dialogBuilder.setTitle(R.string.app_name).setMessage("Are you sure you want to delete the factor named " + deleteFactorName + "?  " +
-                "This will permanently remove ALL data associated with this factor from the app.").setNegativeButton("No") { dialog, which -> }.setPositiveButton("Yes") { dialog, which ->
-            factors = dataManager.deleteFactor(deleteFactorName)
-            adapter.notifyDataSetChanged()
-        }
+                "This will permanently remove ALL data associated with this factor from the app.")
+                .setNegativeButton("No") { dialog, which -> }
+                .setPositiveButton("Yes") { dialog, which ->
+                    factors = dataManager.deleteFactor(deleteFactorName)
+                    adapter.notifyDataSetChanged()
+                }
+
         val dialog = dialogBuilder.create()
         dialog.show()
     }
@@ -87,6 +90,17 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
 
             val factorNameField = newView.findViewById(R.id.factor_name) as TextView
             factorNameField.text = getItem(position).name
+
+            newView.setBackgroundColor(if(position % 2 == 1) {
+                resources.getColor(R.color.alternate_row_background, null)
+            } else {
+                resources.getColor(R.color.app_background, null)
+            })
+
+            val deleteButton = newView.findViewById(R.id.factor_delete_button)
+            deleteButton.setOnClickListener {
+                displayDeleteFactorConfirmationDialog(getItem(position).name)
+            }
 
             return newView
         }
