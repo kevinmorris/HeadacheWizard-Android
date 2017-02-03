@@ -25,8 +25,9 @@
 
     <ListView android:id="@id/android:list"
               android:layout_width="match_parent"
-              android:layout_height="wrap_content"
+              android:layout_height="match_parent"
               android:layout_below="@id/fragment_edit_factors_add_new_button"
+              android:layout_above="@+id/fragment_edit_factors_done_button"
               android:drawSelectorOnTop="false"/>
 
     <RelativeLayout android:id="@id/android:empty"
