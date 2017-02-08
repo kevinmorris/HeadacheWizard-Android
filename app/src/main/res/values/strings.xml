@@ -29,6 +29,14 @@
         Oh! You haven\'t added any factors. If you\'d like to track possible associations with your headaches, touch here.
     </string>
 
+    <string name="edit_day_instructions01">
+        This is where you make journal entries.  Use the sliders on the right to indicate whether or not you\'ve had a
+        headache as well as whether you\'ve experienced your various factors.\n\nEach of your factors is represented by a ball.  The ball starts out yellow.  As you make more entries in your journal,
+        the ball will begin to turn more green for factors associated with headache-free days and more red for factors associated
+        with headache days.
+    </string>
+
+
     <string name="edit_factors_empty_instructions01">
         Add factors that you suspect may influence your headache days and headache-free days.
         You will track these daily using

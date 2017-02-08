@@ -6,12 +6,12 @@
          android:background="@color/app_background">
 
 
-<TextView android:id="@+id/headache_day_date_label"
-              style="@style/ScreenTitle"
-              android:layout_width="match_parent"
-              android:layout_height="50dp"
-              android:layout_alignParentTop="true"
-              />
+    <TextView android:id="@+id/headache_day_date_label"
+                  style="@style/ScreenTitle"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:layout_alignParentTop="true"
+                  />
 
     <RelativeLayout android:id="@+id/headache_day_editor_container"
                     android:layout_width="match_parent"

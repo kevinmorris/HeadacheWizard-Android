@@ -1,7 +1,10 @@
 package com.mountainowl.headachewizard.ui
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.app.ListFragment
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
@@ -22,6 +25,8 @@ import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import java.text.DateFormat
 import java.util.*
+
+val INSTRUCTION_DIALOG_PREFS_KEY = "INSTRUCTION_DIALOG_PREFS_KEY"
 
 class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
 
@@ -98,6 +103,20 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
         return view
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        val prefs = activity.getPreferences(Context.MODE_PRIVATE)
+        if(!prefs.contains(INSTRUCTION_DIALOG_PREFS_KEY)) {
+            val dialog = createInstructionDialog()
+            dialog.show()
+
+            val prefsEditor = prefs.edit()
+            prefsEditor.putString(INSTRUCTION_DIALOG_PREFS_KEY, INSTRUCTION_DIALOG_PREFS_KEY)
+            prefsEditor.apply()
+        }
+    }
+
     override fun onSwitchChangedByUser(progress: Int, position: Int) {
     }
 
@@ -123,6 +142,20 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
                 })
             }).start()
         }
+    }
+
+    private fun createInstructionDialog() : Dialog {
+
+        val builder = AlertDialog.Builder(activity)
+        val inflater = activity.layoutInflater
+        builder.setView(inflater.inflate(R.layout.dialog_edit_daily_entry_instructions, null))
+                .setTitle("Your daily journal")
+                .setPositiveButton("OK, got it", DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                })
+
+        val dialog = builder.create()
+        return dialog
     }
 
     private inner class EditDailyEntryAdapter(factors: List<Factor>) :
