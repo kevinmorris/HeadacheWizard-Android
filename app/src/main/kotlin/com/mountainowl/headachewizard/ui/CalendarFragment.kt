@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.Spinner
@@ -21,6 +22,7 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
 
     private var month: Int = 0
     private var year: Int = 0
+    private var currentYear = LocalDate.now().year
 
     override fun onAttach(activity: Activity) {
         super.onAttach(activity)
@@ -41,12 +43,19 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
         val layout = v.findViewById(R.id.calendar) as CalendarLayout
         layout.layoutCalendarCallback = this
 
-        val currentYear = LocalDate.now().year
-
         val monthSpinner = v.findViewById(R.id.fragment_calendar_month_spinner) as Spinner
         val monthAdapter = ArrayAdapter.createFromResource(activity, R.array.months_array, R.layout.spinner_layout_item)
         monthAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         monthSpinner.adapter = monthAdapter
+        monthSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                throw UnsupportedOperationException("not implemented")
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                layoutCalendar(position + 1, year)
+            }
+        }
 
         val yearSpinner = v.findViewById(R.id.fragment_calendar_year_spinner) as Spinner
         val yearAdapter = ArrayAdapter(
@@ -57,6 +66,16 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
 
         yearAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
         yearSpinner.adapter = yearAdapter
+        yearSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                throw UnsupportedOperationException("not implemented")
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                layoutCalendar(month, currentYear - position)
+            }
+
+        }
 
         return v
     }
@@ -76,7 +95,14 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
 
         this.month = month
         this.year = year
+
         val layout = v.findViewById(R.id.calendar) as CalendarLayout
+        val monthSpinner = v.findViewById(R.id.fragment_calendar_month_spinner) as Spinner
+        monthSpinner.setSelection(this.month - 1)
+
+        val yearSpinner = v.findViewById(R.id.fragment_calendar_year_spinner) as Spinner
+        yearSpinner.setSelection(this.currentYear - this.year)
+
         layout.month = this.month
         layout.year = this.year
 
