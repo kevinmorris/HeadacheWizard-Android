@@ -8,48 +8,57 @@
             android:layout_width="match_parent"
             android:layout_height="60dp">
         <ImageButton android:id="@+id/fragment_calendar_previous_month_button"
-                     style="@style/PreviousMonthButton"
+                     style="@style/MonthNavigationButton"
                      android:layout_alignParentStart="true"
                      android:layout_alignParentTop="true"
                      android:layout_margin="8dp"
                      android:scaleType="fitCenter"
                      android:src="@drawable/previous_month"/>
 
-        <Button android:id="@+id/fragment_calendar_next_month_button"
-                android:layout_width="60dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentTop="true"
-                android:text="Next"/>
+        <ImageButton android:id="@+id/fragment_calendar_next_month_button"
+                     style="@style/MonthNavigationButton"
+                     android:layout_alignParentEnd="true"
+                     android:layout_alignParentTop="true"
+                     android:layout_margin="8dp"
+                     android:scaleType="fitCenter"
+                     android:src="@drawable/next_month"/>
 
-        <View android:id="@+id/fragment_calendar_date_separator"
-              android:layout_width="1dp"
-              android:layout_height="match_parent"
-              android:layout_centerHorizontal="true"
-              android:layout_alignParentTop="true"
-              android:visibility="invisible" />
-
-        <TextView android:id="@+id/fragment_calendar_month_textview"
-                  style="@style/ScreenTitle"
-                  android:layout_width="200dp"
+        <Spinner android:id="@+id/fragment_calendar_month_spinner"
+                  android:layout_width="match_parent"
                   android:layout_height="match_parent"
-                  android:layout_toLeftOf="@id/fragment_calendar_date_separator"
                   android:layout_toRightOf="@id/fragment_calendar_previous_month_button"
-                  android:gravity="center_vertical|right"
-                  android:paddingRight="3dp"
-                  android:layout_alignParentTop="true"
-                  />
+                  android:layout_toLeftOf="@+id/fragment_calendar_year_spinner"
+                  android:layout_alignParentTop="true"/>
 
-        <TextView android:id="@+id/fragment_calendar_year_textview"
-                  style="@style/ScreenTitle"
-                  android:layout_width="100dp"
+        <Spinner android:id="@id/fragment_calendar_year_spinner"
+                  android:layout_width="wrap_content"
                   android:layout_height="match_parent"
-                  android:layout_toRightOf="@id/fragment_calendar_date_separator"
                   android:layout_toLeftOf="@id/fragment_calendar_next_month_button"
-                  android:gravity="center_vertical|left"
-                  android:paddingLeft="3dp"
-                  android:layout_alignParentTop="true"
-                  />
+                  android:textSize="26sp"
+                  android:layout_centerHorizontal="true"
+                  android:layout_alignParentTop="true"/>
+
+        <!--<LinearLayout android:id="@+id/fragment_calendar_date_selection_container"-->
+                      <!--android:layout_width="match_parent"-->
+                      <!--android:layout_height="match_parent"-->
+                      <!--android:layout_toRightOf="@id/fragment_calendar_previous_month_button"-->
+                      <!--android:layout_toLeftOf="@id/fragment_calendar_next_month_button"-->
+                      <!--android:background="#80FF0000"-->
+                      <!--android:orientation="horizontal">-->
+
+            <!--<Button android:id="@+id/fragment_calendar_month_selector_button"-->
+                    <!--style="?android:buttonBarButtonStyle"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"/>-->
+
+            <!--<Button android:id="@+id/fragment_calendar_year_selector_button"-->
+                    <!--style="?android:buttonBarButtonStyle"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_weight="1"/>-->
+
+        <!--</LinearLayout>-->
 
     </RelativeLayout>
 

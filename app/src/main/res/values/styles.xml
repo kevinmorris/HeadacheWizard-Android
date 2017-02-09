@@ -56,22 +56,12 @@
         <item name="android:text">Done</item>
     </style>
 
-    <style name="PreviousMonthButton">
+    <style name="MonthNavigationButton">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/default_button_foreground</item>
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:padding">12dp</item>
-        <item name="android:gravity">center</item>
-        <item name="android:background">@drawable/month_navigation_button_background</item>
-    </style>
-
-    <style name="NextMonthButton">
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/default_button_foreground</item>
-        <item name="android:layout_width">60dp</item>
-        <item name="android:layout_height">match_parent</item>
-        <item name="android:padding">10dp</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/month_navigation_button_background</item>
     </style>

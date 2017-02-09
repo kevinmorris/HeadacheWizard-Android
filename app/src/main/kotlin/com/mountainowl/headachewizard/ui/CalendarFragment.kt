@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.ArrayAdapter
 import android.widget.ImageButton
-import android.widget.TextView
+import android.widget.Spinner
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.model.Headache
@@ -41,6 +41,23 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
         val layout = v.findViewById(R.id.calendar) as CalendarLayout
         layout.layoutCalendarCallback = this
 
+        val currentYear = LocalDate.now().year
+
+        val monthSpinner = v.findViewById(R.id.fragment_calendar_month_spinner) as Spinner
+        val monthAdapter = ArrayAdapter.createFromResource(activity, R.array.months_array, R.layout.spinner_layout_item)
+        monthAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        monthSpinner.adapter = monthAdapter
+
+        val yearSpinner = v.findViewById(R.id.fragment_calendar_year_spinner) as Spinner
+        val yearAdapter = ArrayAdapter(
+                activity,
+                R.layout.spinner_layout_item,
+                IntProgression.fromClosedRange(currentYear, currentYear - 100, -1).toList()
+        )
+
+        yearAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item)
+        yearSpinner.adapter = yearAdapter
+
         return v
     }
 
@@ -68,14 +85,8 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
         val previousMonth = startDate.minusMonths(1)
         val nextMonth = startDate.plusMonths(1)
 
-        val monthTextView = v.findViewById(R.id.fragment_calendar_month_textview) as TextView
-        monthTextView.text = startDate.toString("MMMM")
-
-        val yearTextView = v.findViewById(R.id.fragment_calendar_year_textview) as TextView
-        yearTextView.text = year.toString()
-
         val prevMonthButton = v.findViewById(R.id.fragment_calendar_previous_month_button) as ImageButton
-        val nextMonthButton = v.findViewById(R.id.fragment_calendar_next_month_button) as Button
+        val nextMonthButton = v.findViewById(R.id.fragment_calendar_next_month_button) as ImageButton
 
         prevMonthButton.setOnClickListener {
             layoutCalendar(v, headache, previousMonth.monthOfYear, previousMonth.year)
