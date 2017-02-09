@@ -62,6 +62,8 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
             val ft = fm.beginTransaction()
             ft.replace(R.id.fragment_container, currentFragment)
             ft.commit()
+        } else {
+            currentFragment = displayedFragment
         }
     }
 
