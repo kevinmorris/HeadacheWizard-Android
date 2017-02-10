@@ -38,6 +38,12 @@
         <item name="android:textColor">@color/neutral_gray_light</item>
     </style>
 
+    <style name="NavTitle">
+        <item name="android:textStyle">normal</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/neutral_gray_light</item>
+    </style>
+
     <style name="FactorSwitchLabel">
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>

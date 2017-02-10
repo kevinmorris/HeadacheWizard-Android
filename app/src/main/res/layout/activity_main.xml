@@ -41,11 +41,20 @@
                             android:layout_weight="1.5"
                             android:background="@color/translucent">
 
-                <ImageView android:layout_width="50dp" android:layout_height="match_parent"
+                <ImageView android:id="@+id/drawer_calendar_icon"
+                           android:layout_width="50dp" android:layout_height="match_parent"
                            android:layout_alignParentLeft="true"
                            android:layout_centerVertical="true"
                            android:layout_margin="10dp"
                            android:src="@drawable/icon_calendar"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          style="@style/NavTitle"
+                          android:layout_toRightOf="@id/drawer_calendar_icon"
+                          android:gravity="center_vertical|left"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:text="Your Calendar"/>
 
             </RelativeLayout>
 
@@ -54,11 +63,20 @@
                             android:layout_weight="1.5"
                             android:background="#11FFFFFF">
 
-                <ImageView android:layout_width="50dp" android:layout_height="match_parent"
+                <ImageView android:id="@+id/drawer_edit_daily_entry_icon"
+                           android:layout_width="50dp" android:layout_height="match_parent"
                            android:layout_alignParentLeft="true"
                            android:layout_centerVertical="true"
                            android:layout_margin="10dp"
                            android:src="@drawable/icon_edit_today"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          style="@style/NavTitle"
+                          android:layout_toRightOf="@id/drawer_edit_daily_entry_icon"
+                          android:gravity="center_vertical|left"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:text="Your Journal"/>
 
             </RelativeLayout>
 
@@ -67,11 +85,20 @@
                             android:layout_weight="1.5"
                             android:background="@color/translucent">
 
-                <ImageView android:layout_width="50dp" android:layout_height="match_parent"
+                <ImageView android:id="@+id/drawer_edit_factors_icon"
+                           android:layout_width="50dp" android:layout_height="match_parent"
                            android:layout_alignParentLeft="true"
                            android:layout_centerVertical="true"
                            android:layout_margin="10dp"
                            android:src="@drawable/icon_edit_factors"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          style="@style/NavTitle"
+                          android:layout_toRightOf="@id/drawer_edit_factors_icon"
+                          android:gravity="center_vertical|left"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:text="Your Factors"/>
 
             </RelativeLayout>
 
