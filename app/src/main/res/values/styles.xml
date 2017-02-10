@@ -44,6 +44,10 @@
         <item name="android:textColor">@color/neutral_gray_light</item>
     </style>
 
+    <style name="SmallNavTitle" parent="NavTitle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="FactorSwitchLabel">
         <item name="android:textStyle">bold</item>
         <item name="android:gravity">center</item>

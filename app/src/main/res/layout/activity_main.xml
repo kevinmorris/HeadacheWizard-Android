@@ -38,8 +38,7 @@
 
             <RelativeLayout android:id="@+id/drawer_calendar_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="1.5"
-                            android:background="@color/translucent">
+                            android:layout_weight="2">
 
                 <ImageView android:id="@+id/drawer_calendar_icon"
                            android:layout_width="50dp" android:layout_height="match_parent"
@@ -60,8 +59,8 @@
 
             <RelativeLayout android:id="@+id/drawer_edit_daily_entry_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="1.5"
-                            android:background="#11FFFFFF">
+                            android:layout_weight="2"
+                            android:background="@color/translucent">
 
                 <ImageView android:id="@+id/drawer_edit_daily_entry_icon"
                            android:layout_width="50dp" android:layout_height="match_parent"
@@ -82,8 +81,7 @@
 
             <RelativeLayout android:id="@+id/drawer_edit_factors_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="1.5"
-                            android:background="@color/translucent">
+                            android:layout_weight="2">
 
                 <ImageView android:id="@+id/drawer_edit_factors_icon"
                            android:layout_width="50dp" android:layout_height="match_parent"
@@ -102,26 +100,71 @@
 
             </RelativeLayout>
 
-            <RelativeLayout android:id="@+id/drawer_about_container"
-                            android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="#11FFFFFF">
-
-            </RelativeLayout>
-
             <RelativeLayout android:id="@+id/drawer_reset_help_dialogs_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
                             android:layout_weight="1"
                             android:background="@color/translucent">
 
+                <ImageView android:id="@+id/drawer_reset_help_dialogs_icon"
+                           android:layout_width="25dp" android:layout_height="match_parent"
+                           android:layout_alignParentLeft="true"
+                           android:layout_centerVertical="true"
+                           android:layout_margin="10dp"
+                           android:src="@mipmap/ic_launcher"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          style="@style/SmallNavTitle"
+                          android:layout_toRightOf="@id/drawer_reset_help_dialogs_icon"
+                          android:gravity="center_vertical|left"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:text="Reset Help Dialogs"/>
+
             </RelativeLayout>
 
             <RelativeLayout android:id="@+id/drawer_licenses_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:background="#11FFFFFF">
+                            android:layout_weight="1">
+
+                <ImageView android:id="@+id/drawer_licenses_icon"
+                           android:layout_width="25dp" android:layout_height="match_parent"
+                           android:layout_alignParentLeft="true"
+                           android:layout_centerVertical="true"
+                           android:layout_margin="10dp"
+                           android:src="@mipmap/ic_launcher"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          style="@style/SmallNavTitle"
+                          android:layout_toRightOf="@id/drawer_licenses_icon"
+                          android:gravity="center_vertical|left"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:text="Licensing"/>
 
             </RelativeLayout>
+
+            <RelativeLayout android:id="@+id/drawer_about_container"
+                            android:layout_width="match_parent" android:layout_height="0dp"
+                            android:layout_weight="1"
+                            android:background="@color/translucent">
+
+                <ImageView android:id="@+id/drawer_about_icon"
+                           android:layout_width="25dp" android:layout_height="match_parent"
+                           android:layout_alignParentLeft="true"
+                           android:layout_centerVertical="true"
+                           android:layout_margin="10dp"
+                           android:src="@mipmap/ic_launcher"/>
+
+                <TextView android:layout_width="match_parent" android:layout_height="match_parent"
+                          style="@style/SmallNavTitle"
+                          android:layout_toRightOf="@id/drawer_about_icon"
+                          android:gravity="center_vertical|left"
+                          android:layout_alignParentRight="true"
+                          android:layout_centerVertical="true"
+                          android:text="About"/>
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

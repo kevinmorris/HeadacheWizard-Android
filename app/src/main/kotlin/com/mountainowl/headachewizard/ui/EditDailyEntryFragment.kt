@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.TextView
+import com.mountainowl.headachewizard.EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.model.Factor
@@ -25,8 +26,6 @@ import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import java.text.DateFormat
 import java.util.*
-
-val INSTRUCTION_DIALOG_PREFS_KEY = "INSTRUCTION_DIALOG_PREFS_KEY"
 
 class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
 
@@ -107,12 +106,12 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
         super.onResume()
 
         val prefs = activity.getPreferences(Context.MODE_PRIVATE)
-        if(!prefs.contains(INSTRUCTION_DIALOG_PREFS_KEY)) {
+        if(!prefs.contains(EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY)) {
             val dialog = createInstructionDialog()
             dialog.show()
 
             val prefsEditor = prefs.edit()
-            prefsEditor.putString(INSTRUCTION_DIALOG_PREFS_KEY, INSTRUCTION_DIALOG_PREFS_KEY)
+            prefsEditor.putString(EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY, EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY)
             prefsEditor.apply()
         }
     }

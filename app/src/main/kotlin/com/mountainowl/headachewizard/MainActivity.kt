@@ -3,16 +3,22 @@ package com.mountainowl.headachewizard
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Fragment
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.widget.DrawerLayout
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
+import android.widget.Toast
 import com.mountainowl.headachewizard.ui.*
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
+
+val INTRO_INSTRUCTION_DIALOG_PREFS_KEY = "INTRO_INSTRUCTION_DIALOG_PREFS_KEY"
+val EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY = "EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY"
 
 class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelectedCallback {
 
@@ -58,6 +64,24 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
             editFactorsSelected()
         }
 
+        val drawerAboutNav = findViewById(R.id.drawer_about_container)
+        drawerAboutNav.setOnClickListener {
+            drawerLayout.closeDrawers()
+            aboutSelected()
+        }
+
+        val drawerResetHelpDialogsNav = findViewById(R.id.drawer_reset_help_dialogs_container)
+        drawerResetHelpDialogsNav.setOnClickListener {
+            drawerLayout.closeDrawers()
+            resetHelpDialogsSelected()
+        }
+
+        val drawerLicensesNav = findViewById(R.id.drawer_licenses_container)
+        drawerLicensesNav.setOnClickListener {
+            drawerLayout.closeDrawers()
+            licensesSelected()
+        }
+
         val fm = fragmentManager
         val displayedFragment = fm.findFragmentById(R.id.fragment_container)
         if(displayedFragment == null) {
@@ -101,21 +125,44 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
     }
 
     private fun aboutSelected() {
+        val view = layoutInflater.inflate(R.layout.dialog_about, null, false)
+        val versionNumberText = view.findViewById(R.id.dialog_about_version_number_text) as TextView
+        versionNumberText.text = "Version ${BuildConfig.VERSION_CODE} ${BuildConfig.VERSION_NAME}"
+
         val dialogBuilder = AlertDialog.Builder(this)
         dialogBuilder.setTitle("About Headache Wizard")
+                .setView(view)
                 .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
                     dialogInterface.dismiss()
                 })
 
-        dialogBuilder.create().show()
+
+
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 
     private fun resetHelpDialogsSelected() {
+        val prefs = getPreferences(Context.MODE_PRIVATE)
+        val prefsEditor = prefs.edit()
 
+        prefsEditor.remove(INTRO_INSTRUCTION_DIALOG_PREFS_KEY)
+        prefsEditor.remove(EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY)
+        prefsEditor.apply()
+
+        Toast.makeText(this, R.string.toast_reset_help_dialogs, Toast.LENGTH_LONG).show()
     }
 
     private fun licensesSelected() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("Licensing")
+                .setView(R.layout.dialog_licenses)
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                })
 
+        val dialog = dialogBuilder.create()
+        dialog.show()
     }
 
     private fun calendarSelected() {
