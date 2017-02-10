@@ -34,12 +34,12 @@
                       android:layout_below="@id/drawer_container_header"
                       android:layout_alignParentBottom="true"
                       android:orientation="vertical"
-                      android:background="@color/background_light_blue">
+                      android:background="@color/background_dark_blue">
 
             <RelativeLayout android:id="@+id/drawer_calendar_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
                             android:layout_weight="1.5"
-                            android:background="#00FFFFFF">
+                            android:background="@color/translucent">
 
                 <ImageView android:layout_width="50dp" android:layout_height="match_parent"
                            android:layout_alignParentLeft="true"
@@ -65,7 +65,7 @@
             <RelativeLayout android:id="@+id/drawer_edit_factors_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
                             android:layout_weight="1.5"
-                            android:background="#00FFFFFF">
+                            android:background="@color/translucent">
 
                 <ImageView android:layout_width="50dp" android:layout_height="match_parent"
                            android:layout_alignParentLeft="true"
@@ -85,7 +85,7 @@
             <RelativeLayout android:id="@+id/drawer_reset_help_dialogs_container"
                             android:layout_width="match_parent" android:layout_height="0dp"
                             android:layout_weight="1"
-                            android:background="#00FFFFFF">
+                            android:background="@color/translucent">
 
             </RelativeLayout>
 

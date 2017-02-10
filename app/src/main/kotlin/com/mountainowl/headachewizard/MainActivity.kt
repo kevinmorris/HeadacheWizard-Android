@@ -16,8 +16,6 @@ import org.joda.time.LocalDate
 
 class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelectedCallback {
 
-    private lateinit var drawerLayout: DrawerLayout
-    //private lateinit var drawerList: ListView
     private lateinit var drawerListener: ActionBarDrawerToggle
 
     private lateinit var currentFragment: Fragment
