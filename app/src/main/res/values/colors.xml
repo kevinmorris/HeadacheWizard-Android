@@ -15,10 +15,14 @@
     <color name="neutral_gray_medium">#FF666666</color>
     <color name="neutral_gray_light">#FF888888</color>
 
+    <color name="background_blue">#FF242C49</color>
+    <color name="background_light_blue">#FF3A425F</color>
     <color name="app_background">#FF111111</color>
+
     <color name="calendar_day_view_background">#FF171C21</color>
     <color name="alternate_row_background">#FF171C21</color>
 
     <color name="default_button_background_pressed">#FF31373D</color>
     <color name="default_button_foreground">#FFAAAAAA</color>
+
 </resources>

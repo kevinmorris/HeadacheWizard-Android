@@ -1,14 +1,14 @@
 package com.mountainowl.headachewizard
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.app.Fragment
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.widget.DrawerLayout
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import com.mountainowl.headachewizard.ui.*
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
@@ -16,9 +16,9 @@ import org.joda.time.LocalDate
 
 class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelectedCallback {
 
-    private var drawerLayout: DrawerLayout? = null
-    private var drawerList: ListView? = null
-    protected var drawerListener: ActionBarDrawerToggle? = null
+    private lateinit var drawerLayout: DrawerLayout
+    //private lateinit var drawerList: ListView
+    private lateinit var drawerListener: ActionBarDrawerToggle
 
     private lateinit var currentFragment: Fragment
 
@@ -29,15 +29,9 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar.setDisplayShowTitleEnabled(false)
 
-
         setContentView(R.layout.activity_main)
 
-        drawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
-        drawerList = findViewById(R.id.navigation_drawer) as ListView
-        drawerList!!.adapter = ArrayAdapter(this,
-                R.layout.navigation_drawer_item,
-                resources.getStringArray(R.array.navigation_drawer_items))
-
+        val drawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
         drawerListener = object : ActionBarDrawerToggle(this,
                 drawerLayout,
                 R.drawable.icon_navigation_drawer,
@@ -46,7 +40,25 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
 
         }
 
-        drawerLayout!!.setDrawerListener(drawerListener)
+        drawerLayout.setDrawerListener(drawerListener)
+
+        val drawerCalendarNav = findViewById(R.id.drawer_calendar_container)
+        drawerCalendarNav.setOnClickListener {
+            drawerLayout.closeDrawers()
+            calendarSelected()
+        }
+
+        val drawerEditDailyEntryNav = findViewById(R.id.drawer_edit_daily_entry_container)
+        drawerEditDailyEntryNav.setOnClickListener {
+            drawerLayout.closeDrawers()
+            editTodaySelected()
+        }
+
+        val drawerEdtFactorsNav = findViewById(R.id.drawer_edit_factors_container)
+        drawerEdtFactorsNav.setOnClickListener {
+            drawerLayout.closeDrawers()
+            editFactorsSelected()
+        }
 
         val fm = fragmentManager
         val displayedFragment = fm.findFragmentById(R.id.fragment_container)
@@ -75,7 +87,7 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (drawerListener!!.onOptionsItemSelected(item)) {
+        if (drawerListener.onOptionsItemSelected(item)) {
             return true
         }
 
@@ -88,6 +100,24 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
         }
 
         return true
+    }
+
+    private fun aboutSelected() {
+        val dialogBuilder = AlertDialog.Builder(this)
+        dialogBuilder.setTitle("About Headache Wizard")
+                .setPositiveButton("OK", DialogInterface.OnClickListener { dialogInterface, i ->
+                    dialogInterface.dismiss()
+                })
+
+        dialogBuilder.create().show()
+    }
+
+    private fun resetHelpDialogsSelected() {
+
+    }
+
+    private fun licensesSelected() {
+
     }
 
     private fun calendarSelected() {

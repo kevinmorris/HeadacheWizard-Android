@@ -22,7 +22,8 @@
 	
 	<string-array name="navigation_drawer_items">
 	    <item>About</item>
-	    <item>Licenses</item>
+        <item>Reset Help Dialogs</item>
+        <item>Licenses</item>
 	</string-array>
 
 
