@@ -50,7 +50,7 @@
                   android:layout_height="wrap_content"
                   android:layout_margin="12dp"
                   android:gravity="center"
-                  android:textSize="25sp"
+                  android:textSize="18sp"
                   android:layout_centerHorizontal="true"
                   android:layout_below="@id/image_view_up_arrow"
                   android:text="@string/edit_factors_no_factors"/>

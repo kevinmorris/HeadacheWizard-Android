@@ -90,12 +90,18 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
             args.putInt(getString(R.string.month), today.monthOfYear)
             args.putInt(getString(R.string.year), today.year)
 
+            val prefs = getPreferences(Context.MODE_PRIVATE)
             currentFragment = CalendarFragment()
             currentFragment.arguments = args
 
             val ft = fm.beginTransaction()
             ft.replace(R.id.fragment_container, currentFragment)
             ft.commit()
+
+            if(!prefs.contains(INTRO_INSTRUCTION_DIALOG_PREFS_KEY)) {
+                editFactorsSelected()
+            }
+
         } else {
             currentFragment = displayedFragment
         }
