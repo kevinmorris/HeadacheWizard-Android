@@ -17,6 +17,10 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <item name="android:windowBackground">@drawable/splash_screen</item>
+    </style>
+
     <style name="CalendarDayView">
         <item name="android:background">@drawable/calendar_day_view_background</item>
         <item name="android:layout_margin">2dp</item>

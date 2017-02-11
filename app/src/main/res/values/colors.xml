@@ -18,6 +18,7 @@
     <color name="neutral_gray_medium">#FF666666</color>
     <color name="neutral_gray_light">#FF888888</color>
 
+    <color name="splash_background">#FF161A2A</color>
     <color name="background_blue">#FF1F1E2E</color>
     <color name="background_dark_blue">#FF12111F</color>
     <color name="app_background">#FF111111</color>

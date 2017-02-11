@@ -17,14 +17,14 @@
     <string name="icon_report">Report</string>
 
     <!-- NAVIGATION DRAWER -->
-	<string name="navigation_drawer_open">Open</string>
-	<string name="navigation_drawer_closed">Closed</string>
-	
-	<string-array name="navigation_drawer_items">
-	    <item>About</item>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_closed">Closed</string>
+
+    <string-array name="navigation_drawer_items">
+        <item>About</item>
         <item>Reset Help Dialogs</item>
         <item>Licenses</item>
-	</string-array>
+    </string-array>
 
 
     <!-- SCREENS -->
@@ -45,20 +45,23 @@
 
     <string name="dialog_initial_instructions">
         This app is a headache journal to help you and your doctor track your headaches as well as
-        potential triggers and preventatives.  But it\'s not just your average headache journal.  This app
-        allows you to enter your suspected triggers and preventatives in the the form of \"factors\".  These
-        factors will then be correlated to your headache days and headache-free days automatically.  All you have
+        potential triggers and preventatives. But it\'s not just your average headache journal. This app
+        allows you to enter your suspected triggers and preventatives in the the form of \"factors\". These
+        factors will then be correlated to your headache days and headache-free days automatically. All you have
         to do is make your journal entries every day.
     </string>
 
     <string name="edit_day_no_factors">
-        Oh! You haven\'t added any factors. If you\'d like to track possible associations with your headaches, touch here.
+        Oh! You haven\'t added any factors. If you\'d like to track possible associations with your headaches, touch
+        here.
     </string>
 
     <string name="edit_day_instructions01">
-        This is where you make journal entries.  Use the sliders on the right to indicate whether or not you\'ve had a
-        headache as well as whether you\'ve experienced your various factors on this day.\n\nEach of your factors is represented by a ball.  The ball starts out yellow.  As you make more entries in your journal,
-        the ball will begin to turn more green for factors associated with headache-free days and more red for factors associated
+        This is where you make journal entries. Use the sliders on the right to indicate whether or not you\'ve had a
+        headache as well as whether you\'ve experienced your various factors on this day.\n\nEach of your factors is
+        represented by a ball. The ball starts out yellow. As you make more entries in your journal,
+        the ball will begin to turn more green for factors associated with headache-free days and more red for factors
+        associated
         with headache days.
     </string>
 
@@ -70,8 +73,8 @@
 
     <string name="dialog_about_text">
         Headache Wizard is a headache journal designed to help you associate your headache days
-        and headache-free days with factors and events of your choosing.  This software is not
-        intended to diagnose or treat any illness.  Always use this software under the supervision
+        and headache-free days with factors and events of your choosing. This software is not
+        intended to diagnose or treat any illness. Always use this software under the supervision
         of a licensed physician.
     </string>
 
