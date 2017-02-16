@@ -38,7 +38,7 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
         val drawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
         drawerListener = object : ActionBarDrawerToggle(this,
                 drawerLayout,
-                R.drawable.icon_navigation_drawer,
+                R.drawable.hamburger,
                 R.string.navigation_drawer_open,
                 R.string.navigation_drawer_closed) {
 
