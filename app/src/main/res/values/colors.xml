@@ -22,6 +22,7 @@
     <color name="background_blue">#FF1F1E2E</color>
     <color name="background_dark_blue">#FF12111F</color>
     <color name="app_background">#FF111111</color>
+    <color name="light_green">#FF518D70</color>
 
     <color name="calendar_day_view_background">#FF171C21</color>
     <color name="alternate_row_background">#FF171C21</color>

@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.app.Dialog
 import android.app.ListFragment
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.TextView
+import com.mountainowl.headachewizard.BuildConfig
 import com.mountainowl.headachewizard.INTRO_INSTRUCTION_DIALOG_PREFS_KEY
 import com.mountainowl.headachewizard.R
 import com.mountainowl.headachewizard.model.DataManager
@@ -40,10 +43,14 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
         val addFactorButton = view.findViewById(R.id.fragment_edit_factors_add_new_button) as Button
 
         addFactorButton.setOnClickListener {
-            val dialog = AddFactorDialogFragment(this)
+            if(factors.size < BuildConfig.factorLimit) {
+                val dialog = AddFactorDialogFragment(this)
 
-            val ft = activity.fragmentManager
-            dialog.show(ft, "dialog")
+                val ft = activity.fragmentManager
+                dialog.show(ft, "dialog")
+            } else {
+                createUpgradeDialog().show()
+            }
         }
 
         return view
@@ -69,6 +76,34 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
         dialogBuilder.setTitle("Welcome!")
                 .setView(R.layout.dialog_initial_instructions)
                 .setPositiveButton("OK") { dialog, which -> }
+
+        val dialog = dialogBuilder.create()
+        return dialog
+    }
+
+    private fun createUpgradeDialog() : Dialog {
+
+        val view = activity.layoutInflater.inflate(R.layout.dialog_upgrade, null, false)
+
+        val textView = view.findViewById(R.id.dialog_upgrade_factor_limit_text) as TextView
+        textView.setText("You've reached your limit of ${BuildConfig.factorLimit} factors on the free app.  The full app allows an unlimited number of factors")
+
+        val logo = view.findViewById(R.id.dialog_upgrade_full_app_logo)
+        val fullAppButton = view.findViewById(R.id.dialog_upgrade_full_app_button)
+
+        val listener = View.OnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW)
+            intent.data = Uri.parse("market://details?id=com.google.android.apps.maps")
+            startActivity(intent)
+        }
+
+        logo.setOnClickListener(listener)
+        fullAppButton.setOnClickListener(listener)
+
+        val dialogBuilder = AlertDialog.Builder(activity)
+        dialogBuilder.setTitle("Factor Limit Reached")
+                .setView(view)
+                .setPositiveButton("No thanks") { dialog, which -> }
 
         val dialog = dialogBuilder.create()
         return dialog

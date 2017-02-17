@@ -59,14 +59,17 @@
         <item name="android:textColor">@color/neutral_gray_light</item>
     </style>
 
-    <style name="DoneButton">
+    <style name="Button">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/default_button_foreground</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:layout_height">70dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:gravity">center</item>
         <item name="android:background">@drawable/default_button_background</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="DoneButton" parent="Button">
+        <item name="android:layout_height">70dp</item>
         <item name="android:text">Done</item>
     </style>
 

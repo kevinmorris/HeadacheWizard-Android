@@ -2,13 +2,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
 
     defaultConfig {
         applicationId "com.mountainowl.headachewizard"
         minSdkVersion 23
-        targetSdkVersion 24
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0.0"
         multiDexEnabled true
@@ -25,6 +25,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        free {
+            applicationIdSuffix ".free"
+            buildConfigField "Integer", "factorLimit", "2"
+            manifestPlaceholders = [
+                    app_name: "Headache Wizard Free",
+                    icon_filename: "headache_wizard_free_logo"
+            ]
+        }
+        full {
+            applicationIdSuffix ".full"
+            buildConfigField "Integer", "factorLimit", "Integer.MAX_VALUE"
+            manifestPlaceholders = [
+                    app_name: "Headache Wizard",
+                    icon_filename: "headache_wizard_logo"
+            ]
+        }
+    }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
         test.java.srcDirs += 'src/androidTest/java'
@@ -36,7 +54,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.android.support:appcompat-v7:24.+'
+    compile 'com.android.support:appcompat-v7:25.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     androidTestCompile 'junit:junit:4.12'
 

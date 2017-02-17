@@ -5,9 +5,9 @@
     <application
             android:name=".HeadacheWizardApplication"
             android:allowBackup="true"
-            android:label="@string/app_name"
+            android:label="${app_name}"
             android:theme="@style/AppTheme"
-            android:icon="@drawable/headache_wizard_logo">
+            android:icon="@drawable/${icon_filename}">
         <activity android:name=".ui.SplashActivity"
                   android:configChanges="orientation"
                   android:screenOrientation="portrait"
