@@ -2,7 +2,6 @@ package com.mountainowl.headachewizard.model
 
 import android.content.Context
 import com.google.common.collect.Iterators
-import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 
 /**
@@ -14,50 +13,18 @@ import org.joda.time.LocalDate
  * @author kevinmorris
  */
 class DataManager private constructor(context: Context) {
-    private val db: DatabaseHelper
+    private val db: DatabaseHelper = DatabaseHelper(context)
 
     var headache: Headache
         private set
     private val factors: MutableList<Factor>
 
     init {
-        db = DatabaseHelper(context)
-
         headache = Headache(db.headacheEntries)
         factors = db.getFactorsUsingHeadache(headache).toMutableList()
     }
 
-    fun migrate() {
-
-        val contentResolver = context.contentResolver
-
-        val headacheCursor = contentResolver.query(MigrationProvider.HEADACHE_CONTENT_URI, null,  null, null, null)
-        while(headacheCursor.moveToNext()) {
-            val date = LocalDate(0, DateTimeZone.UTC).plusDays(headacheCursor.getInt(1))
-            val value = headacheCursor.getDouble(2)
-            db.insertOrUpdateHeadacheEntry(date, value)
-        }
-        headacheCursor.close()
-
-        val factorCursor = contentResolver.query(MigrationProvider.FACTOR_CONTENT_URI, null,  null, null, null)
-        while(factorCursor.moveToNext()) {
-            val id = factorCursor.getLong(0)
-            val name = factorCursor.getString(1)
-            db.insertFactor(id, name)
-        }
-        factorCursor.close()
-
-        val factorEntriesCursor = contentResolver.query(MigrationProvider.FACTOR_ENTRIES_CONTENT_URI, null,  null, null, null)
-        while(factorEntriesCursor.moveToNext()) {
-            val id = factorEntriesCursor.getLong(0)
-            val factorId = factorEntriesCursor.getLong(1)
-            val date = LocalDate(0, DateTimeZone.UTC).plusDays(factorEntriesCursor.getInt(2))
-            val value = factorEntriesCursor.getDouble(3)
-
-            db.insertFactorEntry(id, factorId, date, value)
-        }
-        factorEntriesCursor.close()
-
+    fun finalizeMigration() {
         headache = Headache(db.headacheEntries)
         factors.addAll(db.getFactorsUsingHeadache(headache))
     }
@@ -90,6 +57,10 @@ class DataManager private constructor(context: Context) {
         return this.factors
     }
 
+    fun insertFactor(id: Long, name: String) {
+        db.insertFactor(id, name)
+    }
+
     /**
      * Functional style method for deleting a factor that returns all the current
      * factors in the system
@@ -109,6 +80,10 @@ class DataManager private constructor(context: Context) {
 
     fun insertOrUpdateFactorEntry(factorId: Long?, date: LocalDate, value: Double?): Long {
         return db.insertOrUpdateFactorEntry(factorId, date, value)
+    }
+
+    fun insertFactorEntry(id: Long, factorId: Long, date: LocalDate, value: Double) {
+        db.insertFactorEntry(id, factorId, date, value)
     }
 
     fun getFactors(): List<Factor> {

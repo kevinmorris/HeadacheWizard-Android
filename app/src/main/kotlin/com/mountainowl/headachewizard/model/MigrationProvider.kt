@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.UriMatcher
 import android.database.Cursor
 import android.net.Uri
+import com.mountainowl.headachewizard.BuildConfig
 
 
 class MigrationProvider : ContentProvider() {
@@ -13,9 +14,12 @@ class MigrationProvider : ContentProvider() {
     private lateinit var databaseHelper : DatabaseHelper
 
     init {
-        uriMatcher.addURI("com.mountainowl.headachewizard.model.MigrationProvider.free", "headacheEntries", 1)
-        uriMatcher.addURI("com.mountainowl.headachewizard.model.MigrationProvider.free", "factors", 2)
-        uriMatcher.addURI("com.mountainowl.headachewizard.model.MigrationProvider.free", "factorEntries", 3)
+
+        val applicationIdSuffix = BuildConfig.APPLICATION_ID.split(".").last()
+
+        uriMatcher.addURI("com.mountainowl.headachewizard.model.MigrationProvider.$applicationIdSuffix", "headacheEntries", 1)
+        uriMatcher.addURI("com.mountainowl.headachewizard.model.MigrationProvider.$applicationIdSuffix", "factors", 2)
+        uriMatcher.addURI("com.mountainowl.headachewizard.model.MigrationProvider.$applicationIdSuffix", "factorEntries", 3)
     }
 
     override fun onCreate(): Boolean {
@@ -55,8 +59,9 @@ class MigrationProvider : ContentProvider() {
     }
 
     companion object {
-        val HEADACHE_CONTENT_URI = Uri.parse("content://com.mountainowl.headachewizard.model.MigrationProvider.free/headacheEntries")
-        val FACTOR_CONTENT_URI = Uri.parse("content://com.mountainowl.headachewizard.model.MigrationProvider.free/factors")
-        val FACTOR_ENTRIES_CONTENT_URI = Uri.parse("content://com.mountainowl.headachewizard.model.MigrationProvider.free/factorEntries")
+
+        val HEADACHE_CONTENT_FREE_URI = Uri.parse("content://com.mountainowl.headachewizard.model.MigrationProvider.free/headacheEntries")
+        val FACTOR_CONTENT_FREE_URI = Uri.parse("content://com.mountainowl.headachewizard.model.MigrationProvider.free/factors")
+        val FACTOR_ENTRIES_CONTENT_FREE_URI = Uri.parse("content://com.mountainowl.headachewizard.model.MigrationProvider.free/factorEntries")
     }
 }

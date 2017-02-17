@@ -3,6 +3,7 @@ package com.mountainowl.headachewizard
 import android.app.Activity
 import android.app.AlertDialog
 import android.app.Fragment
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -12,8 +13,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
-import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.ui.*
+import com.mountainowl.headachewizard.util.MigrationAsyncTask
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
@@ -22,7 +23,12 @@ val INTRO_INSTRUCTION_DIALOG_PREFS_KEY = "INTRO_INSTRUCTION_DIALOG_PREFS_KEY"
 val EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY = "EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY"
 val DATA_MIGRATION_KEY = "DATA_MIGRATION_KEY"
 
-class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelectedCallback {
+class MainActivity : Activity(),
+        IDaySelectedListener,
+        IEditFactorsScreenSelectedCallback,
+        MigrationAsyncTask.IMigrationListener {
+
+    private lateinit var progressDialog: ProgressDialog
 
     private lateinit var drawerListener: ActionBarDrawerToggle
 
@@ -31,11 +37,7 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val prefs = getPreferences(Context.MODE_PRIVATE)
-        if(BuildConfig.APPLICATION_ID.endsWith(".full") && !prefs.contains(DATA_MIGRATION_KEY)) {
-            DataManager.instance.migrate()
-        }
-
+        progressDialog = ProgressDialog(this)
         val actionBar = actionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
         actionBar.setDisplayShowTitleEnabled(false)
@@ -89,9 +91,35 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
             licensesSelected()
         }
 
+        val prefs = getPreferences(Context.MODE_PRIVATE)
+        if(BuildConfig.APPLICATION_ID.endsWith(".full") && !prefs.contains(DATA_MIGRATION_KEY)) {
+
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL)
+            progressDialog.setCanceledOnTouchOutside(false)
+            progressDialog.setProgressNumberFormat(null)
+            progressDialog.setMessage("Transferring your headache data...")
+            progressDialog.show()
+
+            val migrationTask = MigrationAsyncTask(this)
+            migrationTask.execute()
+        } else {
+            displayContent()
+        }
+    }
+
+    override fun processMigrationProgress(progress: Int) {
+        progressDialog.progress = progress
+    }
+
+    override fun migrationComplete() {
+        progressDialog.dismiss()
+        displayContent()
+    }
+
+    private fun displayContent() {
         val fm = fragmentManager
         val displayedFragment = fm.findFragmentById(R.id.fragment_container)
-        if(displayedFragment == null) {
+        if (displayedFragment == null) {
             val args = Bundle()
             val today = LocalDate.now()
             args.putInt(getString(R.string.month), today.monthOfYear)
@@ -105,7 +133,7 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
             ft.replace(R.id.fragment_container, currentFragment)
             ft.commit()
 
-            if(!prefs.contains(INTRO_INSTRUCTION_DIALOG_PREFS_KEY)) {
+            if (!prefs.contains(INTRO_INSTRUCTION_DIALOG_PREFS_KEY)) {
                 editFactorsSelected()
             }
 
