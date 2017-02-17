@@ -31,7 +31,9 @@ android {
             buildConfigField "Integer", "factorLimit", "2"
             manifestPlaceholders = [
                     app_name: "Headache Wizard Free",
-                    icon_filename: "headache_wizard_free_logo"
+                    icon_filename: "headache_wizard_free_logo",
+                    content_provider_authority_suffix: "free",
+                    content_provider_enabled: "true"
             ]
         }
         full {
@@ -39,7 +41,9 @@ android {
             buildConfigField "Integer", "factorLimit", "Integer.MAX_VALUE"
             manifestPlaceholders = [
                     app_name: "Headache Wizard",
-                    icon_filename: "headache_wizard_logo"
+                    icon_filename: "headache_wizard_logo",
+                    content_provider_authority_suffix: "full",
+                    content_provider_enabled: "false"
             ]
         }
     }

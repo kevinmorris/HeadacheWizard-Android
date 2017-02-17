@@ -2,6 +2,7 @@ package com.mountainowl.headachewizard.model
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import org.joda.time.DateTimeZone
@@ -24,14 +25,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
     val headacheEntries: SortedMap<LocalDate, Double>
         get() {
-            val c = readableDatabase.query(HEADACHE_ENTRIES_TABLE,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null)
-
+            val c = headacheCursor()
             val data = TreeMap<LocalDate, Double>()
             while (c.moveToNext()) {
                 data.put(LocalDate(0, DateTimeZone.UTC).plusDays(c.getInt(1)), c.getDouble(2))
@@ -40,6 +34,18 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
             return data
         }
+
+    fun headacheCursor(): Cursor {
+        val c = readableDatabase.query(HEADACHE_ENTRIES_TABLE,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null)
+
+        return c
+    }
 
     fun insertOrUpdateHeadacheEntry(date: LocalDate, value: Double?): Long {
 
@@ -73,7 +79,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
     val emptyFactors: List<Factor>
         get() {
-            val factorC = readableDatabase.query(FACTORS_TABLE, null, null, null, null, null, null)
+            val factorC = factorCursor()
 
             val factors = HashMap<Long, Factor>()
 
@@ -86,10 +92,19 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             return ArrayList(factors.values)
         }
 
+    fun factorCursor(): Cursor {
+        val factorC = readableDatabase.query(FACTORS_TABLE, null, null, null, null, null, null)
+        return factorC
+    }
+
+    fun factorEntryCursor(): Cursor {
+        val entriesC = readableDatabase.query(FACTOR_ENTRIES_TABLE, null, null, null, null, null, null)
+        return entriesC
+    }
 
     fun getFactorsUsingHeadache(headache: Headache): List<Factor> {
 
-        val entriesC = readableDatabase.query(FACTOR_ENTRIES_TABLE, null, null, null, null, null, null)
+        val entriesC = factorEntryCursor()
 
         val emptyFactors = emptyFactors
         val factors = HashMap<Long, Factor>()
@@ -174,6 +189,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         return id
     }
 
+    fun insertFactor(id: Long, name: String): Long {
+        val cv = ContentValues()
+        cv.put(FACTORS_ID_COLUMN, id)
+        cv.put(FACTORS_NAME_COLUMN, name)
+
+        val newId = writableDatabase.insert(FACTORS_TABLE, null, cv)
+        return newId
+    }
+
 
     fun factorExists(name: String): Boolean {
 
@@ -197,7 +221,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         val c = readableDatabase.query(FACTOR_ENTRIES_TABLE,
                 arrayOf("id"),
                 "$FACTOR_ENTRIES_FACTOR_ID_COLUMN = ? AND $FACTOR_ENTRIES_DATE_COLUMN = ?",
-                arrayOf<String>(factorId!!.toString(), dayCount.toString()),
+                arrayOf(factorId!!.toString(), dayCount.toString()),
                 null,
                 null,
                 null,
@@ -210,7 +234,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             id = writableDatabase.update(FACTOR_ENTRIES_TABLE,
                     cv,
                     "$FACTOR_ENTRIES_FACTOR_ID_COLUMN = ? AND $FACTOR_ENTRIES_DATE_COLUMN = ?",
-                    arrayOf<String>(factorId.toString(), dayCount.toString())).toLong()
+                    arrayOf(factorId.toString(), dayCount.toString())).toLong()
         } else { //insert
             cv.put(FACTOR_ENTRIES_FACTOR_ID_COLUMN, factorId)
             cv.put(FACTOR_ENTRIES_DATE_COLUMN, dayCount)
@@ -220,6 +244,21 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         }
 
         return id
+    }
+
+
+    fun insertFactorEntry(id: Long, factorId: Long, date: LocalDate, value: Double): Long {
+
+        val dayCount = Days.daysBetween(LocalDate(0, DateTimeZone.UTC), date).days
+        val cv = ContentValues()
+
+        cv.put(FACTOR_ENTRIES_ID_COLUMN, id)
+        cv.put(FACTOR_ENTRIES_FACTOR_ID_COLUMN, factorId)
+        cv.put(FACTOR_ENTRIES_DATE_COLUMN, dayCount)
+        cv.put(FACTOR_ENTRIES_VALUE_COLUMN, value)
+
+        val newId = writableDatabase.insert(FACTOR_ENTRIES_TABLE, null, cv)
+        return newId
     }
 
 
@@ -269,33 +308,36 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         val DATABASE_VERSION = 1
 
         private val HEADACHE_ENTRIES_TABLE = "HeadacheEntries"
+        private val HEADACHE_ENTRIES_ID_COLUMN = "id"
         private val HEADACHE_ENTRIES_DATE_COLUMN = "date"
         private val HEADACHE_ENTRIES_VALUE_COLUMN = "value"
 
         private val FACTORS_TABLE = "Factors"
+        private val FACTORS_ID_COLUMN = "id"
         private val FACTORS_NAME_COLUMN = "name"
 
         private val FACTOR_ENTRIES_TABLE = "FactorEntries"
+        private val FACTOR_ENTRIES_ID_COLUMN = "id"
         private val FACTOR_ENTRIES_FACTOR_ID_COLUMN = "factor_id"
         private val FACTOR_ENTRIES_DATE_COLUMN = "date"
         private val FACTOR_ENTRIES_VALUE_COLUMN = "value"
 
         private val CREATE_HEADACHE_ENTRIES_TABLE_SQL =
                 "create table " + HEADACHE_ENTRIES_TABLE + " (" +
-                        "  id integer primary key autoincrement," +
+                        "  " + HEADACHE_ENTRIES_ID_COLUMN + " integer primary key autoincrement," +
                         "  " + HEADACHE_ENTRIES_DATE_COLUMN + " integer not null," +
                         "  " + HEADACHE_ENTRIES_VALUE_COLUMN + " float not null" +
                         ");"
 
         private val CREATE_FACTORS_TABLE_SQL =
                 "create table " + FACTORS_TABLE + " (" +
-                        "  id integer primary key autoincrement," +
+                        "  " + FACTORS_ID_COLUMN + " integer primary key autoincrement," +
                         "  " + FACTORS_NAME_COLUMN + " varchar(64) not null" +
                         ");"
 
         private val CREATE_FACTOR_ENTRIES_TABLE =
                 "create table " + FACTOR_ENTRIES_TABLE + " (" +
-                        "  id integer primary key autoincrement," +
+                        "  " + FACTOR_ENTRIES_ID_COLUMN + " integer primary key autoincrement," +
                         "  " + FACTOR_ENTRIES_FACTOR_ID_COLUMN + " integer not null," +
                         "  " + FACTOR_ENTRIES_DATE_COLUMN + " integer not null," +
                         "  " + FACTOR_ENTRIES_VALUE_COLUMN + " float not null," +

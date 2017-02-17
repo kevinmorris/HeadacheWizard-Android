@@ -23,5 +23,11 @@
                 android:label="@string/app_name"
                 android:screenOrientation="portrait">
         </activity>
+        <provider android:authorities="com.mountainowl.headachewizard.model.MigrationProvider.${content_provider_authority_suffix}"
+                  android:name=".model.MigrationProvider"
+                  android:exported="${content_provider_enabled}"
+                  android:enabled="${content_provider_enabled}">
+
+        </provider>
     </application>
 </manifest>

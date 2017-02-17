@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import com.mountainowl.headachewizard.model.DataManager
 import com.mountainowl.headachewizard.ui.*
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
@@ -19,6 +20,7 @@ import org.joda.time.LocalDate
 
 val INTRO_INSTRUCTION_DIALOG_PREFS_KEY = "INTRO_INSTRUCTION_DIALOG_PREFS_KEY"
 val EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY = "EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY"
+val DATA_MIGRATION_KEY = "DATA_MIGRATION_KEY"
 
 class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelectedCallback {
 
@@ -28,6 +30,11 @@ class MainActivity : Activity(), IDaySelectedListener, IEditFactorsScreenSelecte
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val prefs = getPreferences(Context.MODE_PRIVATE)
+        if(BuildConfig.APPLICATION_ID.endsWith(".full") && !prefs.contains(DATA_MIGRATION_KEY)) {
+            DataManager.instance.migrate()
+        }
 
         val actionBar = actionBar
         actionBar!!.setDisplayHomeAsUpEnabled(true)
