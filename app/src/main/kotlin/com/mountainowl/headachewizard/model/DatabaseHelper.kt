@@ -101,7 +101,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         }
 
     fun factorCursor(): Cursor {
-        val factorC = readableDatabase.query(FACTORS_TABLE, null, null, null, null, null, null)
+        val factorC = readableDatabase.query(FACTORS_TABLE, null, null, null, null, null, "name")
         return factorC
     }
 
@@ -130,7 +130,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             f!!.setDate(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value)
         }
 
-        val factorList = ArrayList(factors.values)
+        val factorList = ArrayList(factors.values).sortedBy { it.name }
         for (f in factorList) {
             f.evaluateCorrelationParameters(headache)
         }
