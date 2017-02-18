@@ -100,8 +100,15 @@ class MainActivity : Activity(),
             progressDialog.setMessage("Transferring your headache data...")
             progressDialog.show()
 
+            val prefsEditor = prefs.edit()
+
             val migrationTask = MigrationAsyncTask(this)
             migrationTask.execute()
+
+            prefsEditor.putString(DATA_MIGRATION_KEY, DATA_MIGRATION_KEY)
+
+            prefsEditor.apply()
+
         } else {
             displayContent()
         }

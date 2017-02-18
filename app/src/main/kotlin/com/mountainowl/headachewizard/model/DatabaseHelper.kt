@@ -23,6 +23,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         db.execSQL(ENABLE_FOREIGN_KEYS)
     }
 
+    fun resetDatabase() {
+        writableDatabase.delete(FACTOR_ENTRIES_TABLE, null, null)
+        writableDatabase.delete(FACTORS_TABLE, null, null)
+        writableDatabase.delete(HEADACHE_ENTRIES_TABLE, null, null)
+    }
+
     val headacheEntries: SortedMap<LocalDate, Double>
         get() {
             val c = headacheCursor()
@@ -72,6 +78,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             cv.put(HEADACHE_ENTRIES_VALUE_COLUMN, value)
             id = writableDatabase.insert(HEADACHE_ENTRIES_TABLE, null, cv)
         }
+
+        c.close()
 
         return id
     }
@@ -126,6 +134,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
         for (f in factorList) {
             f.evaluateCorrelationParameters(headache)
         }
+
+        entriesC.close()
 
         return factorList
     }
@@ -242,6 +252,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
 
             id = writableDatabase.insert(FACTOR_ENTRIES_TABLE, null, cv)
         }
+
+        c.close()
 
         return id
     }

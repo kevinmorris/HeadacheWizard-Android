@@ -90,6 +90,10 @@ class DataManager private constructor(context: Context) {
         return factors
     }
 
+    fun resetDatabase() {
+        db.resetDatabase()
+    }
+
     companion object {
 
         lateinit var context: Context

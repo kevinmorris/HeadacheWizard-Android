@@ -13,6 +13,7 @@ class MigrationAsyncTask(val callback : IMigrationListener) : AsyncTask<Void, In
         publishProgress(0)
 
         val contentResolver = DataManager.context.contentResolver
+        DataManager.instance.resetDatabase()
 
         publishProgress(20)
 
