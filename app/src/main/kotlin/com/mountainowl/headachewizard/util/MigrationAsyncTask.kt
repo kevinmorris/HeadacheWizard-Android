@@ -18,41 +18,43 @@ class MigrationAsyncTask(val callback : IMigrationListener) : AsyncTask<Void, In
         publishProgress(20)
 
         val headacheCursor = contentResolver.query(MigrationProvider.HEADACHE_CONTENT_FREE_URI, null,  null, null, null)
-        while(headacheCursor.moveToNext()) {
-            val date = LocalDate(0, DateTimeZone.UTC).plusDays(headacheCursor.getInt(1))
-            val value = headacheCursor.getDouble(2)
-            DataManager.instance.insertOrUpdateHeadacheEntry(date, value)
+        if(headacheCursor != null) {
+            while (headacheCursor.moveToNext()) {
+                val date = LocalDate(0, DateTimeZone.UTC).plusDays(headacheCursor.getInt(1))
+                val value = headacheCursor.getDouble(2)
+                DataManager.instance.insertOrUpdateHeadacheEntry(date, value)
+            }
+            headacheCursor.close()
+
+            publishProgress(40)
+
+            val factorCursor = contentResolver.query(MigrationProvider.FACTOR_CONTENT_FREE_URI, null, null, null, null)
+            while (factorCursor.moveToNext()) {
+                val id = factorCursor.getLong(0)
+                val name = factorCursor.getString(1)
+                DataManager.instance.insertFactor(id, name)
+            }
+            factorCursor.close()
+
+            publishProgress(60)
+
+            val factorEntriesCursor = contentResolver.query(MigrationProvider.FACTOR_ENTRIES_CONTENT_FREE_URI, null, null, null, null)
+            while (factorEntriesCursor.moveToNext()) {
+                val id = factorEntriesCursor.getLong(0)
+                val factorId = factorEntriesCursor.getLong(1)
+                val date = LocalDate(0, DateTimeZone.UTC).plusDays(factorEntriesCursor.getInt(2))
+                val value = factorEntriesCursor.getDouble(3)
+
+                DataManager.instance.insertFactorEntry(id, factorId, date, value)
+            }
+            factorEntriesCursor.close()
+
+            publishProgress(80)
+
+            DataManager.instance.finalizeMigration()
+
+            publishProgress(100)
         }
-        headacheCursor.close()
-
-        publishProgress(40)
-
-        val factorCursor = contentResolver.query(MigrationProvider.FACTOR_CONTENT_FREE_URI, null,  null, null, null)
-        while(factorCursor.moveToNext()) {
-            val id = factorCursor.getLong(0)
-            val name = factorCursor.getString(1)
-            DataManager.instance.insertFactor(id, name)
-        }
-        factorCursor.close()
-
-        publishProgress(60)
-
-        val factorEntriesCursor = contentResolver.query(MigrationProvider.FACTOR_ENTRIES_CONTENT_FREE_URI, null,  null, null, null)
-        while(factorEntriesCursor.moveToNext()) {
-            val id = factorEntriesCursor.getLong(0)
-            val factorId = factorEntriesCursor.getLong(1)
-            val date = LocalDate(0, DateTimeZone.UTC).plusDays(factorEntriesCursor.getInt(2))
-            val value = factorEntriesCursor.getDouble(3)
-
-            DataManager.instance.insertFactorEntry(id, factorId, date, value)
-        }
-        factorEntriesCursor.close()
-
-        publishProgress(80)
-
-        DataManager.instance.finalizeMigration()
-
-        publishProgress(100)
 
         return null
     }
