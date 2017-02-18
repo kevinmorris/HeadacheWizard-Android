@@ -10,6 +10,7 @@ class HeadacheWizardApplication : Application() {
         super.onCreate()
         HeadacheWizardApplication.context = applicationContext
         DataManager.context = applicationContext
+        DataManager.instance
     }
 
     companion object {
