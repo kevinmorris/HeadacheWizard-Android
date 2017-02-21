@@ -93,7 +93,7 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
 
         val listener = View.OnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
-            intent.data = Uri.parse("market://details?id=com.google.android.apps.maps")
+            intent.data = Uri.parse("market://details?id=com.mountainowl.headachewizard.full")
             startActivity(intent)
         }
 
