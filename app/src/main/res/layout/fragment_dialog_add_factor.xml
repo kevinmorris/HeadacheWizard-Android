@@ -5,7 +5,8 @@
 
     <EditText android:id="@+id/fragment_edit_factors_new_entry_text"
               android:layout_width="match_parent"
-              android:layout_height="match_parent"
+              android:layout_height="75dp"
+              android:layout_centerInParent="true"
               android:textSize="22sp"/>
 
 </RelativeLayout>

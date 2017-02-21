@@ -28,14 +28,4 @@ class AddFactorDialogFragment(val listener : IAddFactorDialogListener) : DialogF
         val dialog = builder.create()
         return dialog
     }
-
-    override fun onResume() {
-        super.onResume()
-
-        val window = dialog.window
-        val layoutParams = window.attributes
-        layoutParams.width = 1200
-        layoutParams.height = 700
-        window.attributes = layoutParams
-    }
 }
