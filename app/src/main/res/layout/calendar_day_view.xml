@@ -7,17 +7,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
+        android:textSize="17sp"
         android:layout_marginLeft="3dp"
         android:layout_marginRight="3dp"/>
 
     <ImageView android:id="@+id/day_headache_image"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_below="@id/day_number"
-               android:layout_marginTop="5dp"
-               android:layout_marginRight="10dp"
-               android:layout_marginBottom="10dp"
-               android:layout_marginLeft="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:layout_alignParentBottom="true"
                android:layout_centerHorizontal="true"
                android:contentDescription="headache_image_indicator"/>
         
