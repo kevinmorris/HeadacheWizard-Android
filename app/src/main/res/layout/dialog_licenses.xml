@@ -6,7 +6,7 @@
     <TextView android:id="@+id/dialog_licenses_text"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:layout_below="@id/dialog_about_link_text"
+              android:layout_alignParentTop="true"
               android:layout_marginTop="18dp"
               android:layout_marginLeft="18dp"
               android:layout_marginRight="18dp"

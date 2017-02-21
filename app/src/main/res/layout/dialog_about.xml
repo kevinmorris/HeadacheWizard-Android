@@ -3,19 +3,10 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent">
 
-    <TextView android:id="@+id/dialog_about_link_text"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_alignParentTop="true"
-              android:layout_margin="18dp"
-              android:textSize="15sp"
-              android:autoLink="web"
-              android:text="http://www.headachewizardapp.com"/>
-
     <TextView android:id="@+id/dialog_about_text"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_below="@id/dialog_about_link_text"
+              android:layout_alignParentTop="true"
               android:layout_above="@+id/dialog_about_version_number_text"
               android:layout_margin="18dp"
               android:textSize="18sp"
