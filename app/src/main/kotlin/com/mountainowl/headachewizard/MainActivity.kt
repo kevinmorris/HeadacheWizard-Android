@@ -11,6 +11,7 @@ import android.support.v4.app.ActionBarDrawerToggle
 import android.support.v4.widget.DrawerLayout
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.mountainowl.headachewizard.ui.*
@@ -45,6 +46,11 @@ class MainActivity : Activity(),
         setContentView(R.layout.activity_main)
 
         val drawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
+        val drawerLogo = drawerLayout.findViewById(R.id.drawer_container_logo) as ImageView
+        drawerLogo.setImageDrawable(if(BuildConfig.APPLICATION_ID.endsWith(".full"))
+            resources.getDrawable(R.drawable.headache_wizard_logo, null) else
+            resources.getDrawable(R.drawable.headache_wizard_free_logo, null))
+
         drawerListener = object : ActionBarDrawerToggle(this,
                 drawerLayout,
                 R.drawable.hamburger,
