@@ -13,12 +13,14 @@ class MigrationAsyncTask(val callback : IMigrationListener) : AsyncTask<Void, In
         publishProgress(0)
 
         val contentResolver = DataManager.context.contentResolver
-        DataManager.instance.resetDatabase()
-
-        publishProgress(20)
 
         val headacheCursor = contentResolver.query(MigrationProvider.HEADACHE_CONTENT_FREE_URI, null,  null, null, null)
         if(headacheCursor != null) {
+
+            DataManager.instance.resetDatabase()
+
+            publishProgress(20)
+
             while (headacheCursor.moveToNext()) {
                 val date = LocalDate(0, DateTimeZone.UTC).plusDays(headacheCursor.getInt(1))
                 val value = headacheCursor.getDouble(2)
