@@ -163,7 +163,11 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
 
         override fun getView(position: Int, view: View?, parent: ViewGroup): View {
 
-            val newView = view ?: activity.layoutInflater.inflate(R.layout.list_item_edit_daily_entry, null)
+            val newView = view ?: activity.layoutInflater.inflate(
+                    R.layout.list_item_edit_daily_entry,
+                    parent,
+                    false
+            )
             val factor = getItem(position)
             val fValue = factor.getDate(date)
             val factorNameField = newView.findViewById(R.id.factor_name) as TextView
@@ -176,8 +180,8 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
             factorSwitchPanel.set(fValue)
             factorSwitchPanel.rowPosition = position
 
-            factorNameField.text = factor.name + " " + factor.r
-
+            factorNameField.text = factor.name
+            
             return newView
         }
 

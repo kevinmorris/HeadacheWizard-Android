@@ -22,11 +22,14 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:layout_toStartOf="@+id/headache_switch_panel"
+                  android:layout_centerVertical="true"
+                  android:textSize="22sp"
                   android:text="Headache?" />
 
         <com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel android:id="@id/headache_switch_panel"
                                                                           android:layout_width="170dp"
                                                                           android:layout_height="wrap_content"
+                                                                          android:layout_centerVertical="true"
                                                                           android:layout_alignParentEnd="true"/>
 
     </RelativeLayout>
