@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_toStartOf="@+id/correlation_view"
+        android:layout_marginLeft="5dp"
         android:gravity="center_vertical"
         android:maxLines="1"
         android:layout_centerVertical="true"/>

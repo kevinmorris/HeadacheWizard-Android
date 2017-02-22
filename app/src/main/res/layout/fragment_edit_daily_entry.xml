@@ -23,6 +23,7 @@
                   android:layout_height="wrap_content"
                   android:layout_toStartOf="@+id/headache_switch_panel"
                   android:layout_centerVertical="true"
+                  android:layout_marginLeft="5dp"
                   android:textSize="22sp"
                   android:text="Headache?" />
 
