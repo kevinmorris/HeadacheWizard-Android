@@ -60,6 +60,8 @@ dependencies {
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     compile 'com.android.support:appcompat-v7:25.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.google.firebase:firebase-crash:10.2.0'
     androidTestCompile 'junit:junit:4.12'
-
 }
+
+apply plugin: 'com.google.gms.google-services'

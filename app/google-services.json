@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "451600857759",
+    "firebase_url": "https://headache-wizard.firebaseio.com",
+    "project_id": "headache-wizard",
+    "storage_bucket": "headache-wizard.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451600857759:android:6f619b99c99b93c1",
+        "android_client_info": {
+          "package_name": "com.mountainowl.headachewizard.free"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451600857759-0qt4q7kfmjef3854qonug6sh8j6iu2k0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZnEtrNTvHLULY33dAJE35ordHeVamamA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451600857759:android:bb7f1ea8d8259413",
+        "android_client_info": {
+          "package_name": "com.mountainowl.headachewizard.full"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "451600857759-0qt4q7kfmjef3854qonug6sh8j6iu2k0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZnEtrNTvHLULY33dAJE35ordHeVamamA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
