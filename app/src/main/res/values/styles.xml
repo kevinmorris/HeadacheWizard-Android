@@ -17,7 +17,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <style name="SplashTheme" parent="AppTheme">
+    <style name="SplashTheme" parent="@android:style/Theme.Holo.NoActionBar.Fullscreen">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
