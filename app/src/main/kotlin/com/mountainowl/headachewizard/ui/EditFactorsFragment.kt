@@ -53,6 +53,11 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
             }
         }
 
+        val doneButton = view.findViewById(R.id.fragment_edit_factors_done_button)
+        doneButton.setOnClickListener {
+            activity.fragmentManager.popBackStack()
+        }
+
         return view
     }
 
