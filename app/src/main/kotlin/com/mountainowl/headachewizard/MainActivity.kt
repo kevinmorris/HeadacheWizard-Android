@@ -49,6 +49,7 @@ class MainActivity : Activity(),
             if(drawerShown) {
                 hideDrawer(drawer, toolbar)
             } else {
+                drawer.visibility = VISIBLE
                 showDrawer(drawer, toolbar)
             }
         }
@@ -178,14 +179,14 @@ class MainActivity : Activity(),
 
     private fun showDrawer(drawer: View, toolbar : Toolbar) {
 
+        drawer.visibility = VISIBLE
+
         val width = toolbar.measuredWidth
 
         val layoutParams = drawer.layoutParams as RelativeLayout.LayoutParams
         layoutParams.width = width
         layoutParams.leftMargin = -width
         drawer.layoutParams = layoutParams
-
-        drawer.visibility = VISIBLE
 
         drawer.animate().translationX(width + 0.0f)
         drawerShown = true

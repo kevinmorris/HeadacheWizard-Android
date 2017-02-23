@@ -27,6 +27,7 @@
                     android:layout_gravity="start"
                     android:layout_alignParentLeft="true"
                     android:layout_below="@id/main_toolbar"
+                    android:visibility="invisible"
                     android:orientation="horizontal"
                     >
 
