@@ -7,13 +7,11 @@ import android.app.ProgressDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
-import android.support.v4.app.ActionBarDrawerToggle
-import android.support.v4.widget.DrawerLayout
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.view.View
+import android.view.View.VISIBLE
+import android.widget.*
 import com.mountainowl.headachewizard.ui.*
 import com.mountainowl.headachewizard.util.MigrationAsyncTask
 import org.joda.time.DateTimeZone
@@ -31,70 +29,74 @@ class MainActivity : Activity(),
 
     private lateinit var progressDialog: ProgressDialog
 
-    private lateinit var drawerListener: ActionBarDrawerToggle
-
     private lateinit var currentFragment: Fragment
+
+    private var drawerShown = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        progressDialog = ProgressDialog(this)
-        val actionBar = actionBar
-        actionBar!!.setDisplayHomeAsUpEnabled(true)
-        actionBar.setDisplayShowTitleEnabled(false)
-
         setContentView(R.layout.activity_main)
 
-        val drawerLayout = findViewById(R.id.drawer_layout) as DrawerLayout
-        val drawerLogo = drawerLayout.findViewById(R.id.drawer_container_logo) as ImageView
+        progressDialog = ProgressDialog(this)
+
+        val toolbar = findViewById(R.id.main_toolbar) as Toolbar
+        val drawer = findViewById(R.id.drawer_container)
+
+        setActionBar(toolbar)
+        actionBar.title = ""
+        toolbar.setNavigationOnClickListener {
+            if(drawerShown) {
+                hideDrawer(drawer, toolbar)
+            } else {
+                showDrawer(drawer, toolbar)
+            }
+        }
+
+        val closeDrawerButton = findViewById(R.id.close_drawer_button) as Button
+        closeDrawerButton.setOnClickListener {
+            hideDrawer(drawer, toolbar)
+        }
+
+        val drawerLogo = findViewById(R.id.drawer_container_logo) as ImageView
         drawerLogo.setImageDrawable(if(BuildConfig.APPLICATION_ID.endsWith(".full"))
             resources.getDrawable(R.drawable.headache_wizard_logo, null) else
             resources.getDrawable(R.drawable.headache_wizard_free_logo, null))
 
-        drawerListener = object : ActionBarDrawerToggle(this,
-                drawerLayout,
-                R.drawable.hamburger,
-                R.string.navigation_drawer_open,
-                R.string.navigation_drawer_closed) {
-
-        }
-
-        drawerLayout.setDrawerListener(drawerListener)
-
         val drawerCalendarNav = findViewById(R.id.drawer_calendar_container)
         drawerCalendarNav.setOnClickListener {
-            drawerLayout.closeDrawers()
             calendarSelected()
+            hideDrawer(drawer, toolbar)
         }
 
         val drawerEditDailyEntryNav = findViewById(R.id.drawer_edit_daily_entry_container)
         drawerEditDailyEntryNav.setOnClickListener {
-            drawerLayout.closeDrawers()
             editTodaySelected()
+            hideDrawer(drawer, toolbar)
         }
 
         val drawerEdtFactorsNav = findViewById(R.id.drawer_edit_factors_container)
         drawerEdtFactorsNav.setOnClickListener {
-            drawerLayout.closeDrawers()
             editFactorsSelected()
+            hideDrawer(drawer, toolbar)
         }
 
         val drawerAboutNav = findViewById(R.id.drawer_about_container)
         drawerAboutNav.setOnClickListener {
-            drawerLayout.closeDrawers()
             aboutSelected()
+            hideDrawer(drawer, toolbar)
         }
 
         val drawerResetHelpDialogsNav = findViewById(R.id.drawer_reset_help_dialogs_container)
         drawerResetHelpDialogsNav.setOnClickListener {
-            drawerLayout.closeDrawers()
             resetHelpDialogsSelected()
+            hideDrawer(drawer, toolbar)
         }
 
         val drawerLicensesNav = findViewById(R.id.drawer_licenses_container)
         drawerLicensesNav.setOnClickListener {
-            drawerLayout.closeDrawers()
             licensesSelected()
+            hideDrawer(drawer, toolbar)
         }
 
         val prefs = getPreferences(Context.MODE_PRIVATE)
@@ -163,10 +165,6 @@ class MainActivity : Activity(),
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        if (drawerListener.onOptionsItemSelected(item)) {
-            return true
-        }
-
         when (item.itemId) {
             R.id.icon_calendar -> calendarSelected()
             R.id.icon_edit_today -> editTodaySelected()
@@ -176,6 +174,29 @@ class MainActivity : Activity(),
         }
 
         return true
+    }
+
+    private fun showDrawer(drawer: View, toolbar : Toolbar) {
+
+        val width = toolbar.measuredWidth
+
+        val layoutParams = drawer.layoutParams as RelativeLayout.LayoutParams
+        layoutParams.width = width
+        layoutParams.leftMargin = -width
+        drawer.layoutParams = layoutParams
+
+        drawer.visibility = VISIBLE
+
+        drawer.animate().translationX(width + 0.0f)
+        drawerShown = true
+    }
+
+    private fun hideDrawer(drawer: View, toolbar : Toolbar) {
+
+        val width = toolbar.measuredWidth
+
+        drawer.animate().translationX(-width + 0.0f)
+        drawerShown = false
     }
 
     private fun aboutSelected() {
