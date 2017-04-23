@@ -44,7 +44,7 @@ class Factor(val id: Long, val name: String) {
 
         var n = 0
 
-        val dates = headache.allDates().plus(allDates())
+        val dates = headache.allDates().intersect(allDates())
 
         for (dateKey in dates) {
             val fValue = data[dateKey] ?: 0.0
