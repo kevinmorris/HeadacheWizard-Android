@@ -6,6 +6,7 @@ import org.joda.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
+import android.support.test.runner.AndroidJUnit4
 
 class FactorTest {
 

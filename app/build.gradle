@@ -19,7 +19,9 @@ android {
         versionCode 4
         versionName "1.1.0"
         multiDexEnabled true
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     packagingOptions {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
@@ -53,18 +55,15 @@ android {
             ]
         }
     }
-    sourceSets {
-        main.java.srcDirs += 'src/main/kotlin'
-        test.java.srcDirs += 'src/androidTest/java'
-        test.java.srcDirs += 'src/test/kotlin'
-    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:25.3.1'
     testCompile 'junit:junit:4.12'
     testCompile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.android.support:appcompat-v7:25.1.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    androidTestCompile 'junit:junit:4.12'
 }

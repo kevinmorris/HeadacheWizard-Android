@@ -25,6 +25,7 @@
             android:text="Add New Factor"/>
 
     <ListView android:id="@id/android:list"
+              android:tag="fragment_edit_factors_factor_list"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:layout_below="@id/fragment_edit_factors_add_new_button"
