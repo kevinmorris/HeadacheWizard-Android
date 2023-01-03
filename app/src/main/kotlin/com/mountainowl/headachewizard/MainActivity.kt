@@ -17,6 +17,8 @@ import com.mountainowl.headachewizard.util.MigrationAsyncTask
 import org.joda.time.DateTimeZone
 import org.joda.time.Days
 import org.joda.time.LocalDate
+import com.mountainowl.headachewizard.BuildConfig
+import com.mountainowl.headachewizard.R
 
 val INTRO_INSTRUCTION_DIALOG_PREFS_KEY = "INTRO_INSTRUCTION_DIALOG_PREFS_KEY"
 val EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY = "EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY"
@@ -41,10 +43,10 @@ class MainActivity : Activity(),
         progressDialog = ProgressDialog(this)
 
         val toolbar = findViewById(R.id.main_toolbar) as Toolbar
-        val drawer = findViewById(R.id.drawer_container)
+        val drawer = findViewById<LinearLayout>(R.id.drawer_container)
 
         setActionBar(toolbar)
-        actionBar.title = ""
+        actionBar?.title = ""
         toolbar.setNavigationOnClickListener {
             if(drawerShown) {
                 hideDrawer(drawer, toolbar)
@@ -64,37 +66,37 @@ class MainActivity : Activity(),
             resources.getDrawable(R.drawable.headache_wizard_logo, null) else
             resources.getDrawable(R.drawable.headache_wizard_free_logo, null))
 
-        val drawerCalendarNav = findViewById(R.id.drawer_calendar_container)
+        val drawerCalendarNav = findViewById<RelativeLayout>(R.id.drawer_calendar_container)
         drawerCalendarNav.setOnClickListener {
             calendarSelected()
             hideDrawer(drawer, toolbar)
         }
 
-        val drawerEditDailyEntryNav = findViewById(R.id.drawer_edit_daily_entry_container)
+        val drawerEditDailyEntryNav = findViewById<RelativeLayout>(R.id.drawer_edit_daily_entry_container)
         drawerEditDailyEntryNav.setOnClickListener {
             editTodaySelected()
             hideDrawer(drawer, toolbar)
         }
 
-        val drawerEdtFactorsNav = findViewById(R.id.drawer_edit_factors_container)
+        val drawerEdtFactorsNav = findViewById<RelativeLayout>(R.id.drawer_edit_factors_container)
         drawerEdtFactorsNav.setOnClickListener {
             editFactorsSelected()
             hideDrawer(drawer, toolbar)
         }
 
-        val drawerAboutNav = findViewById(R.id.drawer_about_container)
+        val drawerAboutNav = findViewById<RelativeLayout>(R.id.drawer_about_container)
         drawerAboutNav.setOnClickListener {
             aboutSelected()
             hideDrawer(drawer, toolbar)
         }
 
-        val drawerResetHelpDialogsNav = findViewById(R.id.drawer_reset_help_dialogs_container)
+        val drawerResetHelpDialogsNav = findViewById<RelativeLayout>(R.id.drawer_reset_help_dialogs_container)
         drawerResetHelpDialogsNav.setOnClickListener {
             resetHelpDialogsSelected()
             hideDrawer(drawer, toolbar)
         }
 
-        val drawerLicensesNav = findViewById(R.id.drawer_licenses_container)
+        val drawerLicensesNav = findViewById<RelativeLayout>(R.id.drawer_licenses_container)
         drawerLicensesNav.setOnClickListener {
             licensesSelected()
             hideDrawer(drawer, toolbar)

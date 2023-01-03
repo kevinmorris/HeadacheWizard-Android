@@ -43,15 +43,16 @@ class ReportFragment : ListFragment() {
                 view = activity.layoutInflater.inflate(R.layout.list_item_factor_report, null)
             }
 
-            val factor = getItem(position)
+            getItem(position)?.also { factor ->
 
-            val factorNameField = view!!.findViewById(R.id.factor_name) as TextView
-            factorNameField.text = factor.name
+                val factorNameField = view!!.findViewById(R.id.factor_name) as TextView
+                factorNameField.text = factor.name
 
-            val correlationView = view.findViewById(R.id.correlation_view) as CorrelationView
-            correlationView.value = factor.r
+                val correlationView = view.findViewById(R.id.correlation_view) as CorrelationView
+                correlationView.value = factor.r
+            }
 
-            return view
+            return view!!
         }
     }
 

@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import com.mountainowl.headachewizard.EDIT_DAILY_ENTRY_INSTRUCTION_DIALOG_PREFS_KEY
@@ -82,8 +83,8 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
         }
 
         if(factors.isEmpty()) {
-            view.findViewById(R.id.fragment_edit_daily_entry_key_textview).visibility = View.GONE;
-            view.findViewById(R.id.fragment_edit_daily_entry_correlation_key_imageview).visibility = View.GONE;
+            view.findViewById<ViewGroup>(R.id.fragment_edit_daily_entry_key_textview).visibility = View.GONE;
+            view.findViewById<ViewGroup>(R.id.fragment_edit_daily_entry_correlation_key_imageview).visibility = View.GONE;
         }
 
         val headacheDayDateLabel = view.findViewById(R.id.headache_day_date_label) as TextView
@@ -94,7 +95,7 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
         headacheSwitchPanel.set(hValue)
         headacheSwitchPanel.addObserver(this)
 
-        val doneButton = view.findViewById(R.id.fragment_edit_daily_entry_done_button)
+        val doneButton = view.findViewById<Button>(R.id.fragment_edit_daily_entry_done_button)
         doneButton.setOnClickListener {
             activity.fragmentManager.popBackStack()
         }
@@ -168,19 +169,23 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
                     parent,
                     false
             )
-            val factor = getItem(position)
-            val fValue = factor.getDate(date)
-            val factorNameField = newView.findViewById(R.id.factor_name) as TextView
-            val correlationView = newView.findViewById(R.id.correlation_view) as CorrelationView
-            correlationView.value = factor.r
 
-            val factorSwitchPanel = newView.findViewById(R.id.factor_switch_panel) as ThreewaySwitchPanel
+            getItem(position)?.also { factor ->
 
-            factorSwitchPanel.addObserver(this)
-            factorSwitchPanel.set(fValue)
-            factorSwitchPanel.rowPosition = position
+                val fValue = factor.getDate(date)
+                val factorNameField = newView.findViewById(R.id.factor_name) as TextView
+                val correlationView = newView.findViewById(R.id.correlation_view) as CorrelationView
+                correlationView.value = factor.r
 
-            factorNameField.text = factor.name
+                val factorSwitchPanel =
+                    newView.findViewById(R.id.factor_switch_panel) as ThreewaySwitchPanel
+
+                factorSwitchPanel.addObserver(this)
+                factorSwitchPanel.set(fValue)
+                factorSwitchPanel.rowPosition = position
+
+                factorNameField.text = factor.name
+            }
             
             return newView
         }
@@ -190,19 +195,24 @@ class EditDailyEntryFragment() : ListFragment(), IThreewaySwitchListener {
 
         override fun onSwitchTouchUp(progress: Int, position: Int) {
 
-            val factor = getItem(position)
-            val fValue = progress - 1.0
-            if (factor.getDate(date) != fValue) {
-                factor.setDate(date, fValue)
+            getItem(position)?.also { factor ->
+                val fValue = progress - 1.0
+                if (factor.getDate(date) != fValue) {
+                    factor.setDate(date, fValue)
 
-                Thread(Runnable {
-                    DataManager.instance.insertOrUpdateFactorEntry(factor.id, date, factor.getDate(date))
-                    factor.evaluateCorrelationParameters(headache)
+                    Thread(Runnable {
+                        DataManager.instance.insertOrUpdateFactorEntry(
+                            factor.id,
+                            date,
+                            factor.getDate(date)
+                        )
+                        factor.evaluateCorrelationParameters(headache)
 
-                    handler.post({
-                        notifyDataSetChanged()
-                    })
-                }).start()
+                        handler.post({
+                            notifyDataSetChanged()
+                        })
+                    }).start()
+                }
             }
         }
     }

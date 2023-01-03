@@ -30,26 +30,29 @@ class MigrationAsyncTask(val callback : IMigrationListener) : AsyncTask<Void, In
 
             publishProgress(40)
 
-            val factorCursor = contentResolver.query(MigrationProvider.FACTOR_CONTENT_FREE_URI, null, null, null, null)
-            while (factorCursor.moveToNext()) {
-                val id = factorCursor.getLong(0)
-                val name = factorCursor.getString(1)
-                DataManager.instance.insertFactor(id, name)
+            contentResolver.query(MigrationProvider.FACTOR_CONTENT_FREE_URI, null, null, null, null)?.also { factorCursor ->
+                while (factorCursor.moveToNext()) {
+                    val id = factorCursor.getLong(0)
+                    val name = factorCursor.getString(1)
+                    DataManager.instance.insertFactor(id, name)
+                }
+                factorCursor.close()
             }
-            factorCursor.close()
 
             publishProgress(60)
 
-            val factorEntriesCursor = contentResolver.query(MigrationProvider.FACTOR_ENTRIES_CONTENT_FREE_URI, null, null, null, null)
-            while (factorEntriesCursor.moveToNext()) {
-                val id = factorEntriesCursor.getLong(0)
-                val factorId = factorEntriesCursor.getLong(1)
-                val date = LocalDate(0, DateTimeZone.UTC).plusDays(factorEntriesCursor.getInt(2))
-                val value = factorEntriesCursor.getDouble(3)
+            contentResolver.query(MigrationProvider.FACTOR_ENTRIES_CONTENT_FREE_URI, null, null, null, null)?.also { factorEntriesCursor ->
+                while (factorEntriesCursor.moveToNext()) {
+                    val id = factorEntriesCursor.getLong(0)
+                    val factorId = factorEntriesCursor.getLong(1)
+                    val date =
+                        LocalDate(0, DateTimeZone.UTC).plusDays(factorEntriesCursor.getInt(2))
+                    val value = factorEntriesCursor.getDouble(3)
 
-                DataManager.instance.insertFactorEntry(id, factorId, date, value)
+                    DataManager.instance.insertFactorEntry(id, factorId, date, value)
+                }
+                factorEntriesCursor.close()
             }
-            factorEntriesCursor.close()
 
             publishProgress(80)
 

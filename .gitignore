@@ -5,5 +5,6 @@
 .DS_Store
 /build
 /captures
-app/app-free-release.apk
-app/app-full-release.apk
+.externalNativeBuild
+.cxx
+local.properties

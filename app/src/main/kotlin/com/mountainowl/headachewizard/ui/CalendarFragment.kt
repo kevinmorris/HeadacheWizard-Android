@@ -37,7 +37,7 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
         this.year = arguments.getInt(getString(R.string.year))
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val v = inflater.inflate(R.layout.fragment_calendar, container, false)
 
         val layout = v.findViewById(R.id.calendar) as CalendarLayout
@@ -84,7 +84,7 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
         super.onResume()
 
         layoutCalendar(
-            view,
+            view!!,
             DataManager.instance.headache,
             this.month,
             this.year
@@ -162,6 +162,6 @@ class CalendarFragment : Fragment(), CalendarLayout.ICalendarLayoutListener {
     }
 
     override fun layoutCalendar(month: Int, year: Int) {
-        layoutCalendar(view, DataManager.instance.headache, month, year)
+        layoutCalendar(view!!, DataManager.instance.headache, month, year)
     }
 }

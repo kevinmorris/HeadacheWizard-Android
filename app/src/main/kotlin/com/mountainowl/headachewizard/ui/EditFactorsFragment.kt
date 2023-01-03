@@ -12,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import com.mountainowl.headachewizard.BuildConfig
 import com.mountainowl.headachewizard.INTRO_INSTRUCTION_DIALOG_PREFS_KEY
@@ -43,7 +44,7 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
         val addFactorButton = view.findViewById(R.id.fragment_edit_factors_add_new_button) as Button
 
         addFactorButton.setOnClickListener {
-            if(factors.size < BuildConfig.factorLimit) {
+            if(factors.size < 3) {
                 val dialog = AddFactorDialogFragment(this)
 
                 val ft = activity.fragmentManager
@@ -53,7 +54,7 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
             }
         }
 
-        val doneButton = view.findViewById(R.id.fragment_edit_factors_done_button)
+        val doneButton = view.findViewById<Button>(R.id.fragment_edit_factors_done_button)
         doneButton.setOnClickListener {
             activity.fragmentManager.popBackStack()
         }
@@ -91,10 +92,10 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
         val view = activity.layoutInflater.inflate(R.layout.dialog_upgrade, null, false)
 
         val textView = view.findViewById(R.id.dialog_upgrade_factor_limit_text) as TextView
-        textView.setText("You've reached your limit of ${BuildConfig.factorLimit} factors on the free app.  The full app allows an unlimited number of factors")
+        textView.setText("You've reached your limit of 3 factors on the free app.  The full app allows an unlimited number of factors")
 
-        val logo = view.findViewById(R.id.dialog_upgrade_full_app_logo)
-        val fullAppButton = view.findViewById(R.id.dialog_upgrade_full_app_button)
+        val logo = view.findViewById<ImageView>(R.id.dialog_upgrade_full_app_logo)
+        val fullAppButton = view.findViewById<Button>(R.id.dialog_upgrade_full_app_button)
 
         val listener = View.OnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
@@ -154,7 +155,7 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
             val newView = view ?: activity.layoutInflater.inflate(R.layout.list_item_edit_factor, null)
 
             val factorNameField = newView.findViewById(R.id.factor_name) as TextView
-            factorNameField.text = getItem(position).name
+            factorNameField.text = getItem(position)?.name
 
             newView.setBackgroundColor(if(position % 2 == 1) {
                 resources.getColor(R.color.alternate_row_background, null)
@@ -162,9 +163,9 @@ class EditFactorsFragment : ListFragment(), IAddFactorDialogListener {
                 resources.getColor(R.color.app_background, null)
             })
 
-            val deleteButton = newView.findViewById(R.id.factor_delete_button)
+            val deleteButton = newView.findViewById<ImageView>(R.id.factor_delete_button)
             deleteButton.setOnClickListener {
-                displayDeleteFactorConfirmationDialog(getItem(position).name)
+                displayDeleteFactorConfirmationDialog(getItem(position)?.name ?: "")
             }
 
             return newView

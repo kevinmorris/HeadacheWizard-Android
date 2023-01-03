@@ -23,12 +23,12 @@ class MigrationProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        databaseHelper = DatabaseHelper(context)
+        databaseHelper = DatabaseHelper(context!!)
         return true
     }
 
     override fun query(
-            uri: Uri?,
+            uri: Uri,
             projection: Array<out String>?,
             selection: String?,
             selectionArgs: Array<out String>?,
@@ -42,19 +42,19 @@ class MigrationProvider : ContentProvider() {
         }
     }
 
-    override fun insert(uri: Uri?, values: ContentValues?): Uri {
+    override fun insert(uri: Uri, values: ContentValues?): Uri {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun update(uri: Uri?, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
+    override fun update(uri: Uri, values: ContentValues?, selection: String?, selectionArgs: Array<out String>?): Int {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun delete(uri: Uri?, selection: String?, selectionArgs: Array<out String>?): Int {
+    override fun delete(uri: Uri, selection: String?, selectionArgs: Array<out String>?): Int {
         throw UnsupportedOperationException("not implemented")
     }
 
-    override fun getType(uri: Uri?): String {
+    override fun getType(uri: Uri): String {
         throw UnsupportedOperationException("not implemented")
     }
 
