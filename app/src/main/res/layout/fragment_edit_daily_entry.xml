@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.mountainowl.headachewizard.ui.EditDailyEntryFragmentLayout
+<pro.kevinmorris.headachewizard.ui.EditDailyEntryFragmentLayout
          xmlns:android="http://schemas.android.com/apk/res/android"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
@@ -27,7 +27,7 @@
                   android:textSize="22sp"
                   android:text="Headache?" />
 
-        <com.mountainowl.headachewizard.ui.components.HeadacheSwitchPanel android:id="@id/headache_switch_panel"
+        <pro.kevinmorris.headachewizard.ui.components.HeadacheSwitchPanel android:id="@id/headache_switch_panel"
                                                                           android:layout_width="170dp"
                                                                           android:layout_height="wrap_content"
                                                                           android:layout_centerVertical="true"
@@ -112,4 +112,4 @@
     <Button android:id="@id/fragment_edit_daily_entry_done_button"
             style="@style/DoneButton"
             android:layout_alignParentBottom="true"/>
-</com.mountainowl.headachewizard.ui.EditDailyEntryFragmentLayout>
+</pro.kevinmorris.headachewizard.ui.EditDailyEntryFragmentLayout>

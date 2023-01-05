@@ -1,6 +1,6 @@
-package com.mountainowl.headachewizard.model
+package pro.kevinmorris.headachewizard.model
 
-import com.mountainowl.headachewizard.CorrelationCoefficientTransformEngine
+import pro.kevinmorris.headachewizard.CorrelationCoefficientTransformEngine
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import org.junit.Assert.assertEquals

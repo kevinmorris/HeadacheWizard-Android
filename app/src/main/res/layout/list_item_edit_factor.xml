@@ -13,7 +13,7 @@
                   android:layout_marginRight="20dp"
                   android:src="@drawable/delete_factor"/>
 
-       <com.mountainowl.headachewizard.ui.components.AutoFontSizingTextView
+       <pro.kevinmorris.headachewizard.ui.components.AutoFontSizingTextView
                android:id="@+id/factor_name"
                android:layout_width="0dp"
                android:layout_height="match_parent"

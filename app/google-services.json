@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:451600857759:android:6f619b99c99b93c1",
         "android_client_info": {
-          "package_name": "com.mountainowl.headachewizard.free"
+          "package_name": "pro.kevinmorris.headachewizard.free"
         }
       },
       "oauth_client": [
@@ -41,7 +41,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:451600857759:android:bb7f1ea8d8259413",
         "android_client_info": {
-          "package_name": "com.mountainowl.headachewizard.full"
+          "package_name": "pro.kevinmorris.headachewizard.full"
         }
       },
       "oauth_client": [

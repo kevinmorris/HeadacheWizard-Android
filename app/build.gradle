@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.mountainowl.headachewizard'
+    namespace 'pro.kevinmorris.headachewizard'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.mountainowl.headachewizard"
+        applicationId "pro.kevinmorris.headachewizard"
         minSdk 26
         targetSdk 33
         versionCode 1

@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.6" />
    
-   <com.mountainowl.headachewizard.ui.components.CorrelationView android:id="@+id/correlation_view"
+   <pro.kevinmorris.headachewizard.ui.components.CorrelationView android:id="@+id/correlation_view"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_weight="0.4" />

@@ -7,7 +7,7 @@
               android:paddingBottom="10dp"
               android:orientation="horizontal">
 
-    <com.mountainowl.headachewizard.ui.components.ThreewaySwitch
+    <pro.kevinmorris.headachewizard.ui.components.ThreewaySwitch
         android:id="@+id/headache_switch_control"
         style="@style/ThreewaySwitch"
         android:layout_width="0dp"

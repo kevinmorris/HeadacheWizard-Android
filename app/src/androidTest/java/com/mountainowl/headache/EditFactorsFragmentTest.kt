@@ -1,4 +1,4 @@
-package com.mountainowl.headache
+package pro.kevinmorris.headache
 
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
@@ -7,9 +7,9 @@ import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
-import com.mountainowl.headachewizard.MainActivity
-import com.mountainowl.headachewizard.R
-import com.mountainowl.headachewizard.model.Factor
+import pro.kevinmorris.headachewizard.MainActivity
+import pro.kevinmorris.headachewizard.R
+import pro.kevinmorris.headachewizard.model.Factor
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.anything

@@ -4,7 +4,7 @@
      android:layout_height="60dp"
      android:orientation="horizontal">
 
-    <com.mountainowl.headachewizard.ui.components.AutoFontSizingTextView
+    <pro.kevinmorris.headachewizard.ui.components.AutoFontSizingTextView
         android:id="@+id/factor_name"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +14,7 @@
         android:maxLines="1"
         android:layout_centerVertical="true"/>
 
-    <com.mountainowl.headachewizard.ui.components.CorrelationView android:id="@id/correlation_view"
+    <pro.kevinmorris.headachewizard.ui.components.CorrelationView android:id="@id/correlation_view"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_centerVertical="true"
@@ -22,7 +22,7 @@
         android:layout_margin="3dp"
     />
     
-    <com.mountainowl.headachewizard.ui.components.FactorSwitchPanel android:id="@id/factor_switch_panel"
+    <pro.kevinmorris.headachewizard.ui.components.FactorSwitchPanel android:id="@id/factor_switch_panel"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
