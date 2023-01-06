@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/navigation"
+        app:startDestination="@id/calendarFragment">
+
+
+    <fragment
+            android:id="@+id/calendarFragment"
+            android:name="pro.kevinmorris.headachewizard.ui.CalendarFragment"
+            android:label="CalendarFragment" >
+        <action
+                android:id="@+id/action_calendarFragment_to_editDailyEntryFragment"
+                app:destination="@id/editDailyEntryFragment" />
+        <action
+                android:id="@+id/action_calendarFragment_to_editFactorsFragment"
+                app:destination="@id/editFactorsFragment" />
+    </fragment>
+    <fragment
+            android:id="@+id/editDailyEntryFragment"
+            android:name="pro.kevinmorris.headachewizard.ui.EditDailyEntryFragment"
+            android:label="EditDailyEntryFragment" >
+        <action
+                android:id="@+id/action_editDailyEntryFragment_to_calendarFragment"
+                app:destination="@id/calendarFragment"
+                app:popUpTo="@id/calendarFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+    <fragment
+            android:id="@+id/editFactorsFragment"
+            android:name="pro.kevinmorris.headachewizard.ui.EditFactorsFragment"
+            android:label="EditFactorsFragment" >
+        <action
+                android:id="@+id/action_editFactorsFragment_to_calendarFragment"
+                app:destination="@id/calendarFragment"
+                app:popUpTo="@id/calendarFragment"
+                app:popUpToInclusive="true"/>
+    </fragment>
+</navigation>
