@@ -12,11 +12,11 @@ object NavigationController {
         NavigationState.Calendar(DateTime.now())
     )
 
-    val navState : StateFlow<NavigationState> = _navState
+    val navState: StateFlow<NavigationState> = _navState
 
     fun showPrev() {
         _navState.update { prevState ->
-            when(prevState) {
+            when (prevState) {
                 is NavigationState.EditDay -> NavigationState.EditDay(
                     prevState.date.minusDays(1)
                 )
@@ -32,7 +32,7 @@ object NavigationController {
 
     fun showNext() {
         _navState.update { prevState ->
-            when(prevState) {
+            when (prevState) {
 
                 is NavigationState.EditDay -> NavigationState.EditDay(
                     prevState.date.plusDays(1)
@@ -49,7 +49,7 @@ object NavigationController {
 
     fun submitEditDay() {
         _navState.update { prevState ->
-            when(prevState) {
+            when (prevState) {
 
                 //This case is the only one that should ever occur
                 is NavigationState.EditDay -> NavigationState.Calendar(prevState.date)
@@ -62,5 +62,11 @@ object NavigationController {
 
     fun submitFactors() {
         _navState.update { NavigationState.Calendar(DateTime.now()) }
+    }
+
+    fun editFactors() {
+        _navState.update { prevState ->
+            NavigationState.EditFactors
+        }
     }
 }

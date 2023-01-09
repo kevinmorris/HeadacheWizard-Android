@@ -12,29 +12,29 @@ class EditDailyEntryFragmentLayout(context: Context?, attrs: AttributeSet?) :
 
     private var xDown: Float? = null
 
-    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean = when (event?.action) {
-        MotionEvent.ACTION_DOWN -> {
-            xDown = event?.x
-            false
-        }
-        MotionEvent.ACTION_UP -> {
-            val xUp = event?.x
-            val xDownLocal = xDown
-            if (xDownLocal != null && xUp != null && Math.abs(xDownLocal - xUp) > 200) {
-
-                if((xUp - xDownLocal) > 0) {
-                    val previousDay = fragment.date.minusDays(1)
-                    fragment.initializeData(previousDay)
-                } else {
-                    val nextDay = fragment.date.plusDays(1)
-                    fragment.initializeData(nextDay)
-                }
-
-                true
-            } else {
-                false
-            }
-        }
-        else -> false
-    }
+    override fun onInterceptTouchEvent(event: MotionEvent?): Boolean = false//when (event?.action) {
+//        MotionEvent.ACTION_DOWN -> {
+//            xDown = event?.x
+//            false
+//        }
+//        MotionEvent.ACTION_UP -> {
+//            val xUp = event?.x
+//            val xDownLocal = xDown
+//            if (xDownLocal != null && xUp != null && Math.abs(xDownLocal - xUp) > 200) {
+//
+//                if((xUp - xDownLocal) > 0) {
+//                    val previousDay = fragment.date.minusDays(1)
+//                    fragment.initializeData(previousDay)
+//                } else {
+//                    val nextDay = fragment.date.plusDays(1)
+//                    fragment.initializeData(nextDay)
+//                }
+//
+//                true
+//            } else {
+//                false
+//            }
+//        }
+//        else -> false
+//    }
 }

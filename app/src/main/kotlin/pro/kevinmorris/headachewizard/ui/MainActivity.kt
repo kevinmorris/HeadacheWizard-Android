@@ -1,21 +1,30 @@
 package pro.kevinmorris.headachewizard.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.launch
+import pro.kevinmorris.headachewizard.R
+import pro.kevinmorris.headachewizard.databinding.ActivityMainBinding
 import pro.kevinmorris.headachewizard.viewmodel.MainViewModel
 import pro.kevinmorris.headachewizard.viewmodel.NavigationState
 
 class MainActivity : AppCompatActivity() {
 
-    private val viewModel : MainViewModel by viewModels()
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val binding: ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
+
+        binding.viewModel = viewModel
 
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
@@ -26,11 +35,23 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun handleNavigation() {
         viewModel.navState.collect {
-            when(it) {
-                is NavigationState.Calendar -> TODO()
-                is NavigationState.EditDay -> TODO()
-                NavigationState.EditFactors -> TODO()
+            when (it) {
+                is NavigationState.Calendar -> showCalendar()
+                is NavigationState.EditDay -> showEditDay()
+                is NavigationState.EditFactors -> showEditFactors()
             }
         }
+    }
+
+    fun showCalendar() {
+
+    }
+
+    fun showEditDay() {
+
+    }
+
+    fun showEditFactors() {
+        Log.i("XXXXX256", "XXXXX256")
     }
 }

@@ -7,6 +7,10 @@ android {
     namespace 'pro.kevinmorris.headachewizard'
     compileSdk 33
 
+    buildFeatures {
+        dataBinding true
+    }
+
     defaultConfig {
         applicationId "pro.kevinmorris.headachewizard"
         minSdk 26
