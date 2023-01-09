@@ -44,11 +44,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showCalendar() {
+        Log.i("XXXXX128", "XXXXX128")
 
     }
 
     fun showEditDay() {
-
+        Log.i("XXXXX192", "XXXXX192")
     }
 
     fun showEditFactors() {

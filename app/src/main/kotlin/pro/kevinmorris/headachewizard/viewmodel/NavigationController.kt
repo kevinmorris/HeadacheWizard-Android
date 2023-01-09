@@ -48,20 +48,19 @@ object NavigationController {
     }
 
     fun submitEditDay() {
-        _navState.update { prevState ->
-            when (prevState) {
-
-                //This case is the only one that should ever occur
-                is NavigationState.EditDay -> NavigationState.Calendar(prevState.date)
-
-                is NavigationState.Calendar -> NavigationState.Calendar(DateTime.now())
-                NavigationState.EditFactors -> NavigationState.Calendar(DateTime.now())
-            }
-        }
+        showCalendar()
     }
 
     fun submitFactors() {
+        showCalendar()
+    }
+
+    fun showCalendar() {
         _navState.update { NavigationState.Calendar(DateTime.now()) }
+    }
+
+    fun editDay(dateTime: DateTime) {
+        _navState.update { NavigationState.EditDay(dateTime) }
     }
 
     fun editFactors() {
