@@ -6,18 +6,17 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
+import androidx.appcompat.widget.AppCompatSeekBar
 import pro.kevinmorris.headachewizard.R
-import java.util.*
 
-class ThreewaySwitch(context: Context, attrs: AttributeSet) : SeekBar(context, attrs), OnSeekBarChangeListener {
+typealias ThreewaySwitchChanged = (Int) -> Unit
+class ThreewaySwitch(context: Context, attrs: AttributeSet) : AppCompatSeekBar(context, attrs), OnSeekBarChangeListener {
 
-    protected var styledAttributes: TypedArray
-    var rowPosition: Int = 0
-    private val observers: MutableList<IThreewaySwitchListener>
+    private var styledAttributes: TypedArray
+    var threewaySwitchChanged : ThreewaySwitchChanged? = null
 
     init {
         styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.threeWaySwitch)
-        this.observers = ArrayList<IThreewaySwitchListener>()
         setOnSeekBarChangeListener(this)
     }
 
@@ -36,10 +35,8 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : SeekBar(context, a
         }
 
         progressDrawable.bounds = r
-        if (fromUser && !observers.isEmpty()) {
-            for (observer in observers) {
-                observer.onSwitchChangedByUser(getProgress(), rowPosition)
-            }
+        if (fromUser) {
+            threewaySwitchChanged?.also { it.invoke(progress) }
         }
     }
 
@@ -52,14 +49,10 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : SeekBar(context, a
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val result = super.onTouchEvent(event)
 
-        if(event.actionMasked == MotionEvent.ACTION_UP) {
-            observers.forEach { it.onSwitchTouchUp(progress, rowPosition) }
-        }
+//        if(event.actionMasked == MotionEvent.ACTION_UP) {
+//            observers.forEach { it.onSwitchTouchUp(progress, rowPosition) }
+//        }
 
         return result
-    }
-
-    fun addObserver(observer: IThreewaySwitchListener) {
-        this.observers.add(observer)
     }
 }
