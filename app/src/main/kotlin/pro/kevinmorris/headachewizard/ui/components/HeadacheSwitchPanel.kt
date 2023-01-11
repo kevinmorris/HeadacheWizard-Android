@@ -6,12 +6,13 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import pro.kevinmorris.headachewizard.R
+import pro.kevinmorris.headachewizard.util.ThreewaySwitchChanged
 
 class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs)   {
 
     var switchControl: ThreewaySwitch
     var switchLabel: TextView
-    lateinit var threewaySwitchChanged: ThreewaySwitchChanged
+    var threewaySwitchChanged: ThreewaySwitchChanged? = null
 
     init {
         val inflater = LayoutInflater.from(context)
@@ -19,6 +20,8 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(
 
         switchControl = findViewById(R.id.headache_switch_control) as ThreewaySwitch
         switchLabel = findViewById(R.id.headache_switch_label) as TextView
+
+        switchControl.threewaySwitchChanged = this::threewaySwitchChanged
     }
 
     fun threewaySwitchChanged(progress: Int) {
@@ -36,5 +39,7 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(
                 switchLabel.setTextColor(resources.getColor(R.color.headache_yes))
             }
         }
+
+        threewaySwitchChanged?.invoke(progress)
     }
 }

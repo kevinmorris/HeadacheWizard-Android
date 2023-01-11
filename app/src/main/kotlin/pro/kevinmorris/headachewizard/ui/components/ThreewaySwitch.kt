@@ -8,8 +8,8 @@ import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.widget.AppCompatSeekBar
 import pro.kevinmorris.headachewizard.R
+import pro.kevinmorris.headachewizard.util.ThreewaySwitchChanged
 
-typealias ThreewaySwitchChanged = (Int) -> Unit
 class ThreewaySwitch(context: Context, attrs: AttributeSet) : AppCompatSeekBar(context, attrs), OnSeekBarChangeListener {
 
     private var styledAttributes: TypedArray

@@ -6,12 +6,17 @@ import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import pro.kevinmorris.headachewizard.R
+import pro.kevinmorris.headachewizard.util.ThreewaySwitchChanged
 
 class FactorSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
 
     var switchControl: ThreewaySwitch
     var switchLabel: TextView
-    lateinit var threewaySwitchChanged: ThreewaySwitchChanged
+    var threewaySwitchChanged: ThreewaySwitchChanged? = null
+        set(value) {
+            field = value
+            switchControl.threewaySwitchChanged = field
+        }
 
     init {
 
@@ -20,8 +25,6 @@ class FactorSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(co
 
         switchControl = findViewById(R.id.factor_switch_control) as ThreewaySwitch
         switchLabel = findViewById(R.id.factor_switch_label) as TextView
-
-        switchControl.threewaySwitchChanged = this::threewaySwitchChanged
     }
 
     fun threewaySwitchChanged(progress : Int) {
@@ -31,6 +34,6 @@ class FactorSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(co
             2 -> switchLabel.text = "Yes"
         }
 
-        threewaySwitchChanged.invoke(progress)
+        threewaySwitchChanged?.invoke(progress)
     }
 }
