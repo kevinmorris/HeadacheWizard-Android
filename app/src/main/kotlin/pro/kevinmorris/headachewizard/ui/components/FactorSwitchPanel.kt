@@ -1,14 +1,13 @@
 package pro.kevinmorris.headachewizard.ui.components
 
 import android.content.Context
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.LinearLayout
 import android.widget.TextView
 import pro.kevinmorris.headachewizard.R
 import pro.kevinmorris.headachewizard.util.ThreewaySwitchChanged
 
-class FactorSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs) {
+class FactorSwitchPanel(context: Context) : LinearLayout(context) {
 
     var switchControl: ThreewaySwitch
     var switchLabel: TextView
