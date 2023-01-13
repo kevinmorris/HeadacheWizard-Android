@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -70,29 +71,33 @@ class EditDailyEntryFragment() : Fragment() {
                 factorView.adapter?.notifyDataSetChanged()
             }
             is EditDailyEntryViewModel.State.FactorUpdated -> {
-                (factorView.adapter as? FactorAdapter)?.notifyItemChanged(state.factor)
+                setCorrelationForFactor(state.factorUpdateState.factor)
             }
         }
     }
 
-    inner class FactorAdapter(private val dataSet: List<Factor>) :
-        RecyclerView.Adapter<FactorAdapter.ViewHolder>() {
+    private fun setCorrelationForFactor(factor : Factor) =  (factorView.adapter as? FactorAdapter)?.also { adapter ->
 
-        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        val position = adapter.dataSet.indexOf(factor)
+        val viewHolder = factorView.findViewHolderForAdapterPosition(position) as? ViewHolder
+        viewHolder?.correlationView?.value = factor.r
+    }
 
-            val switchPanel: FactorSwitchPanel
-            val correlationView: CorrelationView
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-            init {
-                switchPanel = view.findViewById(R.id.factor_switch_panel)
-                correlationView = view.findViewById(R.id.correlation_view)
-            }
+        val switchPanel: FactorSwitchPanel
+        val correlationView: CorrelationView
+        val factorName : TextView
+
+        init {
+            switchPanel = view.findViewById(R.id.factor_switch_panel)
+            correlationView = view.findViewById(R.id.correlation_view)
+            factorName = view.findViewById(R.id.factor_name)
         }
+    }
 
-        fun notifyItemChanged(factor : Factor) {
-            val position = dataSet.indexOf(factor)
-            notifyItemChanged(position)
-        }
+    inner class FactorAdapter(val dataSet: List<Factor>) :
+        RecyclerView.Adapter<ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
@@ -110,7 +115,7 @@ class EditDailyEntryFragment() : Fragment() {
                 viewModel.factorAction(factor)
             )
 
-            holder.switchPanel.switchLabel.text = factor.name
+            holder.factorName.text = factor.name
         }
 
         override fun getItemCount(): Int = dataSet.size

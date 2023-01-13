@@ -1,5 +1,5 @@
 <resources>
-    <declare-styleable name="threeWaySwitch">
+    <declare-styleable name="ThreewaySwitch">
         <attr name="leftBackground" format="reference" />
         <attr name="centerBackground" format="reference" />
         <attr name="rightBackground" format="reference" />

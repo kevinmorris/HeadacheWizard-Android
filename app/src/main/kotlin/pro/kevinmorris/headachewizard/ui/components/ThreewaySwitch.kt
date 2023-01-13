@@ -2,8 +2,8 @@ package pro.kevinmorris.headachewizard.ui.components
 
 import android.content.Context
 import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import androidx.appcompat.widget.AppCompatSeekBar
@@ -15,18 +15,27 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : AppCompatSeekBar(c
     private var styledAttributes: TypedArray
     var threewaySwitchChanged : ThreewaySwitchChanged? = null
 
+    private val leftBackground : Drawable?
+    private val centerBackground : Drawable?
+    private val rightBackground : Drawable?
+
     init {
-        styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.threeWaySwitch)
+        styledAttributes = getContext().obtainStyledAttributes(attrs, R.styleable.ThreewaySwitch)
+
+        leftBackground = styledAttributes.getDrawable(R.styleable.ThreewaySwitch_leftBackground)
+        centerBackground = styledAttributes.getDrawable(R.styleable.ThreewaySwitch_centerBackground)
+        rightBackground = styledAttributes.getDrawable(R.styleable.ThreewaySwitch_rightBackground)
+
         setOnSeekBarChangeListener(this)
+    }
+
+    fun set(progress: Int) {
+        this.progress = progress
     }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
 
         val r = progressDrawable.copyBounds()
-
-        val leftBackground = styledAttributes.getDrawable(R.styleable.threeWaySwitch_leftBackground)
-        val centerBackground = styledAttributes.getDrawable(R.styleable.threeWaySwitch_centerBackground)
-        val rightBackground = styledAttributes.getDrawable(R.styleable.threeWaySwitch_rightBackground)
 
         when (progress) {
             0 -> progressDrawable = leftBackground
@@ -38,21 +47,11 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : AppCompatSeekBar(c
         if (fromUser) {
             threewaySwitchChanged?.also { it.invoke(progress) }
         }
-    }
+      }
 
     override fun onStartTrackingTouch(seekBar: SeekBar) {
     }
 
     override fun onStopTrackingTouch(seekBar: SeekBar) {
-    }
-
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        val result = super.onTouchEvent(event)
-
-//        if(event.actionMasked == MotionEvent.ACTION_UP) {
-//            observers.forEach { it.onSwitchTouchUp(progress, rowPosition) }
-//        }
-
-        return result
     }
 }

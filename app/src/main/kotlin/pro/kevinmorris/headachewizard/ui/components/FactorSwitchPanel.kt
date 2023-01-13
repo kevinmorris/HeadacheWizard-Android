@@ -16,7 +16,8 @@ class FactorSwitchPanel(context: Context, attrs : AttributeSet) : LinearLayout(c
     var binding : Pair<Int, ThreewaySwitchChanged?> = Pair(0, null)
         set(b) {
             field = b
-            switchControl.onProgressChanged(switchControl, b.first, false)
+            switchControl.set(b.first + 1)
+            setLabel(b.first + 1)
         }
 
     init {
@@ -27,16 +28,18 @@ class FactorSwitchPanel(context: Context, attrs : AttributeSet) : LinearLayout(c
         switchControl = (findViewById<ThreewaySwitch>(R.id.factor_switch_control)).apply {
             threewaySwitchChanged = ::threewaySwitchChanged
         }
-        switchLabel = findViewById<TextView>(R.id.factor_switch_label)
+        switchLabel = findViewById(R.id.factor_switch_label)
     }
 
     private fun threewaySwitchChanged(progress : Int) {
+        binding.second?.invoke(progress - 1)
+    }
+
+    private fun setLabel(progress : Int) {
         when (progress) {
-            1 -> switchLabel.text = "Not Sure"
             0 -> switchLabel.text = "No"
+            1 -> switchLabel.text = "Not Sure"
             2 -> switchLabel.text = "Yes"
         }
-
-        binding.second?.invoke(progress)
     }
 }

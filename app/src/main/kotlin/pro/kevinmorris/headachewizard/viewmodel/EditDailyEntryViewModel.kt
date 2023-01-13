@@ -19,7 +19,7 @@ class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
         return { v ->
             f.setDate(date, v.toDouble())
             DataManager.instance.insertOrUpdateFactorEntry(f.id, date, v.toDouble())
-            _state.value = State.FactorUpdated(f)
+            _state.value = State.FactorUpdated(FactorUpdateState(f, v))
         }
     }
 
@@ -31,6 +31,8 @@ class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
     sealed class State {
         data class RefreshFactors(val factors: List<Factor>) : State()
         object HeadacheUpdated : State()
-        data class FactorUpdated(val factor : Factor) : State()
+        data class FactorUpdated(val factorUpdateState : FactorUpdateState) : State()
     }
+
+    data class FactorUpdateState(val factor : Factor, val progress : Int)
 }
