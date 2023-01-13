@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
 import pro.kevinmorris.headachewizard.R
 import pro.kevinmorris.headachewizard.databinding.ActivityMainBinding
@@ -48,8 +49,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun showEditDay() {
-        Log.i("XXXXX192", "XXXXX192")
+    private fun showEditDay() {
+        val action = CalendarFragmentDirections.actionCalendarFragmentToEditDailyEntryFragment()
+        findNavController(R.id.fragment_container).navigate(action)
     }
 
     fun showEditFactors() {

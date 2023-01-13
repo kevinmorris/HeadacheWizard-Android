@@ -1,115 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pro.kevinmorris.headachewizard.ui.EditDailyEntryFragmentLayout
-         xmlns:android="http://schemas.android.com/apk/res/android"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:background="@color/app_background">
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+                name="viewModel"
+                type="pro.kevinmorris.headachewizard.viewmodel.EditDailyEntryViewModel" />
+    </data>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/app_background">
 
 
-    <TextView android:id="@+id/headache_day_date_label"
-                  style="@style/ScreenTitle"
-                  android:layout_width="match_parent"
-                  android:layout_height="50dp"
-                  android:layout_alignParentTop="true"
-                  />
+        <TextView
+                android:id="@+id/headache_day_date_label"
+                style="@style/ScreenTitle"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true" />
 
-    <RelativeLayout android:id="@+id/headache_day_editor_container"
+        <RelativeLayout
+                android:id="@+id/headache_day_editor_container"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_below="@id/headache_day_date_label">
+
+            <TextView
+                    android:id="@+id/headache_day_editor_label"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_below="@id/headache_day_date_label">
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/headache_switch_panel"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="22sp"
+                    android:text="Headache?" />
 
-        <TextView android:id="@+id/headache_day_editor_label"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_toStartOf="@+id/headache_switch_panel"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="5dp"
-                  android:textSize="22sp"
-                  android:text="Headache?" />
+            <pro.kevinmorris.headachewizard.ui.components.HeadacheSwitchPanel
+                    android:id="@id/headache_switch_panel"
+                    android:layout_width="170dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true" />
 
-        <pro.kevinmorris.headachewizard.ui.components.HeadacheSwitchPanel android:id="@id/headache_switch_panel"
-                                                                          android:layout_width="170dp"
-                                                                          android:layout_height="wrap_content"
-                                                                          android:layout_centerVertical="true"
-                                                                          android:layout_alignParentEnd="true"/>
+        </RelativeLayout>
 
-    </RelativeLayout>
+        <LinearLayout
+                android:id="@+id/fragment_edit_daily_entry_key_textview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/headache_day_editor_container"
+                android:orientation="horizontal">
 
-    <LinearLayout android:id="@+id/fragment_edit_daily_entry_key_textview"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_below="@id/headache_day_editor_container"
-                  android:orientation="horizontal">
-
-        <TextView android:id="@+id/fragment_edit_daily_entry_low_correlation_textview"
-                  android:layout_width="0dp"
-                  android:layout_height="match_parent"
-                  android:layout_weight="0.5"
-                  android:gravity="left|center_vertical"
-                  android:text="associated with\nheadache-free days"/>
-
-        <TextView android:id="@+id/fragment_edit_daily_entry_high_correlation_textview"
-                  android:layout_width="0dp"
-                  android:layout_height="match_parent"
-                  android:layout_weight="0.5"
-                  android:gravity="right|center_vertical"
-                  android:text="associated with\nheadache days"/>
-
-    </LinearLayout>
-
-    <ImageView android:id="@+id/fragment_edit_daily_entry_correlation_key_imageview"
-               android:layout_width="match_parent"
-               android:layout_height="25dp"
-               android:layout_below="@id/fragment_edit_daily_entry_key_textview"
-               android:layout_alignParentStart="true"
-               android:layout_alignParentEnd="true"
-               android:scaleType="fitXY"
-               android:src="@drawable/correlation_key"/>
-
-    <ListView android:id="@id/android:list"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:layout_below="@id/fragment_edit_daily_entry_correlation_key_imageview"
-              android:layout_above="@+id/fragment_edit_daily_entry_done_button"
-              android:drawSelectorOnTop="false"/>
-
-    <RelativeLayout android:id="@id/android:empty"
-                    android:layout_width="match_parent"
+            <TextView
+                    android:id="@+id/fragment_edit_daily_entry_low_correlation_textview"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/fragment_edit_daily_entry_correlation_key_imageview"
-                    android:layout_above="@+id/fragment_edit_daily_entry_done_button">
+                    android:layout_weight="0.5"
+                    android:gravity="left|center_vertical"
+                    android:text="associated with\nheadache-free days" />
 
-        <TextView android:id="@+id/text_view_no_factors"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:layout_margin="12dp"
-                  android:gravity="center"
-                  android:textSize="25sp"
-                  android:layout_centerHorizontal="true"
-                  android:layout_alignParentTop="true"
-                  android:text="@string/edit_day_no_factors"/>
+            <TextView
+                    android:id="@+id/fragment_edit_daily_entry_high_correlation_textview"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.5"
+                    android:gravity="right|center_vertical"
+                    android:text="associated with\nheadache days" />
 
-        <ImageView android:id="@+id/image_view_down_arrow"
-                   android:layout_width="30dp"
-                   android:layout_height="60dp"
-                   android:layout_centerHorizontal="true"
-                   android:layout_below="@id/text_view_no_factors"
-                   android:scaleType="fitCenter"
-                   android:src="@drawable/down_arrow"/>
+        </LinearLayout>
 
-        <ImageButton android:id="@+id/image_button_edit_factors"
-                     android:layout_width="125dp"
-                     android:layout_height="125dp"
-                     android:layout_margin="10dp"
-                     android:layout_centerHorizontal="true"
-                     android:layout_below="@id/image_view_down_arrow"
-                     android:scaleType="fitCenter"
-                     android:background="@android:color/transparent"
-                     android:src="@drawable/icon_edit_factors"/>
+        <ImageView
+                android:id="@+id/fragment_edit_daily_entry_correlation_key_imageview"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:layout_below="@id/fragment_edit_daily_entry_key_textview"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/correlation_key" />
 
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/factor_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/fragment_edit_daily_entry_correlation_key_imageview"
+                android:layout_above="@+id/fragment_edit_daily_entry_done_button" />
+
+
+<!--        <TextView-->
+<!--                android:id="@+id/text_view_no_factors"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_margin="12dp"-->
+<!--                android:gravity="center"-->
+<!--                android:textSize="25sp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_alignParentTop="true"-->
+<!--                android:text="@string/edit_day_no_factors" />-->
+
+<!--        <ImageView-->
+<!--                android:id="@+id/image_view_down_arrow"-->
+<!--                android:layout_width="30dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@id/text_view_no_factors"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:src="@drawable/down_arrow" />-->
+
+<!--        <ImageButton-->
+<!--                android:id="@+id/image_button_edit_factors"-->
+<!--                android:layout_width="125dp"-->
+<!--                android:layout_height="125dp"-->
+<!--                android:layout_margin="10dp"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:layout_below="@id/image_view_down_arrow"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                android:background="@android:color/transparent"-->
+<!--                android:src="@drawable/icon_edit_factors" />-->
+
+        <Button
+                android:id="@id/fragment_edit_daily_entry_done_button"
+                style="@style/DoneButton"
+                android:layout_alignParentBottom="true" />
     </RelativeLayout>
-
-    <Button android:id="@id/fragment_edit_daily_entry_done_button"
-            style="@style/DoneButton"
-            android:layout_alignParentBottom="true"/>
-</pro.kevinmorris.headachewizard.ui.EditDailyEntryFragmentLayout>
+</layout>
