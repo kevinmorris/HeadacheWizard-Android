@@ -55,6 +55,7 @@ class EditDailyEntryFragment() : Fragment() {
         )
 
         binding.viewModel = viewModel
+        binding.headacheSwitchPanel.threewaySwitchChanged = viewModel::setHeadache
         factorView = binding.factorView
         factorView.layoutManager = LinearLayoutManager(requireContext())
 

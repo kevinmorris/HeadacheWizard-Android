@@ -24,11 +24,6 @@ class DataManager private constructor(context: Context) {
         factors = db.getFactorsUsingHeadache(headache).toMutableList()
     }
 
-    fun finalizeMigration() {
-        headache = Headache(db.headacheEntries)
-        factors.addAll(db.getFactorsUsingHeadache(headache))
-    }
-
     fun insertOrUpdateHeadacheEntry(date: LocalDate, value: Double?): Long {
         val id = db.insertOrUpdateHeadacheEntry(date, value)
         headache = Headache(db.headacheEntries)
@@ -80,10 +75,6 @@ class DataManager private constructor(context: Context) {
 
     fun insertOrUpdateFactorEntry(factorId: Long?, date: LocalDate, value: Double?): Long {
         return db.insertOrUpdateFactorEntry(factorId, date, value)
-    }
-
-    fun insertFactorEntry(id: Long, factorId: Long, date: LocalDate, value: Double) {
-        db.insertFactorEntry(id, factorId, date, value)
     }
 
     fun getFactors(): List<Factor> {

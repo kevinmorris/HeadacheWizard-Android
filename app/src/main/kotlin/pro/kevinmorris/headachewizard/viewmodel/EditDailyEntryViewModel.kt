@@ -17,7 +17,7 @@ class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
 
     fun factorAction(f: Factor): ThreewaySwitchChanged {
         return { v ->
-            f.setDate(date, v.toDouble())
+            f.setDate(date, v.toDouble(), DataManager.instance.headache)
             DataManager.instance.insertOrUpdateFactorEntry(f.id, date, v.toDouble())
             _state.value = State.FactorUpdated(FactorUpdateState(f, v))
         }

@@ -1,8 +1,8 @@
 package pro.kevinmorris.headachewizard.model
 
+import org.joda.time.LocalDate
 import pro.kevinmorris.headachewizard.CorrelationCoefficientTransformEngine
 import pro.kevinmorris.headachewizard.PearsonCorrelationEngine
-import org.joda.time.LocalDate
 import java.util.*
 
 class Factor(val id: Long, val name: String) {
@@ -27,11 +27,12 @@ class Factor(val id: Long, val name: String) {
 
     fun allDates(): Set<LocalDate> = data.keys
 
-    fun setDate(date: LocalDate, fValue: Double) {
-        this.data.put(date, fValue)
+    fun setDate(date: LocalDate, fValue: Double, headache : Headache) {
+        this.data[date] = fValue
+        evaluateCorrelationParameters(headache)
     }
 
-    fun evaluateCorrelationParameters(headache: Headache) {
+    private fun evaluateCorrelationParameters(headache: Headache) {
 
         var sumF: Double = 0.0
         var sumH: Double = 0.0
