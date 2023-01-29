@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
+import org.joda.time.LocalDate
 import pro.kevinmorris.headachewizard.R
 import pro.kevinmorris.headachewizard.databinding.ActivityMainBinding
 import pro.kevinmorris.headachewizard.viewmodel.MainViewModel
@@ -38,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         viewModel.navState.collect {
             when (it) {
                 is NavigationState.Calendar -> showCalendar()
-                is NavigationState.EditDay -> showEditDay()
+                is NavigationState.EditDay -> showEditDay(it.date)
                 is NavigationState.EditFactors -> showEditFactors()
             }
         }
@@ -49,8 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showEditDay() {
-        val action = CalendarFragmentDirections.actionCalendarFragmentToEditDailyEntryFragment()
+    private fun showEditDay(date: LocalDate) {
+        val action = CalendarFragmentDirections.actionCalendarFragmentToEditDailyEntryFragment(date)
         findNavController(R.id.fragment_container).navigate(action)
     }
 

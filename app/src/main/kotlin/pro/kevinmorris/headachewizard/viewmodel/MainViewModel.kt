@@ -1,7 +1,7 @@
 package pro.kevinmorris.headachewizard.viewmodel
 
 import androidx.lifecycle.ViewModel
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 
 
 class MainViewModel : ViewModel() {
@@ -13,7 +13,7 @@ class MainViewModel : ViewModel() {
     }
 
     fun editToday() {
-        NavigationController.editDay(DateTime.now())
+        NavigationController.editDay(LocalDate.now())
     }
 
     fun showCalendar() {

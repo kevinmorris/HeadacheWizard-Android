@@ -10,8 +10,8 @@ import pro.kevinmorris.headachewizard.util.ThreewaySwitchChanged
 
 class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(context, attrs)   {
 
-    var switchControl: ThreewaySwitch
-    var switchLabel: TextView
+    private var switchControl: ThreewaySwitch
+    private var switchLabel: TextView
     var threewaySwitchChanged: ThreewaySwitchChanged? = null
 
     init {

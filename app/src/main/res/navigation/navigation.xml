@@ -20,6 +20,9 @@
             android:id="@+id/editDailyEntryFragment"
             android:name="pro.kevinmorris.headachewizard.ui.EditDailyEntryFragment"
             android:label="EditDailyEntryFragment" >
+        <argument
+                android:name="date"
+                app:argType="org.joda.time.LocalDate" />
         <action
                 android:id="@+id/action_editDailyEntryFragment_to_calendarFragment"
                 app:destination="@id/calendarFragment"

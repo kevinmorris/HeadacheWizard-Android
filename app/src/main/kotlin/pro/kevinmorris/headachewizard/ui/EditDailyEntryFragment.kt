@@ -10,11 +10,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import org.joda.time.DateTime
 import org.joda.time.LocalDate
 import pro.kevinmorris.headachewizard.R
 import pro.kevinmorris.headachewizard.databinding.FragmentEditDailyEntryBinding
@@ -26,11 +26,11 @@ import pro.kevinmorris.headachewizard.viewmodel.EditDailyEntryViewModel
 
 class EditDailyEntryFragment() : Fragment() {
 
-    val viewModel: EditDailyEntryViewModel by viewModels {
-        EditDailyEntryViewModelFactory(date)
+    private val args : EditDailyEntryFragmentArgs by navArgs()
+    private val viewModel: EditDailyEntryViewModel by viewModels {
+        EditDailyEntryViewModelFactory(args.date)
     }
 
-    val date : LocalDate = DateTime().toLocalDate() //TODO temp
     private lateinit var headacheSwitchPanel : HeadacheSwitchPanel
     private lateinit var factorView : RecyclerView
 
@@ -111,7 +111,7 @@ class EditDailyEntryFragment() : Fragment() {
             }
 
             holder.switchPanel.binding = Pair(
-                factor.getDate(date)?.toInt() ?: 0,
+                factor.getDate(viewModel.date)?.toInt() ?: 0,
                 viewModel.factorAction(factor)
             )
 

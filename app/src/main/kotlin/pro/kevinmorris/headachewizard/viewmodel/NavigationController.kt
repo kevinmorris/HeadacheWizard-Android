@@ -3,13 +3,13 @@ package pro.kevinmorris.headachewizard.viewmodel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.update
-import org.joda.time.DateTime
+import org.joda.time.LocalDate
 
 
 object NavigationController {
 
     private val _navState = MutableStateFlow<NavigationState>(
-        NavigationState.Calendar(DateTime.now())
+        NavigationState.Calendar(LocalDate.now())
     )
 
     val navState: StateFlow<NavigationState> = _navState
@@ -25,7 +25,7 @@ object NavigationController {
                     prevState.date.minusMonths(1)
                 )
 
-                NavigationState.EditFactors -> NavigationState.Calendar(DateTime.now())
+                NavigationState.EditFactors -> NavigationState.Calendar(LocalDate.now())
             }
         }
     }
@@ -42,7 +42,7 @@ object NavigationController {
                     prevState.date.plusMonths(1)
                 )
 
-                NavigationState.EditFactors -> NavigationState.Calendar(DateTime.now())
+                NavigationState.EditFactors -> NavigationState.Calendar(LocalDate.now())
             }
         }
     }
@@ -56,11 +56,11 @@ object NavigationController {
     }
 
     fun showCalendar() {
-        _navState.update { NavigationState.Calendar(DateTime.now()) }
+        _navState.update { NavigationState.Calendar(LocalDate.now()) }
     }
 
-    fun editDay(dateTime: DateTime) {
-        _navState.update { NavigationState.EditDay(dateTime) }
+    fun editDay(date: LocalDate) {
+        _navState.update { NavigationState.EditDay(date) }
     }
 
     fun editFactors() {
