@@ -12,8 +12,10 @@ import pro.kevinmorris.headachewizard.util.ThreewaySwitchChanged
 class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
 
     private val factors = DataManager.instance.getFactors()
-    private val _state: MutableStateFlow<State> =
-        MutableStateFlow(State.RefreshFactors(factors))
+    private val _state: MutableStateFlow<State> = MutableStateFlow(
+        State.RefreshAll(factors,
+            DataManager.instance.headache.getDate(date)?.toInt() ?: 0),
+    )
     val state: StateFlow<State> = _state
 
     fun factorAction(f: Factor): ThreewaySwitchChanged {
@@ -30,6 +32,6 @@ class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
     }
 
     sealed class State {
-        data class RefreshFactors(val factors: List<Factor>) : State()
+        data class RefreshAll(val factors: List<Factor>, val headacheValue : Int) : State()
     }
 }

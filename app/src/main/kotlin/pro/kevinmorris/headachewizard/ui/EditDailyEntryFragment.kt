@@ -21,6 +21,7 @@ import pro.kevinmorris.headachewizard.databinding.FragmentEditDailyEntryBinding
 import pro.kevinmorris.headachewizard.model.Factor
 import pro.kevinmorris.headachewizard.ui.components.CorrelationView
 import pro.kevinmorris.headachewizard.ui.components.FactorSwitchPanel
+import pro.kevinmorris.headachewizard.ui.components.HeadacheSwitchPanel
 import pro.kevinmorris.headachewizard.viewmodel.EditDailyEntryViewModel
 
 class EditDailyEntryFragment() : Fragment() {
@@ -30,6 +31,7 @@ class EditDailyEntryFragment() : Fragment() {
     }
 
     val date : LocalDate = DateTime().toLocalDate() //TODO temp
+    private lateinit var headacheSwitchPanel : HeadacheSwitchPanel
     private lateinit var factorView : RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +58,7 @@ class EditDailyEntryFragment() : Fragment() {
         )
 
         binding.viewModel = viewModel
+        headacheSwitchPanel = binding.headacheSwitchPanel
         binding.headacheSwitchPanel.threewaySwitchChanged = viewModel::setHeadache
         factorView = binding.factorView
         factorView.layoutManager = LinearLayoutManager(requireContext())
@@ -66,7 +69,8 @@ class EditDailyEntryFragment() : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun render(state: EditDailyEntryViewModel.State) {
         when(state) {
-            is EditDailyEntryViewModel.State.RefreshFactors -> {
+            is EditDailyEntryViewModel.State.RefreshAll -> {
+                headacheSwitchPanel.set(state.headacheValue)
                 factorView.adapter = FactorAdapter(state.factors)
             }
         }

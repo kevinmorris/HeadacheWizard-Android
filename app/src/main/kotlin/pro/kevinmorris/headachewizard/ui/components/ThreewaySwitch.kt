@@ -34,6 +34,10 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : AppCompatSeekBar(c
     }
 
     override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+        onProgressChanged(progress, fromUser)
+    }
+
+    fun onProgressChanged(progress: Int, fromUser: Boolean) {
 
         val r = progressDrawable.copyBounds()
 
@@ -44,7 +48,7 @@ class ThreewaySwitch(context: Context, attrs: AttributeSet) : AppCompatSeekBar(c
         }
 
         progressDrawable.bounds = r
-        if (fromUser) {
+        if(fromUser) {
             threewaySwitchChanged?.also { it.invoke(progress) }
         }
       }
