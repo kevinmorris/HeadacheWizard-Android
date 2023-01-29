@@ -24,7 +24,7 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(
         switchControl.threewaySwitchChanged = this::threewaySwitchChanged
     }
 
-    fun threewaySwitchChanged(progress: Int) {
+    private fun threewaySwitchChanged(progress: Int) {
         when (progress) {
             1 -> {
                 switchLabel.text = "Not Sure"

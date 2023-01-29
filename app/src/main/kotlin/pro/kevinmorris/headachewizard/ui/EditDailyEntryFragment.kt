@@ -69,9 +69,6 @@ class EditDailyEntryFragment() : Fragment() {
             is EditDailyEntryViewModel.State.RefreshFactors -> {
                 factorView.adapter = FactorAdapter(state.factors)
             }
-            is EditDailyEntryViewModel.State.HeadacheUpdated -> {
-                factorView.adapter?.notifyDataSetChanged()
-            }
         }
     }
 

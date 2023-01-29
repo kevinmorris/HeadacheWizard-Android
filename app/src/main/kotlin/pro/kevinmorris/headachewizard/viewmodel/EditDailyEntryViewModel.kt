@@ -27,11 +27,9 @@ class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
         DataManager.instance.insertOrUpdateHeadacheEntry(date, value.toDouble())
         val headache = DataManager.instance.headache
         for (factor in factors) { factor.evaluateCorrelationParameters(headache) }
-        _state.value = State.HeadacheUpdated
     }
 
     sealed class State {
         data class RefreshFactors(val factors: List<Factor>) : State()
-        object HeadacheUpdated : State()
     }
 }
