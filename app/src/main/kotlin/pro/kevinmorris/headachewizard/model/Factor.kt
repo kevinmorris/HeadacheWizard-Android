@@ -32,7 +32,7 @@ class Factor(val id: Long, val name: String) {
         evaluateCorrelationParameters(headache)
     }
 
-    private fun evaluateCorrelationParameters(headache: Headache) {
+    fun evaluateCorrelationParameters(headache: Headache) {
 
         var sumF: Double = 0.0
         var sumH: Double = 0.0
