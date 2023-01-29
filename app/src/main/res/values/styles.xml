@@ -4,7 +4,7 @@
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
     -->
-    <style name="AppBaseTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="AppBaseTheme">
         <!--
             Theme customizations available in newer API levels can go in
             res/values-vXX/styles.xml, while customizations related to
@@ -22,8 +22,6 @@
     </style>
 
     <style name="CalendarDayView">
-        <item name="android:background">@drawable/calendar_day_view_background</item>
-        <item name="android:layout_margin">2dp</item>
     </style>
     
     <style name="ThreewaySwitch" parent="android:Widget.ProgressBar.Horizontal">
