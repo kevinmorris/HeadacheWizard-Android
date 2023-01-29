@@ -40,6 +40,6 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(
             }
         }
 
-        threewaySwitchChanged?.invoke(progress)
+        threewaySwitchChanged?.invoke(progress - 1)
     }
 }
