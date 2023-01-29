@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import org.joda.time.DateTime
 import org.joda.time.LocalDate
@@ -71,17 +72,7 @@ class EditDailyEntryFragment() : Fragment() {
             is EditDailyEntryViewModel.State.HeadacheUpdated -> {
                 factorView.adapter?.notifyDataSetChanged()
             }
-            is EditDailyEntryViewModel.State.FactorUpdated -> {
-                setCorrelationForFactor(state.factorUpdateState.factor)
-            }
         }
-    }
-
-    private fun setCorrelationForFactor(factor : Factor) =  (factorView.adapter as? FactorAdapter)?.also { adapter ->
-
-        val position = adapter.dataSet.indexOf(factor)
-        val viewHolder = factorView.findViewHolderForAdapterPosition(position) as? ViewHolder
-        viewHolder?.correlationView?.value = factor.r
     }
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -89,6 +80,7 @@ class EditDailyEntryFragment() : Fragment() {
         val switchPanel: FactorSwitchPanel
         val correlationView: CorrelationView
         val factorName : TextView
+        var correlationViewJob : Job? = null
 
         init {
             switchPanel = view.findViewById(R.id.factor_switch_panel)
@@ -97,7 +89,7 @@ class EditDailyEntryFragment() : Fragment() {
         }
     }
 
-    inner class FactorAdapter(val dataSet: List<Factor>) :
+    inner class FactorAdapter(private val dataSet: List<Factor>) :
         RecyclerView.Adapter<ViewHolder>() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -110,7 +102,13 @@ class EditDailyEntryFragment() : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             val factor = dataSet[position]
-            holder.correlationView.value = factor.r
+            holder.correlationViewJob?.cancel()
+            holder.correlationViewJob = lifecycleScope.launch {
+                factor.r.collect {
+                    holder.correlationView.value = it
+                }
+            }
+
             holder.switchPanel.binding = Pair(
                 factor.getDate(date)?.toInt() ?: 0,
                 viewModel.factorAction(factor)
