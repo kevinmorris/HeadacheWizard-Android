@@ -126,8 +126,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             val dayCount = entriesC.getInt(2)
             val value = entriesC.getDouble(3)
 
-            val f = factors[factorId]
-            f!!.setDate(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value, headache)
+            factors[factorId]?.also { f ->
+                f.set(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value, headache)
+            }
         }
 
         val factorList = ArrayList(factors.values).sortedBy { it.name }
@@ -161,7 +162,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DatabaseHelpe
             while (entriesC.moveToNext()) {
                 val dayCount = entriesC.getInt(2)
                 val value = entriesC.getDouble(3)
-                f.setDate(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value, headache)
+                f.set(LocalDate(0, DateTimeZone.UTC).plusDays(dayCount), value, headache)
             }
 
             return f

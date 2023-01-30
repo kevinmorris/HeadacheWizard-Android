@@ -19,7 +19,7 @@ class CalendarFragment : Fragment() {
 
     private val args: CalendarFragmentArgs by navArgs()
     private val viewModel: CalendarViewModel by viewModels {
-        CalendarViewModelFactory(args.date)
+        CalendarViewModelFactory(args.date ?: LocalDate.now())
     }
 
     override fun onCreateView(

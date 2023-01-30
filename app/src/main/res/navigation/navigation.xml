@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/navigation"
-        app:startDestination="@id/calendarFragment">
+        app:startDestination="@id/loadingFragment">
 
 
     <fragment
@@ -17,7 +17,9 @@
                 app:destination="@id/editFactorsFragment" />
         <argument
                 android:name="date"
-                app:argType="org.joda.time.LocalDate" />
+                app:argType="org.joda.time.LocalDate"
+                app:nullable="true"
+                android:defaultValue="@null" />
     </fragment>
     <fragment
             android:id="@+id/editDailyEntryFragment"
@@ -46,4 +48,8 @@
     <action android:id="@+id/action_global_calendarFragment" app:destination="@id/calendarFragment" />
     <action android:id="@+id/action_global_editDailyEntryFragment" app:destination="@id/editDailyEntryFragment" />
     <action android:id="@+id/action_global_editFactorsFragment" app:destination="@id/editFactorsFragment" />
+    <fragment
+            android:id="@+id/loadingFragment"
+            android:name="pro.kevinmorris.headachewizard.ui.LoadingFragment"
+            android:label="LoadingFragment" />
 </navigation>

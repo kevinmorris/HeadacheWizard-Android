@@ -14,7 +14,7 @@ class EditDailyEntryViewModel(val date: LocalDate) : ViewModel() {
     private val factors = DataManager.instance.getFactors()
     private val _state: MutableStateFlow<State> = MutableStateFlow(
         State.RefreshAll(factors,
-            DataManager.instance.headache.getDate(date)?.toInt() ?: 0),
+            DataManager.instance.headache[date]?.toInt() ?: 0),
     )
     val state: StateFlow<State> = _state
 

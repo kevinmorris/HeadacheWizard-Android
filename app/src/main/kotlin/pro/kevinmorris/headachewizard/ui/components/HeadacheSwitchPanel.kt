@@ -25,7 +25,7 @@ class HeadacheSwitchPanel(context: Context, attrs: AttributeSet) : LinearLayout(
     }
 
     fun set(progress: Int) {
-        switchControl.set(progress)
+        switchControl.set(progress + 1)
         switchControl.onProgressChanged(switchControl.progress, false)
         threewaySwitchChanged(switchControl.progress)
     }

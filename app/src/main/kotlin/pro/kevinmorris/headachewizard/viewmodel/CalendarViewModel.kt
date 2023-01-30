@@ -1,13 +1,20 @@
 package pro.kevinmorris.headachewizard.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import org.joda.time.LocalDate
 import pro.kevinmorris.headachewizard.model.DataManager
+import pro.kevinmorris.headachewizard.model.Headache
 
 
-class CalendarViewModel(val date: LocalDate) : ViewModel() {
+class CalendarViewModel(val d: LocalDate) : ViewModel() {
+
+    private val _date : MutableStateFlow<LocalDate> = MutableStateFlow(d)
+    val date : StateFlow<LocalDate> = _date
 
     private val _days : List<List<MutableStateFlow<Int?>>> = listOf(
         listOf(
@@ -101,14 +108,34 @@ class CalendarViewModel(val date: LocalDate) : ViewModel() {
     val headaches : List<List<StateFlow<Int?>>> = _headaches
 
     init {
-        var current = LocalDate(date.year, date.monthOfYear, 1)
-        var week = 0
-        while(current.monthOfYear == date.monthOfYear) {
-            val headacheValue = DataManager.instance.headache.getDate(current)?.toInt()
+        viewModelScope.launch {
+            date.collect {
+                loadCalendarData(it, DataManager.instance.headache)
+            }
+        }
+    }
 
-            current = current.plusDays(1)
-            if(current.dayOfWeek == 0) {
-                week += 1
+    fun prevMonth() {
+        _date.update { oldDate -> oldDate.minusMonths(1).withDayOfMonth(1) }
+    }
+
+    fun nextMonth() {
+        _date.update { oldDate -> oldDate.plusMonths(1).withDayOfMonth(1) }
+    }
+
+    private fun loadCalendarData(date : LocalDate, headache: Headache) {
+
+        var current = date.withDayOfMonth(1)
+        for(week in 0..4) {
+            for(day in 0..6) {
+                if(day < current.dayOfWeek % 7 || current.monthOfYear != date.monthOfYear) {
+                    _days[week][day].value = null
+                    _headaches[week][day].value = null
+                } else {
+                    _days[week][day].value = current.dayOfMonth
+                    _headaches[week][day].value = headache[current]?.toInt()
+                    current = current.plusDays(1)
+                }
             }
         }
     }

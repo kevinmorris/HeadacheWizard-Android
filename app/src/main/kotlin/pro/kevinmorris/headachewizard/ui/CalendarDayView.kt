@@ -26,7 +26,7 @@ class CalendarDayView(context: Context, attrs: AttributeSet) : RelativeLayout(co
                 -1 -> resources.getDrawable(R.drawable.no_headache, null)
                 0 -> resources.getDrawable(R.drawable.maybe_headache, null)
                 1 -> resources.getDrawable(R.drawable.headache, null)
-                null -> null
+                999, null -> null
                 else -> throw IllegalArgumentException(field.toString())
             })
         }

@@ -111,7 +111,7 @@ class EditDailyEntryFragment() : Fragment() {
             }
 
             holder.switchPanel.binding = Pair(
-                factor.getDate(viewModel.date)?.toInt() ?: 0,
+                factor[viewModel.date]?.toInt() ?: 0,
                 viewModel.factorAction(factor)
             )
 

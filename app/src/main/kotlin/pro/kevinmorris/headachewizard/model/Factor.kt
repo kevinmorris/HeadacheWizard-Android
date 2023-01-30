@@ -20,17 +20,17 @@ class Factor(val id: Long, val name: String) {
         data = TreeMap<LocalDate, Double>()
     }
 
-    fun getDate(date: LocalDate): Double? {
+    operator fun get(date: LocalDate): Double? {
         val datum = this.data[date]
         return datum
     }
 
-    fun allDates(): Set<LocalDate> = data.keys
-
-    fun setDate(date: LocalDate, fValue: Double, headache : Headache) {
+    fun set(date: LocalDate, fValue: Double, headache : Headache) {
         this.data[date] = fValue
         evaluateCorrelationParameters(headache)
     }
+
+    fun allDates(): Set<LocalDate> = data.keys
 
     fun evaluateCorrelationParameters(headache: Headache) {
 
@@ -49,7 +49,7 @@ class Factor(val id: Long, val name: String) {
 
         for (dateKey in dates) {
             val fValue = data[dateKey] ?: 0.0
-            val hValue = headache.getDate(dateKey) ?: 0.0
+            val hValue = headache[dateKey] ?: 0.0
 
             n += 1
             sumF += fValue
