@@ -1,16 +1,17 @@
 package pro.kevinmorris.headachewizard.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import kotlinx.coroutines.launch
 import org.joda.time.LocalDate
+import pro.kevinmorris.headachewizard.NavigationDirections
 import pro.kevinmorris.headachewizard.R
 import pro.kevinmorris.headachewizard.databinding.ActivityMainBinding
 import pro.kevinmorris.headachewizard.viewmodel.MainViewModel
@@ -37,25 +38,23 @@ class MainActivity : AppCompatActivity() {
 
     private suspend fun handleNavigation() {
         viewModel.navState.collect {
-            when (it) {
-                is NavigationState.Calendar -> showCalendar()
-                is NavigationState.EditDay -> showEditDay(it.date)
-                is NavigationState.EditFactors -> showEditFactors()
-            }
+            findNavController(R.id.fragment_container).navigate(when (it) {
+                is NavigationState.Calendar -> calendarAction(it.date)
+                is NavigationState.EditDay -> editDayAction(it.date)
+                is NavigationState.EditFactors -> editFactorsAction()
+            })
         }
     }
 
-    fun showCalendar() {
-        Log.i("XXXXX128", "XXXXX128")
-
+    private fun calendarAction(date: LocalDate): NavDirections {
+        return NavigationDirections.actionGlobalCalendarFragment(date)
     }
 
-    private fun showEditDay(date: LocalDate) {
-        val action = CalendarFragmentDirections.actionCalendarFragmentToEditDailyEntryFragment(date)
-        findNavController(R.id.fragment_container).navigate(action)
+    private fun editDayAction(date: LocalDate): NavDirections {
+        return NavigationDirections.actionGlobalEditDailyEntryFragment(date)
     }
 
-    fun showEditFactors() {
-        Log.i("XXXXX256", "XXXXX256")
+    private fun editFactorsAction(): NavDirections {
+        return NavigationDirections.actionGlobalEditFactorsFragment()
     }
 }

@@ -15,6 +15,9 @@
         <action
                 android:id="@+id/action_calendarFragment_to_editFactorsFragment"
                 app:destination="@id/editFactorsFragment" />
+        <argument
+                android:name="date"
+                app:argType="org.joda.time.LocalDate" />
     </fragment>
     <fragment
             android:id="@+id/editDailyEntryFragment"
@@ -39,4 +42,8 @@
                 app:popUpTo="@id/calendarFragment"
                 app:popUpToInclusive="true"/>
     </fragment>
+
+    <action android:id="@+id/action_global_calendarFragment" app:destination="@id/calendarFragment" />
+    <action android:id="@+id/action_global_editDailyEntryFragment" app:destination="@id/editDailyEntryFragment" />
+    <action android:id="@+id/action_global_editFactorsFragment" app:destination="@id/editFactorsFragment" />
 </navigation>

@@ -1,12 +1,11 @@
 package pro.kevinmorris.headachewizard.model
 
-import pro.kevinmorris.headachewizard.CorrelationCoefficientTransformEngine
 import org.joda.time.DateTimeZone
 import org.joda.time.LocalDate
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
-import android.support.test.runner.AndroidJUnit4
+import pro.kevinmorris.headachewizard.CorrelationCoefficientTransformEngine
 
 class FactorTest {
 
