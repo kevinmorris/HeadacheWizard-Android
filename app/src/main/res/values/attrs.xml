@@ -4,4 +4,9 @@
         <attr name="centerBackground" format="reference" />
         <attr name="rightBackground" format="reference" />
     </declare-styleable>
+    
+    <declare-styleable name="CalendarDayView">
+        <attr name="day" format="integer"/>
+        <attr name="headache" format="integer"/>
+    </declare-styleable>
 </resources>

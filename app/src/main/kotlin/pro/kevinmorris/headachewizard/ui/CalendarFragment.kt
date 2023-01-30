@@ -26,7 +26,7 @@ class CalendarFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         val binding = DataBindingUtil.inflate<FragmentCalendarBinding>(
             inflater,
             R.layout.fragment_calendar,
@@ -34,6 +34,7 @@ class CalendarFragment : Fragment() {
             false
         )
 
+        binding.lifecycleOwner = this
         binding.viewModel = viewModel
 
         return binding.root
